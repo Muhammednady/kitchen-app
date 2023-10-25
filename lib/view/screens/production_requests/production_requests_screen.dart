@@ -157,7 +157,9 @@ class ProductionRequestsScreen extends StatelessWidget {
                                 ? const NotFound(
                                     label: "لا توجد معلومات",
                                   )
-                                : SingleChildScrollView(
+                                :
+                        SingleChildScrollView(
+
                                     scrollDirection: Axis.horizontal,
                                     child: DataTable(
                                       columns: const <DataColumn>[
@@ -200,15 +202,6 @@ class ProductionRequestsScreen extends StatelessWidget {
                                         DataColumn(
                                           label: Expanded(
                                             child: Text(
-                                              'رقم العرض',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                          ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
                                               'تعديل',
                                               style: TextStyle(
                                                   fontStyle: FontStyle.italic),
@@ -232,30 +225,11 @@ class ProductionRequestsScreen extends StatelessWidget {
                                                   fontStyle: FontStyle.italic),
                                             ),
                                           ),
-                                        ),DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'تحويل الي',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                          ),
                                         ),
                                         DataColumn(
                                           label: Expanded(
                                             child: Text(
                                               'المرافقات',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                          ),
-                                        ),
-
-
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'تراجع',
                                               style: TextStyle(
                                                   fontStyle: FontStyle.italic),
                                             ),

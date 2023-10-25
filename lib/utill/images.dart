@@ -75,4 +75,5 @@ class Images {
   static const String print = 'assets/image/print.png';
   static const String editIcons = 'assets/image/edit.png';
   static const String removeIcons = 'assets/image/remove.png';
+  static const String editOutlineIcons = 'assets/image/edit_outline.png';
 }
