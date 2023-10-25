@@ -15,6 +15,9 @@ import 'package:Kitchen_system/view/screens/price_details/price_details_screen.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../contracts/contracts_screen.dart';
+import '../../production_requests/production_requests_screen.dart';
+
 class OfferScreenController extends BaseController {
   final services = OfferServices();
   UserIdsModel? userIdsModel;
@@ -87,7 +90,14 @@ class OfferScreenController extends BaseController {
     Images.health,
     Images.filter
   ];
-  final screens = [const HomeScreen(), const OfferPriceScreen()];
+  final screens = const [
+    HomeScreen(),
+    OfferPriceScreen(),
+    OfferPriceScreen(),
+    OfferPriceScreen(),
+    ContractsScreen(),
+    ProductionRequestsScreen(),
+  ];
 
   @override
   onInit() async {

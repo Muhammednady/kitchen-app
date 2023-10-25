@@ -10,6 +10,7 @@ import 'package:Kitchen_system/utill/styles.dart';
 import 'package:Kitchen_system/view/base/custom_button.dart';
 import 'package:Kitchen_system/view/base/custom_circle_progress_indecator.dart';
 import 'package:Kitchen_system/view/base/custom_dialoge.dart';
+import 'package:Kitchen_system/view/base/custom_drawer.dart';
 import 'package:Kitchen_system/view/base/custom_snackbar.dart';
 import 'package:Kitchen_system/view/base/custom_text_field.dart';
 import 'package:Kitchen_system/view/base/drop_down_users.dart';
@@ -23,6 +24,8 @@ import 'package:Kitchen_system/view/screens/price_details/price_details_screen.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../base/addition_grid_view.dart';
+
 class OfferPriceScreen extends StatelessWidget {
   const OfferPriceScreen({super.key});
 
@@ -31,81 +34,13 @@ class OfferPriceScreen extends StatelessWidget {
     GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
     final controller = Get.put(OfferScreenController());
-    controller.selected.value= 1.obs();
+    controller.selected.value = 1.obs();
     AppSetting.init(context);
     return Scaffold(
         key: scaffoldKey,
-        drawer: Drawer(
-          backgroundColor: Theme.of(context).primaryColor,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                AppDimensions.space(Dimensions.heightSmall).sBH,
-                IconButton(
-                  onPressed: () {
-                    if (scaffoldKey.currentState!.isDrawerOpen) {
-                      scaffoldKey.currentState?.openEndDrawer();
-                    } else {
-                      scaffoldKey.currentState?.openDrawer();
-                    }
-                  },
-                  icon: const Icon(Icons.clear, color: Colors.white, size: 35),
-                ),
-                AppDimensions.space(Dimensions.heightSmall).sBH,
-                ListView.builder(
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: controller.labelsList.length,
-                    itemBuilder: (ctx, index) => Obx(() => GestureDetector(
-                          onTap: () {
-                            controller.selected.value = index;
-                            controller.selected.value = index;
-                            scaffoldKey.currentState?.openEndDrawer();
-                            Get.to(controller.screens[index]);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 8),
-                            child: Container(
-                              height: AppDimensions.space(2.5),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(27),
-                                  color: controller.selected.value == index
-                                      ? Colors.white
-                                      : Colors.transparent),
-                              child: Row(
-                                children: [
-                                  AppDimensions.space(Dimensions.heightSmall)
-                                      .sBW,
-                                  Image.asset(controller.images[index],
-                                      color: controller.selected.value == index
-                                          ? Theme.of(context).primaryColor
-                                          : Colors.white,
-                                      width: AppDimensions.space(2)),
-                                  AppDimensions.space(Dimensions.heightSmall)
-                                      .sBW,
-                                  Expanded(
-                                    child: Text(
-                                      controller.labelsList[index],
-                                      style: cairoBold.copyWith(
-                                          color: controller.selected.value ==
-                                                  index
-                                              ? Theme.of(context).primaryColor
-                                              : Colors.white,
-                                          fontSize: AppDimensions.font(
-                                              Dimensions
-                                                  .FONT_SIZE_EXTRA_SMALL)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )))
-              ],
-            ),
-          ),
+        drawer: CustomDrawer(
+          controller: controller,
+          scaffoldKey: scaffoldKey,
         ),
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -171,25 +106,7 @@ class OfferPriceScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      GridView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: controller.labels.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: 2 / 0.7, crossAxisCount: 2),
-                        itemBuilder: (_, index) => Obx(() => RadioListTile(
-                              title: Text(controller.labels[index].label!),
-                              value: controller.labels[index],
-                              groupValue: controller.groupValue.value,
-                              onChanged: (value) {
-                                controller.groupValue.value = value!;
-                                controller.checkedValue.value =
-                                    controller.groupValue.value.id!;
-                                controller.getShortClient();
-                              },
-                            )),
-                      ),
+                      AdditionGridView(controller: controller),
                       Row(
                         children: [
                           AppDimensions.space(Dimensions.heightSmall).sBW,
