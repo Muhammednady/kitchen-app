@@ -1,16 +1,17 @@
 import 'package:Kitchen_system/controller/base_controller.dart';
-import 'package:Kitchen_system/utill/images.dart';
-import 'package:Kitchen_system/view/screens/contracts/contracts_screen.dart';
-import 'package:Kitchen_system/view/screens/offer_price/offer_price_screen.dart';
-import 'package:Kitchen_system/view/screens/production_requests/production_requests_screen.dart';
 import 'package:Kitchen_system/view/screens/status/status_screen.dart';
 import 'package:get/get.dart';
 
-class HomeScreenController extends BaseController {
-  static HomeScreenController to = Get.find();
+import '../../../../utill/images.dart';
+import '../../contracts/contracts_screen.dart';
+import '../../home/home_screen.dart';
+import '../../offer_price/offer_price_screen.dart';
+import '../../production_requests/production_requests_screen.dart';
+
+class StatusController extends BaseController {
   final selected = 0.obs;
-  final labels = [
-   // "الصفحة الرئيسية",
+  final labelsList = [
+    "الصفحة الرئيسية",
     "عروض الاسعار",
     "المتابعات",
     "الملاحظات",
@@ -25,8 +26,18 @@ class HomeScreenController extends BaseController {
     "توصيلات صحية",
     "النواقص"
   ];
+  final List<String> titles = [
+    'ملاحظات',
+    'تعديل',
+    'تراجع',
+    'متابعات',
+    'مرافقات',
+    'طباعة',
+  ];
+
+  // final screensCard = [const PriceDetailsScreen(), const FollowersScreen()];
   final images = [
-  //  Images.home,
+    Images.home,
     Images.signDolar,
     Images.followers,
     Images.notification,
@@ -42,12 +53,11 @@ class HomeScreenController extends BaseController {
     Images.filter
   ];
   final screens = const [
-   // HomeScreen(),
+    HomeScreen(),
     OfferPriceScreen(),
     StatusScreen(),
     OfferPriceScreen(),
     ContractsScreen(),
-    ProductionRequestsScreen(),
     ProductionRequestsScreen(),
   ];
 }

@@ -1,32 +1,27 @@
 import 'dart:io';
+
 import 'package:Kitchen_system/controller/language_controller.dart';
 import 'package:Kitchen_system/controller/theme_controller.dart';
 import 'package:Kitchen_system/helper/cache_helper.dart';
-import 'package:Kitchen_system/routes/app_route.dart';
 import 'package:Kitchen_system/theme/dark_theme.dart';
 import 'package:Kitchen_system/theme/light_theme.dart';
 import 'package:Kitchen_system/utill/app_constants.dart';
 import 'package:Kitchen_system/utill/messages.dart';
 import 'package:Kitchen_system/view/screens/home/home_screen.dart';
 import 'package:Kitchen_system/view/screens/login/login_screen.dart';
-import 'package:Kitchen_system/view/screens/offer_price/offer_price_screen.dart';
-import 'package:Kitchen_system/view/screens/splash/controller/splash_screen_controller.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
 import 'package:get/get.dart';
+
 import 'helper/get_di.dart' as di;
-import 'routes/app_screen.dart';
-import 'view/screens/price_details/price_details_screen.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback =
-          ((X509Certificate cert, String host, int port) {
-        final isValidHost =
-            ["192.163.132.242"].contains(host); // <-- allow only hosts in array
+      ..badCertificateCallback = ((X509Certificate cert, String host, int port) {
+        final isValidHost = ["192.163.132.242"].contains(host); // <-- allow only hosts in array
         return isValidHost;
       });
   }
@@ -48,7 +43,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(SplashController());
+    // final controller = Get.put(SplashController());
     return GetBuilder<LocalizationController>(builder: (localizeController) {
       return GetBuilder<ThemeController>(builder: (themeController) {
         return Portal(
@@ -61,8 +56,9 @@ class MyApp extends StatelessWidget {
             theme: themeController.darkTheme ? dark : light,
             locale: localizeController.locale,
             translations: Messages(languages: languages!),
-            fallbackLocale: Locale(AppConstants.languages[0].languageCode!,
-                AppConstants.languages[0].countryCode!),
+            fallbackLocale:
+                Locale(AppConstants.languages[0].languageCode!, AppConstants.languages[0].countryCode!),
+
             home: CacheHelper.getData(key: AppConstants.token) != null
                 ? const HomeScreen()
                 : const LoginScreen(),
