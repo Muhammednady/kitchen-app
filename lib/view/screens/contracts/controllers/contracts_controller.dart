@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +18,7 @@ import '../../price_details/price_details_screen.dart';
 import '../../production_requests/production_requests_screen.dart';
 import '../contracts_screen.dart';
 
-class ContractsController extends BaseController{
+class ContractsController extends BaseController {
   final services = OfferServices();
   UserIdsModel? userIdsModel;
   ItemModel? itemModel;
@@ -58,14 +57,7 @@ class ContractsController extends BaseController{
     "توصيلات صحية",
     "النواقص"
   ];
-  final labelsCard = [
-    "طباعة",
-    "تعديل",
-    "تراجع",
-    "متابعات",
-    "مرافقات",
-    "ملاحظات"
-  ];
+  final labelsCard = ["طباعة", "تعديل", "تراجع", "متابعات", "مرافقات", "ملاحظات"];
   final imagesCard = [
     Images.print,
     Images.editIcons,
@@ -92,13 +84,14 @@ class ContractsController extends BaseController{
     Images.filter
   ];
   final screens = const [
-     HomeScreen(),
+    HomeScreen(),
     OfferPriceScreen(),
     OfferPriceScreen(),
     OfferPriceScreen(),
     ContractsScreen(),
     ProductionRequestsScreen(),
   ];
+
   @override
   onInit() async {
     super.onInit();
@@ -118,14 +111,14 @@ class ContractsController extends BaseController{
 
     usersList.isNotEmpty
         ? {
-      userSelected.value = usersList[0],
-    }
+            userSelected.value = usersList[0],
+          }
         : {
-      usersList.assignAll([
-        UsersDataModel(id: 0, userName: "لاتوجد معلومات"),
-      ]),
-      userSelected.value = usersList[0],
-    };
+            usersList.assignAll([
+              UsersDataModel(id: 0, userName: "لاتوجد معلومات"),
+            ]),
+            userSelected.value = usersList[0],
+          };
   }
 
   getItemList() async {
@@ -136,35 +129,33 @@ class ContractsController extends BaseController{
 
     itemList.isNotEmpty
         ? {
-      itemSelected.value = itemList[0],
-      dataFilterModel = await services.getShortClientFiles(
-          pageType: 0,
-          userId:  userSelectedFilter.value,
-          finalStatusId:
-          itemSelectedFilter.value,
-          fileTypeId: groupValue.value.id
-        // fileTypeId: 1
-      ),
-      datFilterList.assignAll(dataFilterModel?.data ?? []),
-    }
+            itemSelected.value = itemList[0],
+            dataFilterModel = await services.getShortClientFiles(
+                pageType: 0,
+                userId: userSelectedFilter.value,
+                finalStatusId: itemSelectedFilter.value,
+                fileTypeId: groupValue.value.id
+                // fileTypeId: 1
+                ),
+            datFilterList.assignAll(dataFilterModel?.data ?? []),
+          }
         : {
-      itemList.assignAll([
-        Statuses(statusId: 0, description: "لاتوجد معلومات"),
-      ]),
-      itemSelected.value = itemList[0],
-    };
+            itemList.assignAll([
+              Statuses(statusId: 0, description: "لاتوجد معلومات"),
+            ]),
+            itemSelected.value = itemList[0],
+          };
   }
 
   getShortClient() async {
     loading.value = true;
     dataFilterModel = await services.getShortClientFiles(
         pageType: 0,
-        userId:  userSelectedFilter.value,
-        finalStatusId:
-        itemSelectedFilter.value,
+        userId: userSelectedFilter.value,
+        finalStatusId: itemSelectedFilter.value,
         fileTypeId: groupValue.value.id
-      // fileTypeId: 1
-    );
+        // fileTypeId: 1
+        );
     datFilterList.assignAll(dataFilterModel?.data ?? []);
     loading.value = false;
   }
@@ -179,11 +170,10 @@ class ContractsController extends BaseController{
     dataFilterModel = await services.getShortClientFiles(
         pageType: 0,
         userId: userSelectedFilter.value,
-        finalStatusId:
-        itemSelectedFilter.value,
+        finalStatusId: itemSelectedFilter.value,
         fileTypeId: groupValue.value.id
-      // fileTypeId: 1
-    );
+        // fileTypeId: 1
+        );
     datFilterList.assignAll(dataFilterModel?.data ?? []);
     Get.back();
     loading.value = false;
