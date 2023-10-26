@@ -8,9 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({super.key, this.close});
+  CustomDrawer(
+      {super.key,
+      this.close,
+      required this.controller,
+      required this.scaffoldKey});
+
+  late GlobalKey<ScaffoldState> scaffoldKey;
 
   final Function()? close;
+  late var controller;
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +29,26 @@ class CustomDrawer extends StatelessWidget {
           children: [
             AppDimensions.space(Dimensions.heightSmall).sBH,
             IconButton(
-              onPressed: close,
+              onPressed: () {
+                if (scaffoldKey.currentState!.isDrawerOpen) {
+                  scaffoldKey.currentState?.openEndDrawer();
+                } else {
+                  scaffoldKey.currentState?.openDrawer();
+                }
+              },
               icon: const Icon(Icons.clear, color: Colors.white, size: 35),
             ),
             AppDimensions.space(Dimensions.heightSmall).sBH,
             ListView.builder(
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
-                itemCount: HomeScreenController.to.labels.length,
+                itemCount: controller.labelsList.length,
                 itemBuilder: (ctx, index) => Obx(() => GestureDetector(
                       onTap: () {
-                        HomeScreenController.to.selected.value = index;
-                        Get.to(() => HomeScreenController.to.screens[index]);
+                        controller.selected.value = index;
+                        controller.selected.value = index;
+                        scaffoldKey.currentState?.openEndDrawer();
+                        Get.to(controller.screens[index]);
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -42,28 +57,23 @@ class CustomDrawer extends StatelessWidget {
                           height: AppDimensions.space(2.5),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(27),
-                              color: HomeScreenController.to.selected.value ==
-                                      index
+                              color: controller.selected.value == index
                                   ? Colors.white
                                   : Colors.transparent),
                           child: Row(
                             children: [
                               AppDimensions.space(Dimensions.heightSmall).sBW,
-                              Image.asset(HomeScreenController.to.images[index],
-                                  color:
-                                      HomeScreenController.to.selected.value ==
-                                              index
-                                          ? Theme.of(context).primaryColor
-                                          : Colors.white,
+                              Image.asset(controller.images[index],
+                                  color: controller.selected.value == index
+                                      ? Theme.of(context).primaryColor
+                                      : Colors.white,
                                   width: AppDimensions.space(2)),
                               AppDimensions.space(Dimensions.heightSmall).sBW,
                               Expanded(
                                 child: Text(
-                                  HomeScreenController.to.labels[index],
+                                  controller.labelsList[index],
                                   style: cairoBold.copyWith(
-                                      color: HomeScreenController
-                                                  .to.selected.value ==
-                                              index
+                                      color: controller.selected.value == index
                                           ? Theme.of(context).primaryColor
                                           : Colors.white,
                                       fontSize: AppDimensions.font(
