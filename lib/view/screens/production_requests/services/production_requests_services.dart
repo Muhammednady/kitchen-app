@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:Kitchen_system/model/response/production_requests_model.dart';
 import 'package:dio/dio.dart';
 
@@ -10,8 +12,9 @@ class ProductionRequestsServices{
 
   getAllProductionRequests() async {
     try {
-      final response = await dio!.get(AppConstants.loadProductionRequests);
+      final response = await dio!.get(AppConstants.getShortClientFiles);
       if (response.statusCode == 200) {
+        log(response.data.toString());
         return ProductionRequestsModel.fromJson(response.data);
       } else {
         HandleError.handleException(response: response.statusCode);

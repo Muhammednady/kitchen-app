@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:Kitchen_system/helper/network/dio_integration.dart';
 import 'package:Kitchen_system/helper/network/error_handler.dart';
 import 'package:Kitchen_system/model/response/basic_response_model.dart';
@@ -88,6 +90,8 @@ class OfferServices {
         "userId": userId,
       });
       if (response.statusCode == 200) {
+        log(response.data.toString());
+
         return DataFilterModel.fromJson(response.data);
       } else {
         HandleError.handleException(response: response.statusCode);

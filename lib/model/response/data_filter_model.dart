@@ -49,6 +49,25 @@ class DataFilter {
     this.contractDate,
   });
 
+  /*
+   {
+      "clientFileId": 4,
+      "createdBy": 1,
+      "createdByUserName": "admin",
+      "creationDate": "2023-06-16T04:54:17.567",
+      "client": {
+        "clientId": 1,
+        "clientName": "test",
+        "mobile": null,
+        "email": null
+      },
+      "fileTypeId": 1,
+      "fileTypeName": "مطابخ",
+      "finalStatusId": 171,
+      "finalStatusName": "تم أخذ القياس",
+      "contractDate": null
+    },
+   */
   DataFilter.fromJson(dynamic json) {
     clientFileId = json['clientFileId'];
     createdBy = json['createdBy'];
@@ -65,7 +84,7 @@ class DataFilter {
   int? clientFileId;
   int? createdBy;
   String? createdByUserName;
-  dynamic creationDate;
+  String? creationDate;
   Client? client;
   int? fileTypeId;
   String? fileTypeName;

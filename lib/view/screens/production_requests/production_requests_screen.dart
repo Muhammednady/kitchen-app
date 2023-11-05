@@ -157,132 +157,150 @@ class ProductionRequestsScreen extends StatelessWidget {
                                 ? const NotFound(
                                     label: "لا توجد معلومات",
                                   )
-                                :
-                        SingleChildScrollView(
-
+                                : SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: DataTable(
-                                      columns: const <DataColumn>[
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'المبيعات',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
+                                        columns: const <DataColumn>[
+                                          DataColumn(
+                                            label: Expanded(
+                                              child: Text(
+                                                'المبيعات',
+                                                style: TextStyle(
+                                                    fontStyle:
+                                                        FontStyle.italic),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'اسم الزبون',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
+                                          DataColumn(
+                                            label: Expanded(
+                                              child: Text(
+                                                'اسم الزبون',
+                                                style: TextStyle(
+                                                    fontStyle:
+                                                        FontStyle.italic),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'نوع الطلب',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
+                                          DataColumn(
+                                            label: Expanded(
+                                              child: Text(
+                                                'نوع الطلب',
+                                                style: TextStyle(
+                                                    fontStyle:
+                                                        FontStyle.italic),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'تاريخ الانشاء',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
+                                          DataColumn(
+                                            label: Expanded(
+                                              child: Text(
+                                                'تاريخ الانشاء',
+                                                style: TextStyle(
+                                                    fontStyle:
+                                                        FontStyle.italic),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'تعديل',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
+                                          DataColumn(
+                                            label: Expanded(
+                                              child: Text(
+                                                'تعديل',
+                                                style: TextStyle(
+                                                    fontStyle:
+                                                        FontStyle.italic),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'طباعة',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
+                                          DataColumn(
+                                            label: Expanded(
+                                              child: Text(
+                                                'طباعة',
+                                                style: TextStyle(
+                                                    fontStyle:
+                                                        FontStyle.italic),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'الحالة',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
+                                          DataColumn(
+                                            label: Expanded(
+                                              child: Text(
+                                                'الحالة',
+                                                style: TextStyle(
+                                                    fontStyle:
+                                                        FontStyle.italic),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        DataColumn(
-                                          label: Expanded(
-                                            child: Text(
-                                              'المرافقات',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic),
+                                          DataColumn(
+                                            label: Expanded(
+                                              child: Text(
+                                                'المرافقات',
+                                                style: TextStyle(
+                                                    fontStyle:
+                                                        FontStyle.italic),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                      rows: <DataRow>[
-                                        DataRow(
-                                          color: MaterialStateProperty.all(
-                                              Colors.grey.withOpacity(0.3)),
-                                          cells: <DataCell>[
-                                            const DataCell(Text(
-                                              'Gardenia',
-                                              style: TextStyle(fontSize: 20),
-                                            )),
-                                            const DataCell(Text(
-                                              'test',
-                                              style: TextStyle(fontSize: 20),
-                                            )),
-                                            const DataCell(Text(
-                                              'مطبخ',
-                                              style: TextStyle(fontSize: 20),
-                                            )),
-                                            const DataCell(Text(
-                                              '13-9-2022',
-                                              style: TextStyle(fontSize: 20),
-                                            )),
-                                            DataCell(Image.asset(
-                                              Images.editIcons,
-                                              color: Colors.black,
-                                              height: 30,
-                                              width: 30,
-                                            )),
-                                            DataCell(Image.asset(
-                                              Images.print,
-                                              color: Colors.black,
-                                              height: 30,
-                                              width: 30,
-                                            )),
-                                            const DataCell(Text(
-                                              'جاهز للتركيب ',
-                                              style: TextStyle(fontSize: 20),
-                                            )),
-                                            DataCell(Image.asset(
-                                              Images.contract,
-                                              color: Colors.black,
-                                              height: 30,
-                                              width: 30,
-                                            )),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                        ],
+                                        rows: controller.datFilterList
+                                            .map(((row) => DataRow(
+                                                  color: MaterialStateProperty
+                                                      .all(Colors.grey
+                                                          .withOpacity(0.3)),
+                                                  cells: <DataCell>[
+                                                    DataCell(Text(
+                                                      row
+                                                          .createdByUserName!,
+                                                      style: TextStyle(
+                                                          fontSize: 20),
+                                                    )),
+                                                    DataCell(Text(
+                                                      row
+                                                          .client!
+                                                          .clientName!,
+                                                      style: TextStyle(
+                                                          fontSize: 20),
+                                                    )),
+                                                    DataCell(Text(
+                                                     row
+                                                          .fileTypeName!,
+                                                      style: TextStyle(
+                                                          fontSize: 20),
+                                                    )),
+                                                    DataCell(Text(
+                                                     row
+                                                          .creationDate!
+                                                          .substring(0, 10),
+                                                      style: TextStyle(
+                                                          fontSize: 20),
+                                                    )),
+                                                    DataCell(Image.asset(
+                                                      Images.editIcons,
+                                                      color: Colors.black,
+                                                      height: 30,
+                                                      width: 30,
+                                                    )),
+                                                    DataCell(Image.asset(
+                                                      Images.print,
+                                                      color: Colors.black,
+                                                      height: 30,
+                                                      width: 30,
+                                                    )),
+                                                    DataCell(Text(
+                                                    row
+                                                          .finalStatusName!,
+                                                      style: TextStyle(
+                                                          fontSize: 20),
+                                                    )),
+                                                    DataCell(Image.asset(
+                                                      Images.contract,
+                                                      color: Colors.black,
+                                                      height: 30,
+                                                      width: 30,
+                                                    )),
+                                                  ],
+                                                )))
+                                            .toList()),
                                   ),
 
                         //     : ListView.builder(
