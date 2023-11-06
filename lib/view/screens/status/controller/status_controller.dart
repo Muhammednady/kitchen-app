@@ -1,15 +1,27 @@
 import 'package:Kitchen_system/controller/base_controller.dart';
+import 'package:Kitchen_system/model/response/item_model.dart';
 import 'package:Kitchen_system/view/screens/status/status_screen.dart';
 import 'package:get/get.dart';
 
+import '../../../../model/response/kitchen_model.dart';
 import '../../../../utill/images.dart';
 import '../../contracts/contracts_screen.dart';
 import '../../home/home_screen.dart';
 import '../../offer_price/offer_price_screen.dart';
+import '../../offer_price/services/offer_services.dart';
 import '../../production_requests/production_requests_screen.dart';
 
 class StatusController extends BaseController {
   final selected = 0.obs;
+  final loading = false.obs;
+  final services = OfferServices();
+  ItemModel? dataModel;
+  final dataList = <Statuses>[].obs;
+  @override
+  void onInit() {
+    getAllStatuses();
+    super.onInit();
+  }
   final labelsList = [
     "الصفحة الرئيسية",
     "عروض الاسعار",
@@ -60,4 +72,11 @@ class StatusController extends BaseController {
     ContractsScreen(),
     ProductionRequestsScreen(),
   ];
+
+  getAllStatuses() async {
+    loading.value = true;
+    dataModel = await services.getAllItemType(id: 0);
+    dataList.assignAll(dataModel?.data!.statuses ?? []);
+    loading.value = false;
+  }
 }
