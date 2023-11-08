@@ -15,13 +15,20 @@ import '../edit_price_details/edit_price_details.dart';
 import '../followers/followers_screen.dart';
 
 class StatusScreen extends StatelessWidget {
-  const StatusScreen({Key? key}) : super(key: key);
+  const StatusScreen(
+      {Key? key, required this.name, required this.sales, required this.id})
+      : super(key: key);
+  final String name;
+  final String sales;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
     GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     final controller = Get.put(StatusController());
     controller.selected.value = 2.abs();
+    controller.getAllStatuses(id);
+
     return Scaffold(
       key: scaffoldKey,
       drawer: CustomDrawer(
@@ -89,7 +96,7 @@ class StatusScreen extends StatelessWidget {
                                                     .FONT_SIZE_EXTRA_SMALL)),
                                       ),
                                       Text(
-                                        'Hesham',
+                                        name,
                                         style: cairoMedium.copyWith(
                                             color: Colors.black,
                                             fontSize: AppDimensions.font(
@@ -97,13 +104,6 @@ class StatusScreen extends StatelessWidget {
                                                     .FONT_SIZE_EXTRA_SMALL)),
                                       ),
                                     ],
-                                  ),
-                                  Text(
-                                    '17/7/2023',
-                                    style: cairoMedium.copyWith(
-                                        color: Colors.grey,
-                                        fontSize: AppDimensions.font(
-                                            Dimensions.FONT_SIZE_EXTRA_SMALL)),
                                   ),
                                 ],
                               ),
@@ -123,7 +123,7 @@ class StatusScreen extends StatelessWidget {
                                                     .FONT_SIZE_EXTRA_SMALL)),
                                       ),
                                       Text(
-                                        'hesham@gmail.com',
+                                        sales,
                                         style: cairoMedium.copyWith(
                                             color: Colors.black,
                                             fontSize: AppDimensions.font(

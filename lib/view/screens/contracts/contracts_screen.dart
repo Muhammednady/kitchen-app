@@ -307,9 +307,9 @@ class ContractsScreen extends StatelessWidget {
                                                       style: const TextStyle(
                                                           fontSize: 20),
                                                     )),
-                                                    const DataCell(Text(
-                                                      '4',
-                                                      style: TextStyle(
+                                                    DataCell(Text(
+                                                      row.contractNo ?? '',
+                                                      style: const TextStyle(
                                                           fontSize: 20),
                                                     )),
                                                     DataCell(Image.asset(

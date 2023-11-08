@@ -47,6 +47,7 @@ class DataFilter {
     this.finalStatusId,
     this.finalStatusName,
     this.contractDate,
+    this.contractNo,
   });
 
   /*
@@ -79,6 +80,7 @@ class DataFilter {
     finalStatusId = json['finalStatusId'];
     finalStatusName = json['finalStatusName'];
     contractDate = json['contractDate'];
+    contractNo = json['contractNo'];
   }
 
   int? clientFileId;
@@ -89,6 +91,7 @@ class DataFilter {
   int? fileTypeId;
   String? fileTypeName;
   int? finalStatusId;
+  String? contractNo;
   String? finalStatusName;
   dynamic contractDate;
 

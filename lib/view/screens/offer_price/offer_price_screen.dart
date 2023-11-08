@@ -21,6 +21,7 @@ import 'package:Kitchen_system/view/screens/edit_price_details/edit_price_detail
 import 'package:Kitchen_system/view/screens/followers/followers_screen.dart';
 import 'package:Kitchen_system/view/screens/offer_price/controller/offer_screen_controller.dart';
 import 'package:Kitchen_system/view/screens/price_details/price_details_screen.dart';
+import 'package:Kitchen_system/view/screens/status/status_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -43,133 +44,150 @@ class OfferPriceScreen extends StatelessWidget {
         return true;
       },
       child: Scaffold(
-          key: scaffoldKey,
-          drawer: CustomDrawer(
-            controller: controller,
-            scaffoldKey: scaffoldKey,
-          ),
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            leading: GestureDetector(
-                onTap: () {
-                  if (scaffoldKey.currentState!.isDrawerOpen) {
-                    scaffoldKey.currentState?.openEndDrawer();
-                  } else {
-                    scaffoldKey.currentState?.openDrawer();
-                  }
-                },
-                child: Icon(Icons.menu, color: Theme.of(context).primaryColor)),
-            centerTitle: true,
-            title: Text("عرض الاسعار",
-                style: cairoRegular.copyWith(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: AppDimensions.font(Dimensions.FONT_SIZE_SMALL))),
-          ),
-          body: Obx(
-            () => controller.state == ViewState.busy
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        AppDimensions.space(Dimensions.heightSmall).sBH,
-                        Row(
-                          children: [
-                            AppDimensions.space(Dimensions.heightSmall).sBW,
-                            Text(
-                              "النوع",
-                              style: cairoRegular.copyWith(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: AppDimensions.font(
-                                      Dimensions.FONT_SIZE_EXTRA_SMALL)),
-                            ),
-                          ],
-                        ),
-                        AppDimensions.space(Dimensions.heightExtraSmall).sBH,
-                        Row(
-                          children: [
-                            AppDimensions.space(Dimensions.heightSmall).sBW,
-                            CustomButton(
-                              width: AppDimensions.space(
-                                  Dimensions.FONT_SIZE_EXTRA_SMALL),
-                              radius: 9,
-                              onPressed: () {
-                                if (controller.checkedValue.value == 0) {
-                                  showCustomSnackBar(
-                                      "يجب اختيار نوع اولا", context);
-                                } else if (controller.checkedValue.value == 1) {
-                                  CacheHelper.saveData(
-                                      key: AppConstants.typeId,
-                                      value: controller.checkedValue.value);
-                                  Get.to(() => const PriceDetailsScreen());
-                                }
-                              },
-                              buttonText: "إضافة",
-                              icon: Images.add,
-                            ),
-                          ],
-                        ),
-                        AdditionGridView(controller: controller),
-                        Row(
-                          children: [
-                            AppDimensions.space(Dimensions.heightSmall).sBW,
-                            Text(
-                              "البحث",
-                              style: cairoRegular.copyWith(
-                                  fontSize: AppDimensions.font(
-                                      Dimensions.FONT_SIZE_EXTRA_SMALL)),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: Dimensions.PADDING_SIZE_SMALL,
-                              horizontal: Dimensions.PADDING_SIZE_SMALL),
-                          child: CustomTextField(
-                            onSubmit: (v) {},
-                            isShowPrefixIcon: true,
-                            prefixIconUrl: Images.search,
+        key: scaffoldKey,
+        drawer: CustomDrawer(
+          controller: controller,
+          scaffoldKey: scaffoldKey,
+        ),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: GestureDetector(
+              onTap: () {
+                if (scaffoldKey.currentState!.isDrawerOpen) {
+                  scaffoldKey.currentState?.openEndDrawer();
+                } else {
+                  scaffoldKey.currentState?.openDrawer();
+                }
+              },
+              child: Icon(Icons.menu, color: Theme.of(context).primaryColor)),
+          centerTitle: true,
+          title: Text("عرض الاسعار",
+              style: cairoRegular.copyWith(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: AppDimensions.font(Dimensions.FONT_SIZE_SMALL))),
+        ),
+        body: Obx(
+          () => controller.state == ViewState.busy
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      AppDimensions.space(Dimensions.heightSmall).sBH,
+                      Row(
+                        children: [
+                          AppDimensions.space(Dimensions.heightSmall).sBW,
+                          Text(
+                            "النوع",
+                            style: cairoRegular.copyWith(
+                                color: Theme.of(context).primaryColor,
+                                fontSize: AppDimensions.font(
+                                    Dimensions.FONT_SIZE_EXTRA_SMALL)),
                           ),
+                        ],
+                      ),
+                      AppDimensions.space(Dimensions.heightExtraSmall).sBH,
+                      Row(
+                        children: [
+                          AppDimensions.space(Dimensions.heightSmall).sBW,
+                          CustomButton(
+                            width: AppDimensions.space(
+                                Dimensions.FONT_SIZE_EXTRA_SMALL),
+                            radius: 9,
+                            onPressed: () {
+                              if (controller.checkedValue.value == 0) {
+                                showCustomSnackBar(
+                                    "يجب اختيار نوع اولا", context);
+                              } else if (controller.checkedValue.value == 1) {
+                                CacheHelper.saveData(
+                                    key: AppConstants.typeId,
+                                    value: controller.checkedValue.value);
+                                Get.to(() => const PriceDetailsScreen());
+                              }
+                            },
+                            buttonText: "إضافة",
+                            icon: Images.add,
+                          ),
+                        ],
+                      ),
+                      AdditionGridView(controller: controller),
+                      Row(
+                        children: [
+                          AppDimensions.space(Dimensions.heightSmall).sBW,
+                          Text(
+                            "البحث",
+                            style: cairoRegular.copyWith(
+                                fontSize: AppDimensions.font(
+                                    Dimensions.FONT_SIZE_EXTRA_SMALL)),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: Dimensions.PADDING_SIZE_SMALL,
+                            horizontal: Dimensions.PADDING_SIZE_SMALL),
+                        child: CustomTextField(
+                          onSubmit: (v) {},
+                          isShowPrefixIcon: true,
+                          prefixIconUrl: Images.search,
                         ),
-                        Obx(() => DropDownUsersWidget(
-                              label: "المبيعات",
-                              type: controller.userSelected.value,
-                              list: controller.usersList,
-                              onchange: (value) {
-                                controller.userSelected.value = value!;
-                                controller.userSelectedFilter.value =
-                                    controller.userSelected.value.id!;
-                                controller.getShortClient();
-                              },
-                            )),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Obx(() => DropDownWidget(
-                              label: "الحالة",
-                              type: controller.itemSelected.value,
-                              list: controller.itemList,
-                              onchange: (value) {
-                                controller.itemSelected.value = value!;
-                                controller.itemSelectedFilter.value =
-                                    controller.itemSelected.value.statusId!;
-                                controller.getShortClient();
-                              },
-                            )),
-                        Obx(() => controller.loading.value
-                            ? const CustomCircularProgressIndicator()
-                            : controller.datFilterList.isEmpty
-                                ? const NotFound(
-                                    label: "لا توجد معلومات",
-                                  )
-                                : ListView.builder(
-                                    itemCount: controller.datFilterList.length,
-                                    physics: const BouncingScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemBuilder: (_, index) => Padding(
+                      ),
+                      Obx(() => DropDownUsersWidget(
+                            label: "المبيعات",
+                            type: controller.userSelected.value,
+                            list: controller.usersList,
+                            onchange: (value) {
+                              controller.userSelected.value = value!;
+                              controller.userSelectedFilter.value =
+                                  controller.userSelected.value.id!;
+                              controller.getShortClient();
+                            },
+                          )),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Obx(() => DropDownWidget(
+                            label: "الحالة",
+                            type: controller.itemSelected.value,
+                            list: controller.itemList,
+                            onchange: (value) {
+                              controller.itemSelected.value = value!;
+                              controller.itemSelectedFilter.value =
+                                  controller.itemSelected.value.statusId!;
+                              controller.getShortClient();
+                            },
+                          )),
+                      Obx(() => controller.loading.value
+                          ? const CustomCircularProgressIndicator()
+                          : controller.datFilterList.isEmpty
+                              ? const NotFound(
+                                  label: "لا توجد معلومات",
+                                )
+                              : ListView.builder(
+                                  itemCount: controller.datFilterList.length,
+                                  physics: const BouncingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (_, index) => InkWell(
+                                        onTap: () => Get.to(
+                                          StatusScreen(
+                                            id: controller.datFilterList[index]
+                                                    .clientFileId ??
+                                                0,
+                                            name: controller
+                                                    .datFilterList[index]
+                                                    .client
+                                                    ?.clientName ??
+                                                "",
+                                            sales: controller
+                                                    .datFilterList[index]
+                                                    .createdByUserName ??
+                                                '',
+                                          ),
+                                        ),
+                                        child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Card(
                                             color: const Color(0xFFE6E6E6),
@@ -391,11 +409,13 @@ class OfferPriceScreen extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                        )))
-                      ],
-                    ),
+                                        ),
+                                      )))
+                    ],
                   ),
-          )),
+                ),
+        ),
+      ),
     );
   }
 }

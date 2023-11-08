@@ -1,6 +1,5 @@
 import 'package:Kitchen_system/controller/base_controller.dart';
 import 'package:Kitchen_system/model/response/item_model.dart';
-import 'package:Kitchen_system/view/screens/status/status_screen.dart';
 import 'package:get/get.dart';
 
 import '../../../../model/response/kitchen_model.dart';
@@ -17,11 +16,7 @@ class StatusController extends BaseController {
   final services = OfferServices();
   ItemModel? dataModel;
   final dataList = <Statuses>[].obs;
-  @override
-  void onInit() {
-    getAllStatuses();
-    super.onInit();
-  }
+
   final labelsList = [
     "الصفحة الرئيسية",
     "عروض الاسعار",
@@ -67,15 +62,15 @@ class StatusController extends BaseController {
   final screens = const [
     HomeScreen(),
     OfferPriceScreen(),
-    StatusScreen(),
     OfferPriceScreen(),
+    ContractsScreen(),
     ContractsScreen(),
     ProductionRequestsScreen(),
   ];
 
-  getAllStatuses() async {
+  getAllStatuses(int id) async {
     loading.value = true;
-    dataModel = await services.getAllItemType(id: 0);
+    dataModel = await services.getAllItemType(id: id);
     dataList.assignAll(dataModel?.data!.statuses ?? []);
     loading.value = false;
   }
