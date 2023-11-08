@@ -131,7 +131,7 @@ class ContractsController extends BaseController {
         ? {
             itemSelected.value = itemList[0],
             dataFilterModel = await services.getShortClientFiles(
-                pageType: 3,
+                pageType: 1,
                 userId: userSelectedFilter.value,
                 finalStatusId: itemSelectedFilter.value,
                 fileTypeId: groupValue.value.id
@@ -150,7 +150,7 @@ class ContractsController extends BaseController {
   getShortClient() async {
     loading.value = true;
     dataFilterModel = await services.getShortClientFiles(
-        pageType: 3,
+        pageType: 1,
         userId: userSelectedFilter.value,
         finalStatusId: itemSelectedFilter.value,
         fileTypeId: groupValue.value.id
@@ -168,7 +168,7 @@ class ContractsController extends BaseController {
     await services.deleteOffer(context, id: id);
     loading.value = true;
     dataFilterModel = await services.getShortClientFiles(
-        pageType: 3,
+        pageType: 1,
         userId: userSelectedFilter.value,
         finalStatusId: itemSelectedFilter.value,
         fileTypeId: groupValue.value.id

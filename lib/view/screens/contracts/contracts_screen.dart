@@ -288,26 +288,26 @@ class ContractsScreen extends StatelessWidget {
                                                   cells: <DataCell>[
                                                     DataCell(Text(
                                                       row.createdByUserName!,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontSize: 20),
                                                     )),
                                                     DataCell(Text(
                                                       row.client!.clientName!,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontSize: 20),
                                                     )),
                                                     DataCell(Text(
                                                       row.fileTypeName!,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontSize: 20),
                                                     )),
                                                     DataCell(Text(
                                                       row.creationDate!
                                                           .substring(0, 10),
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontSize: 20),
                                                     )),
-                                                    DataCell(Text(
+                                                    const DataCell(Text(
                                                       '4',
                                                       style: TextStyle(
                                                           fontSize: 20),
@@ -326,7 +326,7 @@ class ContractsScreen extends StatelessWidget {
                                                     )),
                                                     DataCell(Text(
                                                       row.finalStatusName!,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontSize: 20),
                                                     )),
                                                     DataCell(Image.asset(
