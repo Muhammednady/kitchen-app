@@ -39,11 +39,11 @@ class AttachmentController extends BaseController {
 
     if (result != null) {
       files.value = result.paths.map((path) => File(path!)).toList();
-      files.forEach((element) {
+      for (var element in files) {
         attachments.add(AttachmentModel(
             attachmentPath: element,
             statusId: categorySelected.value.statusId));
-      });
+      }
     } else {
       // User canceled the picker
     }
@@ -55,8 +55,8 @@ class AttachmentController extends BaseController {
         clientFileId: clientFileId, files: attachments);
     attachments.clear();
     files.clear();
-    // filterData(
-    //     clientFileId: clientFileId, statusId: categorySelected.value.statusId);
+    filterData(
+        clientFileId: clientFileId, statusId: categorySelected.value.statusId);
     loading.value = false;
   }
 

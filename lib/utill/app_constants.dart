@@ -62,6 +62,8 @@ class AppConstants {
   static const String loadProductionRequests = '$baseurl/ClientFile/LoadProductionRequests';
   static const String getAllFinalStatus = '$baseurl/ClientFile/GetAllFinalStatusClientFile';
   static const String changeFinalStatus = '$baseurl/ClientFile/ChangeFinalStatusClientFile';
+  static const String addNoteClientFile = '/ClientFileAttachment/AddNotesClientFile';
+  static const String getAllNotes = '/ClientFileAttachment/GetAllNotes';
 
   static List<LanguageModel> languages = [
     LanguageModel(
