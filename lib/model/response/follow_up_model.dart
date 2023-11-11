@@ -30,7 +30,8 @@ class FollowList {
       this.attachment, 
       this.attachmentPath, 
       this.note, 
-      this.creationDate,});
+      this.creationDate,
+  this.createdBy,});
 
   FollowList.fromJson(dynamic json) {
     id = json['id'];
@@ -38,12 +39,14 @@ class FollowList {
     attachmentPath = json['attachmentPath'];
     note = json['note'];
     creationDate = json['creationDate'];
+    createdBy = json['createdBy'];
   }
   int? id;
   dynamic attachment;
   String? attachmentPath;
   String? note;
   String? creationDate;
+  String? createdBy;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

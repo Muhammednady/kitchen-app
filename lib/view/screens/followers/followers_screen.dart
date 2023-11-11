@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:Kitchen_system/enum/view_state.dart';
@@ -15,6 +16,8 @@ import 'package:file_icon/file_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../base/custom_dialoge.dart';
+
 class FollowersScreen extends StatelessWidget {
   const FollowersScreen({super.key, this.clientFileId});
 
@@ -24,135 +27,241 @@ class FollowersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(FollowerController(id: clientFileId));
     return SafeArea(
-        child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              centerTitle: true,
-              elevation: 0,
-              leading: IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.black,
-                  )),
-              title: const Text("المتابعات",
-                  style: TextStyle(fontSize: 20, color: Colors.black)),
-            ),
-            body: Obx(
-              () => controller.state == ViewState.busy
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          const Text(
-                            "تفاصيل الطلب",
-                            style: TextStyle(color: Colors.black, fontSize: 18),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          elevation: 0,
+          leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              )),
+          title: const Text("المتابعات",
+              style: TextStyle(fontSize: 20, color: Colors.black)),
+        ),
+        body: Obx(
+          () => controller.state == ViewState.busy
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      children: [
+                        // const Text(
+                        //   "تفاصيل المرفق",
+                        //   style: TextStyle(color: Colors.black, fontSize: 18),
+                        // ),
+                        30.sBH,
+                        Form(
+                          key: controller.formKey,
+                          child: CustomTextField(
+                            maxLines: 4,
+                            hintText: 'اضافة متابعة',
+                            controller: controller.followUpController,
+                            validatorMessage: 'لا يجب ان تكون الملاحظة فارغة',
+                            //  errorLabel: 'لا يجب ان تكون الملاحظة فارغة',
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        ),
+                        20.sBH,
+                        SizedBox(
+                          width: 180,
+                          child: TextButton(
+                            style:
+                                TextButton.styleFrom(side: const BorderSide()),
+                            onPressed: () {
+                              controller.selectFile();
+                            },
+                            child: const Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text(
-                                  "ملف طلب",
+                                Text(
+                                  "اضافة مرفق",
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.black),
                                 ),
-                                Container(
-                                      width: 100,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          border:
-                                              Border.all(color: Colors.grey)),
-                                      child: Obx(() =>
-                                          controller.path.value == ""
-                                              ? Image.asset(
-                                                  Images.placeholder,
-                                                  fit: BoxFit.cover,
-                                                )
-                                              : Image.file(
-                                                  File(controller.path.value), fit: BoxFit.cover,)),
+                                Icon(Icons.upload,
+                                    color: Colors.black, size: 30),
+                              ],
+                            ),
+                          ),
+                        ),
+                        10.sBH,
+                        SizedBox(
+                          height: controller.files.isEmpty ? 0 : 100,
+                          child: Obx(() => controller.files.isEmpty
+                              ? const SizedBox()
+                              : Container(
+                                  margin: const EdgeInsets.all(4),
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(color: Colors.grey)),
+                                  child: Image.file(
+                                    File(
+                                      controller.files[0].path,
                                     ),
-                                IconButton(
-                                  icon: const Icon(Icons.upload,
-                                      color: Colors.black, size: 35),
-                                  onPressed: () {
-                                    controller.selectFile();
-                                  },
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                const Text(
-                                  "ملاحظة",
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.black),
-                                ),
-                                Expanded(child: CustomTextField(
-                                  onChanged: (value) {
-                                    controller.note.value = value;
-                                  },
-                                ))
-                              ],
-                            ),
-                          ),
-                          20.sBH,
-                          Obx(() => controller.loading.value
+                                    fit: BoxFit.cover,
+                                  ),
+                                )),
+                        ),
+                        20.sBH,
+                        Obx(() => controller.loading.value
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : CustomButton(
+                                width: AppDimensions.space(10),
+                                buttonText: "اضافه",
+                                onPressed: () {
+                                  if (controller.formKey.currentState!
+                                      .validate()) {
+                                    log(controller.followUpController.text);
+                                    controller.addFollowUp(context,
+                                        clientFileId: clientFileId,
+                                        note:
+                                            controller.followUpController.text);
+                                  } // controller.addAttachments(
+                                  //     clientFileId: clientFileId);
+                                },
+                              )),
+                        20.sBH,
+                        const Divider(),
+                        20.sBH,
+                        const Text(
+                          "عرض",
+                          style: TextStyle(color: Colors.black, fontSize: 18),
+                        ),
+                        20.sBH,
+                        // Obx(() => DropDownWidget(
+                        //       label: "تصنيف الملف",
+                        //       type: controller.categoryFilterSelected.value,
+                        //       list: controller.categories,
+                        //       onchange: (value) {
+                        //         controller.categoryFilterSelected.value =
+                        //             value!;
+                        //         controller.filterData(
+                        //             statusId: controller
+                        //                 .categoryFilterSelected
+                        //                 .value
+                        //                 .statusId,
+                        //             clientFileId: clientFileId);
+                        //       },
+                        //     )),
+                        Obx(
+                          () => controller.loadingAttachment.value
                               ? const Center(
                                   child: CircularProgressIndicator(),
                                 )
-                              : CustomButton(
-                                  width: AppDimensions.space(10),
-                                  buttonText: "اضافه",
-                                  onPressed: () {
-                                    controller.addFollowUp(context,
-                                        clientFileId: clientFileId);
-                                  },
-                                )),
-                          40.sBH,
-                          Obx(() => controller.data.isEmpty
-                              ? const NotFound(label: "لا توجد معلومات")
-                              : ListView.builder(
-                                  itemCount: controller.data.length,
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder: (_, index) => Padding(
+                              : controller.data.isEmpty
+                                  ? const NotFound(label: "لا توجد معلومات")
+                                  : ListView.builder(
+                                      itemCount: controller.data.length,
+                                      physics: const BouncingScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemBuilder: (_, index) => Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Card(
                                           elevation: 1,
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(8)),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              CustomImage(
-                                                  height: 120,
-                                                  width: 120,
-                                                  image:
-                                                      "${AppConstants.baseurlImages}${controller.data[index].attachmentPath}"),
-                                              Text(
-                                                  "تاريخ الرفع:${DateConverter.isoStringToLocalDateOnly(controller.data[index].creationDate ?? "")}"),
-                                              Text(
-                                                  "الملاحظات:${controller.data[index].note}"),
-                                            ],
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                // CustomImage(
+                                                //     height: 120,
+                                                //     width: 120,
+                                                //     image:
+                                                //         "${AppConstants.baseurlImages}${controller.attachmentsFilter[index].attachmentPath}"),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 10.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Text(
+                                                          "الاسم: ${controller.data[index].createdBy ?? ""}"),
+                                                      const Spacer(),
+                                                      Text(
+                                                          "التاريخ: ${DateConverter.isoStringToLocalDateOnly(controller.data[index].creationDate!)}"),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 10.0),
+                                                  child: Text(
+                                                      "الملاحظة: ${controller.data[index].note}"),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 20.0),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      CustomButton(
+                                                        buttonText: "مرفق",
+                                                        width: 80,
+                                                        height: 30,
+                                                        onPressed: () {
+                                                          log(controller
+                                                              .data[index]
+                                                              .attachmentPath!);
+                                                          DialogUtils
+                                                              .showPhotoDialog(
+                                                                  context:
+                                                                      context,
+                                                                  imgSrc:
+                                                                      '${AppConstants.baseurlImages}${controller.data[index].attachmentPath!}');
+                                                        },
+                                                      ),
+                                                      30.sBW,
+                                                      CustomButton(
+                                                        buttonText: "حذف",
+                                                        width: 80,
+                                                        height: 30,
+                                                        onPressed: () {
+                                                          DialogUtils
+                                                              .showCustomDialog(
+                                                                  context,
+                                                                  label:
+                                                                      "هل تريد الحذف ؟",
+                                                                  onTap: () {
+                                                           controller.deleteFollowUp(context, followUpId: controller.data[index].id!, clientFieldId: clientFileId!);
+                                                          });
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      )))
-                        ],
-                      ),
+                                      ),
+                                    ),
+                        ),
+                      ],
                     ),
-            )));
+                  ),
+                ),
+        ),
+      ),
+    );
   }
 }

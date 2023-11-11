@@ -64,6 +64,8 @@ class AppConstants {
   static const String changeFinalStatus = '$baseurl/ClientFile/ChangeFinalStatusClientFile';
   static const String addNoteClientFile = '/ClientFileAttachment/AddNotesClientFile';
   static const String getAllNotes = '/ClientFileAttachment/GetAllNotes';
+  static const String deleteNote = '/ClientFileAttachment/DeleteNote';
+  static const String deleteFollowUp = '/ClientFileAttachment/DeleteFollowUp';
 
   static List<LanguageModel> languages = [
     LanguageModel(
