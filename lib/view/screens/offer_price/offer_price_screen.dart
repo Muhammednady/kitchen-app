@@ -176,15 +176,6 @@ class OfferPriceScreen extends StatelessWidget {
                                             id: controller.datFilterList[index]
                                                     .clientFileId ??
                                                 0,
-                                            name: controller
-                                                    .datFilterList[index]
-                                                    .client
-                                                    ?.clientName ??
-                                                "",
-                                            sales: controller
-                                                    .datFilterList[index]
-                                                    .createdByUserName ??
-                                                '',
                                           ),
                                         ),
                                         child: Padding(

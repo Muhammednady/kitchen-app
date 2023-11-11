@@ -9,7 +9,8 @@ class FinalStatusFilesModel {
     required this.statusFiles,
   });
 
-  factory FinalStatusFilesModel.fromJson(Map<String, dynamic> map) => FinalStatusFilesModel(
+  factory FinalStatusFilesModel.fromJson(Map<String, dynamic> map) =>
+      FinalStatusFilesModel(
         message: map['message'],
         status: map['status'],
         statusFiles: map['data'] == null
@@ -27,12 +28,14 @@ class FileModel {
   final String toValue;
   final String notes;
   final String creationDate;
+  final String createdBy;
 
   FileModel({
     required this.fromValue,
     required this.toValue,
     required this.notes,
     required this.creationDate,
+    required this.createdBy,
   });
 
   factory FileModel.fromJson(Map<String, dynamic> map) => FileModel(
@@ -40,5 +43,6 @@ class FileModel {
         toValue: map['toValue'],
         notes: map['notes'],
         creationDate: map['creationDate'],
+        createdBy: map['createdByUserName'],
       );
 }

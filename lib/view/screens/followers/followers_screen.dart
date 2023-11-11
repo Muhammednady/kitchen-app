@@ -11,7 +11,6 @@ import 'package:Kitchen_system/view/base/custom_image.dart';
 import 'package:Kitchen_system/view/base/custom_text_field.dart';
 import 'package:Kitchen_system/view/base/not_found.dart';
 import 'package:Kitchen_system/view/screens/followers/controller/follower_controller.dart';
-import 'package:file_icon/file_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -31,9 +31,10 @@ class OfferServices {
     }
   }
 
-  getAllFinalStatus() async {
+   getAllFinalStatus({int? id}) async {
     try {
-      final response = await dio!.get(AppConstants.getAllFinalStatus);
+      final response = await dio!.get(AppConstants.getAllFinalStatus,
+          queryParameters: {'clientFileId': id});
       if (response.statusCode == 200) {
         return FinalStatusFilesModel.fromJson(response.data);
       } else {
@@ -46,14 +47,17 @@ class OfferServices {
     }
   }
 
-  changeFinalStatus({
+  Future changeFinalStatus({
     required int clientFileId,
     required int finalStatusId,
     required String notes,
   }) async {
     try {
-      final response = await dio!.put(AppConstants.changeFinalStatus,
-          data: {"clientFileId": clientFileId, "finalStatusId": finalStatusId, "notes": notes});
+      final response = await dio!.put(AppConstants.changeFinalStatus, data: {
+        "clientFileId": clientFileId,
+        "finalStatusId": finalStatusId,
+        "notes": notes
+      });
       if (response.statusCode == 200) {
         return BasicResponseModel.fromJson(response.data);
       } else {
