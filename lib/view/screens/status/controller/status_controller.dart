@@ -1,5 +1,6 @@
 import 'package:Kitchen_system/controller/base_controller.dart';
 import 'package:Kitchen_system/model/response/item_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../../model/response/data_filter_model.dart';
@@ -16,6 +17,7 @@ import '../../production_requests/production_requests_screen.dart';
 class StatusController extends BaseController {
   final selected = 0.obs;
   final loading = false.obs;
+  final noteController = TextEditingController();
   DataFilterModel? dataFilterModel;
   final datFilterList = <DataFilter>[].obs;
   final userSelectedFilter = 0.obs;
@@ -121,9 +123,10 @@ class StatusController extends BaseController {
   saveNewState({required int id}) {
     services
         .changeFinalStatus(
-            clientFileId: id,
-            finalStatusId: itemSelected.value.statusId!,
-            notes: '')
+          clientFileId: id,
+          finalStatusId: itemSelected.value.statusId!,
+          notes: noteController.text,
+        )
         .whenComplete(() => getAllStatuses(id));
   }
 

@@ -1,5 +1,6 @@
 import 'package:Kitchen_system/view/base/custom_button.dart';
 import 'package:Kitchen_system/view/base/custom_drawer.dart';
+import 'package:Kitchen_system/view/base/custom_text_field.dart';
 import 'package:Kitchen_system/view/screens/status/controller/status_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -64,6 +65,13 @@ class StatusScreen extends StatelessWidget {
                         controller.itemSelected.value.statusId!;
                   },
                 )),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: CustomTextField(
+                controller: controller.noteController,
+                maxLines: 4,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(10),
               child: Row(
@@ -220,6 +228,38 @@ class StatusScreen extends StatelessWidget {
                                             child: Text(
                                               controller
                                                   .dataList[index].toValue,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: cairoMedium.copyWith(
+                                                fontSize: AppDimensions.font(
+                                                  Dimensions
+                                                      .FONT_SIZE_EXTRA_SMALL,
+                                                ),
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              'ملاحظات :',
+                                              style: cairoBold.copyWith(
+                                                fontSize: AppDimensions.font(
+                                                  Dimensions
+                                                      .FONT_SIZE_EXTRA_SMALL,
+                                                ),
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              controller.dataList[index].notes,
                                               overflow: TextOverflow.ellipsis,
                                               style: cairoMedium.copyWith(
                                                 fontSize: AppDimensions.font(
