@@ -11,7 +11,6 @@ import 'package:Kitchen_system/view/base/custom_image.dart';
 import 'package:Kitchen_system/view/base/drop_down_widget.dart';
 import 'package:Kitchen_system/view/base/not_found.dart';
 import 'package:Kitchen_system/view/screens/attachments/controller/attachment_controller.dart';
-import 'package:file_icon/file_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -96,7 +95,7 @@ class AttachmentScreen extends StatelessWidget {
                                   shrinkWrap: true,
                                   itemCount: controller.files.length,
                                   itemBuilder: (_, index) =>
-                                      Container(margin: EdgeInsets.all(4),
+                                      Container(margin: const EdgeInsets.all(4),
                                         width: 100,
                                         height: 100,
                                         decoration: BoxDecoration(
@@ -129,7 +128,7 @@ class AttachmentScreen extends StatelessWidget {
                                   },
                                 )),
                           20.sBH,
-                          Divider(),
+                          const Divider(),
                           20.sBH,
                           const Text(
                             "بحث",

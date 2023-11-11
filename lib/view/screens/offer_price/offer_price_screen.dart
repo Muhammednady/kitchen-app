@@ -19,6 +19,7 @@ import 'package:Kitchen_system/view/base/not_found.dart';
 import 'package:Kitchen_system/view/screens/attachments/attachments_screen.dart';
 import 'package:Kitchen_system/view/screens/edit_price_details/edit_price_details.dart';
 import 'package:Kitchen_system/view/screens/followers/followers_screen.dart';
+import 'package:Kitchen_system/view/screens/notes/notes_screen.dart';
 import 'package:Kitchen_system/view/screens/offer_price/controller/offer_screen_controller.dart';
 import 'package:Kitchen_system/view/screens/price_details/price_details_screen.dart';
 import 'package:Kitchen_system/view/screens/status/status_screen.dart';
@@ -378,6 +379,11 @@ class OfferPriceScreen extends StatelessWidget {
                                                                               .datFilterList[index]
                                                                               .clientFileId,
                                                                         ));
+                                                                  }else if (i==5){
+                                                                    Get.to(() =>
+                                                                       NotesScreen(clientFileId: controller
+                                                                           .datFilterList[index]
+                                                                           .clientFileId!,));
                                                                   }
                                                                   // Get.to(() =>
                                                                   //     controller

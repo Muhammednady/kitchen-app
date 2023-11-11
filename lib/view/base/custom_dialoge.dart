@@ -1,6 +1,7 @@
 import 'package:Kitchen_system/utill/app_constants.dart';
 import 'package:Kitchen_system/utill/dimensions.dart';
 import 'package:Kitchen_system/utill/styles.dart';
+import 'package:Kitchen_system/view/base/custom_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -73,6 +74,23 @@ class DialogUtils {
               ));
         });
   }
+  static void showPhotoDialog({
+    required BuildContext context,
+    required String imgSrc,
+  }){
+    showDialog(
+        context: context,
+        builder: (_) {
+          return Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: SizedBox(
+                width: 300,
+                child: CustomImage( image: imgSrc,height:300 ,width: 300,),
+              ));
+        });
+  }
+
 
   static void showAnimatedDialog(BuildContext context, Widget dialog,
       {bool isFlip = false, bool dismissible = true}) {
@@ -156,6 +174,7 @@ class DialogUtils {
     );
     await alert.show();
   }
+
 
 
 }

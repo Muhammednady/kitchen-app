@@ -4,6 +4,7 @@ import 'package:Kitchen_system/utill/dimensions.dart';
 import 'package:Kitchen_system/utill/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -36,11 +37,11 @@ class CustomTextField extends StatefulWidget {
   final Widget? widget;
   final Widget? widgetPrefix;
   final bool? isValidator;
-  final String? validatorMessage;
+  final String validatorMessage;
 
   const CustomTextField({
     super.key,
-    this.hintText ,
+    this.hintText,
     this.controller,
     this.label,
     this.errorLabel,
@@ -64,7 +65,7 @@ class CustomTextField extends StatefulWidget {
     this.isShowPrefixIcon = false,
     this.onTap,
     this.isValidator = false,
-    this.validatorMessage,
+    this.validatorMessage='',
     this.isIcon = false,
     this.isPassword = false,
     this.suffixIconUrl,
@@ -92,7 +93,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     Dimensions.FONT_SIZE_EXTRA_SMALL,
                   ),
                 )),
-        TextField(
+        TextFormField(
           maxLines: widget.maxLines,
           controller: widget.controller,
           focusNode: widget.focusNode,
@@ -121,7 +122,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
           decoration: InputDecoration(
             contentPadding:
-                const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
             focusedBorder: widget.isShowBorder!
                 ? OutlineInputBorder(
                     borderRadius: BorderRadius.circular(9),
@@ -141,7 +142,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     borderSide: BorderSide.none,
                   ),
             isDense: true,
-            // hintText: widget.hintText,
+            hintText: widget.hintText,
             fillColor: widget.fillColor ?? Theme.of(context).cardColor,
             hintStyle: cairoMedium.copyWith(
               color: ColorResources.COLOR_GRAY,
@@ -183,12 +184,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         : widget.widget
                 : null,
           ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return widget.validatorMessage;
+            }
+            return null;
+          },
           onTap: widget.onTap,
-          onSubmitted: (text) => widget.nextFocus != null
-              ? FocusScope.of(context).requestFocus(widget.nextFocus)
-              : widget.onSubmit != null
-                  ? widget.onSubmit!(text)
-                  : null,
+          // onSubmitted: (text) => widget.nextFocus != null
+          //     ? FocusScope.of(context).requestFocus(widget.nextFocus)
+          //     : widget.onSubmit != null
+          //         ? widget.onSubmit!(text)
+          //         : null,
           onChanged: widget.onChanged,
         ),
         if (widget.errorLabel != null && widget.errorLabel!.isNotEmpty)

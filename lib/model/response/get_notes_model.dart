@@ -1,17 +1,17 @@
-class ClientFileAttachmentModel {
-  ClientFileAttachmentModel({
+class GetAllNotesModel {
+  GetAllNotesModel({
     this.message,
     this.data,
     this.isSucsseded,
     this.status,
   });
 
-  ClientFileAttachmentModel.fromJson(dynamic json) {
+  GetAllNotesModel.fromJson(dynamic json) {
     message = json['message'];
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        data?.add(AttachmentsData.fromJson(v));
+        data?.add(NotesData.fromJson(v));
       });
     }
     isSucsseded = json['isSucsseded'];
@@ -19,7 +19,7 @@ class ClientFileAttachmentModel {
   }
 
   String? message;
-  List<AttachmentsData>? data;
+  List<NotesData>? data;
   bool? isSucsseded;
   int? status;
 
@@ -35,36 +35,45 @@ class ClientFileAttachmentModel {
   }
 }
 
-class AttachmentsData {
-  AttachmentsData({
+class NotesData {
+  NotesData({
     this.id,
     this.attachmentPath,
     this.creationDate,
-    this.statusId,
-    this.statusName,
+    this.note,
+    this.createdBy,
   });
 
-  AttachmentsData.fromJson(dynamic json) {
+/*
+ {
+      "id": 128,
+      "attachmentPath": "a236d802-bd8b-4836-8609-6abbe0049f89_عرض.JPG",
+      "note": "hh",
+      "creationDate": "2023-11-11T15:14:06.91",
+      "createdBy": "admin"
+    },
+ */
+  NotesData.fromJson(dynamic json) {
     id = json['id'];
     attachmentPath = json['attachmentPath'];
     creationDate = json['creationDate'];
-    statusId = json['statusId'];
-    statusName = json['statusName'];
+    note = json['note'];
+    createdBy = json['createdBy'];
   }
 
   int? id;
   String? attachmentPath;
   String? creationDate;
-  int? statusId;
-  dynamic statusName;
+  String? note;
+  dynamic createdBy;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['attachmentPath'] = attachmentPath;
     map['creationDate'] = creationDate;
-    map['statusId'] = statusId;
-    map['statusName'] = statusName;
+    map['note'] = note;
+    map['createdBy'] = createdBy;
     return map;
   }
 }

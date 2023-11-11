@@ -9,47 +9,71 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../../../../model/body/attachment_model.dart';
+import '../../../../model/response/kitchen_model.dart';
+import '../../../../model/response/status_category_model.dart';
+
 class FollowerController extends BaseController {
   FollowerController({int? id}) {
     getAllFollowUp(id: id);
   }
 
   FollowUpModel? followUpModel;
+  TextEditingController followUpController = TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
   final data = <FollowList>[].obs;
   final services = FollowerServices();
+  final attachments = <AttachmentModel>[].obs;
+  StatusCategoryModel? statusCategoryModel;
+  final categories = <Statuses>[].obs;
+  final categorySelected = Statuses().obs;
+  final categoryFilterSelected = Statuses().obs;
   final path = "".obs;
   final note = "".obs;
-  final file = File("").obs;
+  final files = <File>[].obs;
   final loading = false.obs;
+  final loadingAttachment = false.obs;
 
   selectFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(allowMultiple: true, type: FileType.image);
 
     if (result != null) {
-      file.value = File(result.files.single.path!);
-      print(file.value);
-      path.value = file.value.path;
+      files.value = result.paths.map((path) => File(path!)).toList();
+      for (var element in files) {
+        attachments.add(AttachmentModel(
+            attachmentPath: element,
+            statusId: categorySelected.value.statusId));
+      }
     } else {
       // User canceled the picker
     }
   }
 
-  addFollowUp(BuildContext context, {int? clientFileId}) async {
-    if (file.value.path == "") {
-      showCustomSnackBar("يجب اختيار ملف", context);
-    } else {
-      loading.value = true;
-      await services.addClientFileFollowUp(
-          note: note.value, file: file.value, clientFileId: clientFileId);
-     await getAllFollowUp(id: clientFileId);
-      loading.value = false;
-    }
+  addFollowUp(BuildContext context, {int? clientFileId, required String note}) async {
+    loading.value = true;
+    await services.addClientFileFollowUp(
+        note: note, files: attachments, clientFileId: clientFileId);
+    attachments.clear();
+    files.clear();
+    await getAllFollowUp(id: clientFileId);
+    loading.value = false;
   }
 
   getAllFollowUp({int? id}) async {
     setState(ViewState.busy);
     followUpModel = await services.getFollowUp(clientFileId: id);
-    data.assignAll(followUpModel?.data??[]);
+    data.assignAll(followUpModel?.data ?? []);
     setState(ViewState.idle);
+  }
+
+  deleteFollowUp(BuildContext context,
+      {required int followUpId, required int clientFieldId}) async {
+    await services.deleteFollowUp(context: context, followUpId: followUpId);
+    loadingAttachment.value = true;
+    getAllFollowUp(id: clientFieldId);
+    Navigator.pop(context);
+    loadingAttachment.value = false;
   }
 }
