@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:Kitchen_system/enum/view_state.dart';
-import 'package:Kitchen_system/helper/configs/app_dimensions.dart';
 import 'package:Kitchen_system/helper/date_convert.dart';
 import 'package:Kitchen_system/utill/app_constants.dart';
 import 'package:Kitchen_system/utill/extension_sized_box.dart';
@@ -21,7 +20,8 @@ class AttachmentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AttachmentController(clientFileId: clientFileId));
+    final controller =
+        Get.put(AttachmentController(clientFileId: clientFileId));
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
@@ -29,13 +29,93 @@ class AttachmentScreen extends StatelessWidget {
               centerTitle: true,
               elevation: 0,
               leading: IconButton(
-                  onPressed: () {
-                    Get.back();
+                onPressed: () {
+                  Get.back();
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black,
+                ),
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () async {
+                    DialogUtils.showCustomDialog(
+                      context,
+                      actionButtonText: 'الغاء',
+                      leadingButtonLabel: 'اضافة',
+                      body: Column(
+                        children: [
+                          Obx(() => DropDownWidget(
+                            label: "تصنيف الملف",
+                            type: controller.categorySelected.value,
+                            list: controller.categories,
+                            onchange: (value) {
+                              controller.categorySelected.value = value!;
+                            },
+                          )),
+                          20.sBH,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                const Text(
+                                  "لاضافة صورة انقر هنا:",
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.black),
+                                ),
+                               const Spacer(),
+                                IconButton(
+                                  icon: const Icon(Icons.upload,
+                                      color: Colors.black, size: 35),
+                                  onPressed: () {
+                                    controller.selectFile();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 100,
+                            child: Obx(
+                                  () => controller.files.isEmpty
+                                  ? const SizedBox()
+                                  : ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  physics: const BouncingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: controller.files.length,
+                                  itemBuilder: (_, index) => Container(
+                                    margin: const EdgeInsets.all(4),
+                                    width: 100,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.circular(8),
+                                        border: Border.all(
+                                            color: Colors.grey)),
+                                    child: Image.file(
+                                      File(
+                                        controller.files[index].path,
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )),
+                            ),
+                          ),
+                          20.sBH,
+                        ],
+                      ),
+                      onTap: ()=> controller.addAttachments(
+                          clientFileId: clientFileId),
+                    );
                   },
                   icon: const Icon(
-                    Icons.arrow_back_ios,
+                    Icons.add,
                     color: Colors.black,
-                  )),
+                  ),
+                ),
+              ],
               title: const Text("المرفقات",
                   style: TextStyle(fontSize: 20, color: Colors.black)),
             ),
@@ -47,93 +127,6 @@ class AttachmentScreen extends StatelessWidget {
                   : SingleChildScrollView(
                       child: Column(
                         children: [
-                          const Text(
-                            "تفاصيل المرفق",
-                            style: TextStyle(color: Colors.black, fontSize: 18),
-                          ),
-                          20.sBH,
-                          Obx(() => DropDownWidget(
-                                label: "تصنيف الملف",
-                                type: controller.categorySelected.value,
-                                list: controller.categories,
-                                onchange: (value) {
-                                  controller.categorySelected.value = value!;
-                                },
-                              )),
-                          20.sBH,
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-
-                              children: [
-                                const Text(
-                                  "لاضافة صورة انقر هنا.",
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.black),
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.upload,
-                                      color: Colors.black, size: 35),
-                                  onPressed: () {
-                                    controller.selectFile();
-                                  },
-                                ),
-
-                              ],
-                            ),
-
-                          ),
-                          SizedBox(
-                            height: 100,
-                            child: Obx(
-                                  () => controller.files.isEmpty
-                                  ? const SizedBox()
-                                  : ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  physics:
-                                  const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: controller.files.length,
-                                  itemBuilder: (_, index) =>
-                                      Container(margin: const EdgeInsets.all(4),
-                                        width: 100,
-                                        height: 100,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(
-                                                8),
-                                            border: Border.all(
-                                                color: Colors.grey)),
-                                        child: Image.file(
-                                          File(
-                                            controller
-                                                .files[index].path,
-                                          ),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      )),
-                            ),
-                          ),
-                          20.sBH,
-                          Obx(() => controller.loading.value
-                              ? const Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : CustomButton(
-                                  width: AppDimensions.space(10),
-                                  buttonText: "اضافه",
-                                  onPressed: () {
-                                    controller.addAttachments(
-                                        clientFileId: clientFileId);
-                                  },
-                                )),
-                          20.sBH,
-                          const Divider(),
-                          20.sBH,
-                          const Text(
-                            "بحث",
-                            style: TextStyle(color: Colors.black, fontSize: 18),
-                          ),
                           20.sBH,
                           Obx(() => DropDownWidget(
                                 label: "تصنيف الملف",

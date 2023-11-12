@@ -25,7 +25,7 @@ class AttachmentService {
         MapEntry('model[$i].statusId', files[i].statusId.toString()),
       ]);
       formData.files.addAll([
-        MapEntry('model[$i].attachmentPath', file),
+        MapEntry('model[$i].AttachmentPath', file),
       ]);
     }
     final response = await dio!.put(AppConstants.addClientFileAttachment,

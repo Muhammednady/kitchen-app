@@ -14,8 +14,14 @@ class DialogUtils {
 
   factory DialogUtils() => _instance;
 
-  static void showCustomDialog(BuildContext context,
-      {Function()? onTap, String? label}) {
+  static void showCustomDialog(
+    BuildContext context, {
+    Function()? onTap,
+    String? label,
+    String? leadingButtonLabel,
+    String? actionButtonText,
+    Widget? body,
+  }) {
     showDialog(
         context: context,
         builder: (_) {
@@ -26,15 +32,16 @@ class DialogUtils {
                 width: 300,
                 child: Column(mainAxisSize: MainAxisSize.min, children: [
                   const SizedBox(height: 20),
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Theme.of(context).primaryColor,
-                    child: const Icon(Icons.contact_support, size: 50),
-                  ),
+                  body ??
+                      CircleAvatar(
+                        radius: 30,
+                        backgroundColor: Theme.of(context).primaryColor,
+                        child: const Icon(Icons.contact_support, size: 50),
+                      ),
                   Padding(
                     padding:
                         const EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
-                    child: Text(label!,
+                    child: Text(label ?? '',
                         style: cairoBold, textAlign: TextAlign.center),
                   ),
                   const Divider(height: 0, color: Colors.grey),
@@ -49,7 +56,7 @@ class DialogUtils {
                         decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(10))),
-                        child: Text(AppConstants.yes.tr,
+                        child: Text(leadingButtonLabel ?? AppConstants.yes.tr,
                             style: cairoBold.copyWith(
                                 color: Theme.of(context).primaryColor)),
                       ),
@@ -65,7 +72,7 @@ class DialogUtils {
                             color: Theme.of(context).primaryColor,
                             borderRadius: const BorderRadius.only(
                                 bottomRight: Radius.circular(10))),
-                        child: Text(AppConstants.no.tr,
+                        child: Text(actionButtonText ?? AppConstants.no.tr,
                             style: cairoBold.copyWith(color: Colors.white)),
                       ),
                     )),
@@ -74,10 +81,11 @@ class DialogUtils {
               ));
         });
   }
+
   static void showPhotoDialog({
     required BuildContext context,
     required String imgSrc,
-  }){
+  }) {
     showDialog(
         context: context,
         builder: (_) {
@@ -86,11 +94,14 @@ class DialogUtils {
                   borderRadius: BorderRadius.circular(10)),
               child: SizedBox(
                 width: 300,
-                child: CustomImage( image: imgSrc,height:300 ,width: 300,),
+                child: CustomImage(
+                  image: imgSrc,
+                  height: 300,
+                  width: 300,
+                ),
               ));
         });
   }
-
 
   static void showAnimatedDialog(BuildContext context, Widget dialog,
       {bool isFlip = false, bool dismissible = true}) {
@@ -174,7 +185,4 @@ class DialogUtils {
     );
     await alert.show();
   }
-
-
-
 }
