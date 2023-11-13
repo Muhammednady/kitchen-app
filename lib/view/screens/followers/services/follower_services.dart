@@ -20,8 +20,7 @@ class FollowerServices {
     try {
       FormData formData = FormData();
       if (files != null) {
-        final image =
-            await MultipartFile.fromFile(files[0].attachmentPath!.path);
+        final image = await MultipartFile.fromFile(files[0].attachmentPath!.path);
         formData.files.add(
           MapEntry('Attachment', image),
         );
