@@ -17,16 +17,16 @@ class AttachmentService {
     FormData formData = FormData.fromMap({});
 
     for (int i = 0; i < files!.length; i++) {
-      final fileBytes = await files[i].attachmentPath!.readAsBytes();
-      final file = MultipartFile.fromBytes(fileBytes,
-          filename: files[i].attachmentPath!.path.split("/").last);
+     // final fileBytes = await files[i].attachmentPath!.readAsBytes();
+      final image = await MultipartFile.fromFile(files[0].attachmentPath!.path);
 
-      formData.fields.addAll([
-        MapEntry('model[$i].statusId', files[i].statusId.toString()),
-      ]);
-      formData.files.addAll([
-        MapEntry('model[$i].AttachmentPath', file),
-      ]);
+
+      formData.fields.add(
+        MapEntry('statusId', files[i].statusId.toString()),
+      );
+      formData.files.add(
+        MapEntry('AttachmentPath', image),
+      );
     }
     final response = await dio!.put(AppConstants.addClientFileAttachment,
         data: formData, queryParameters: {"clientFileId": clientFileId});
