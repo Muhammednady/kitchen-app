@@ -41,6 +41,93 @@ class FollowersScreen extends StatelessWidget {
               )),
           title: const Text("المتابعات",
               style: TextStyle(fontSize: 20, color: Colors.black)),
+          actions: [IconButton(
+            onPressed: () async {
+              DialogUtils.showCustomDialog(
+                context,
+                actionButtonText: 'الغاء',
+                leadingButtonLabel: 'اضافة',
+                body: Column(
+                  children: [
+                    Form(
+                      key: controller.formKey,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: CustomTextField(
+                          maxLines: 4,
+                          hintText: 'اضافة متابعة',
+                          controller: controller.followUpController,
+                          validatorMessage: 'لا يجب ان تكون الملاحظة فارغة',
+                          //  errorLabel: 'لا يجب ان تكون الملاحظة فارغة',
+                        ),
+                      ),
+                    ),
+                    20.sBH,
+                    SizedBox(
+                      width: 180,
+                      child: TextButton(
+                        style:
+                        TextButton.styleFrom(side: const BorderSide()),
+                        onPressed: () {
+                          controller.selectFile();
+                        },
+                        child: const Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "اضافة مرفق",
+                              style: TextStyle(
+                                  fontSize: 18, color: Colors.black),
+                            ),
+                            Icon(Icons.upload,
+                                color: Colors.black, size: 30),
+                          ],
+                        ),
+                      ),
+                    ),
+                    10.sBH,
+                    SizedBox(
+                      height: controller.files.isEmpty ? 0 : 100,
+                      child: Obx(() => controller.files.isEmpty
+                          ? const SizedBox()
+                          : Container(
+                        margin: const EdgeInsets.all(4),
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Colors.grey)),
+                        child: Image.file(
+                          File(
+                            controller.files[0].path,
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      )),
+                    ),
+                    20.sBH,
+
+                  ],
+                ),
+                onTap: (){
+                  if (controller.formKey.currentState!
+                      .validate()) {
+                    log(controller.followUpController.text);
+                    controller.addFollowUp(context,
+                        clientFileId: clientFileId,
+                        note:
+                        controller.followUpController.text);
+                  }
+                }
+
+              );
+            },
+            icon: const Icon(
+              Icons.add,
+              color: Colors.black,
+            ),
+          ),],
         ),
         body: Obx(
           () => controller.state == ViewState.busy
@@ -56,88 +143,7 @@ class FollowersScreen extends StatelessWidget {
                         //   "تفاصيل المرفق",
                         //   style: TextStyle(color: Colors.black, fontSize: 18),
                         // ),
-                        30.sBH,
-                        Form(
-                          key: controller.formKey,
-                          child: CustomTextField(
-                            maxLines: 4,
-                            hintText: 'اضافة متابعة',
-                            controller: controller.followUpController,
-                            validatorMessage: 'لا يجب ان تكون الملاحظة فارغة',
-                            //  errorLabel: 'لا يجب ان تكون الملاحظة فارغة',
-                          ),
-                        ),
-                        20.sBH,
-                        SizedBox(
-                          width: 180,
-                          child: TextButton(
-                            style:
-                                TextButton.styleFrom(side: const BorderSide()),
-                            onPressed: () {
-                              controller.selectFile();
-                            },
-                            child: const Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "اضافة مرفق",
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.black),
-                                ),
-                                Icon(Icons.upload,
-                                    color: Colors.black, size: 30),
-                              ],
-                            ),
-                          ),
-                        ),
-                        10.sBH,
-                        SizedBox(
-                          height: controller.files.isEmpty ? 0 : 100,
-                          child: Obx(() => controller.files.isEmpty
-                              ? const SizedBox()
-                              : Container(
-                                  margin: const EdgeInsets.all(4),
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(color: Colors.grey)),
-                                  child: Image.file(
-                                    File(
-                                      controller.files[0].path,
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                )),
-                        ),
-                        20.sBH,
-                        Obx(() => controller.loading.value
-                            ? const Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : CustomButton(
-                                width: AppDimensions.space(10),
-                                buttonText: "اضافه",
-                                onPressed: () {
-                                  if (controller.formKey.currentState!
-                                      .validate()) {
-                                    log(controller.followUpController.text);
-                                    controller.addFollowUp(context,
-                                        clientFileId: clientFileId,
-                                        note:
-                                            controller.followUpController.text);
-                                  } // controller.addAttachments(
-                                  //     clientFileId: clientFileId);
-                                },
-                              )),
-                        20.sBH,
-                        const Divider(),
-                        20.sBH,
-                        const Text(
-                          "عرض",
-                          style: TextStyle(color: Colors.black, fontSize: 18),
-                        ),
+
                         20.sBH,
                         // Obx(() => DropDownWidget(
                         //       label: "تصنيف الملف",

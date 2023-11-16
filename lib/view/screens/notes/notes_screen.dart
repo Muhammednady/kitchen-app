@@ -47,29 +47,27 @@ class NotesScreen extends StatelessWidget {
                   )),
               title: const Text("الملاحظات",
                   style: TextStyle(fontSize: 20, color: Colors.black)),
-            ),
-            body: Obx(() => controller.state == ViewState.busy
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Column(
+              actions: [
+                IconButton(
+                  onPressed: () async {
+                    DialogUtils.showCustomDialog(
+                      context,
+                      actionButtonText: 'الغاء',
+                      leadingButtonLabel: 'اضافة',
+                      body: Column(
                         children: [
-                          // const Text(
-                          //   "تفاصيل المرفق",
-                          //   style: TextStyle(color: Colors.black, fontSize: 18),
-                          // ),
-                          30.sBH,
+                          20.sBH,
                           Form(
                             key: controller.formKey,
-                            child: CustomTextField(
-                              maxLines: 4,
-                              hintText: 'ادخل الملاحظة',
-                              controller: controller.noteController,
-                              validatorMessage: 'لا يجب ان تكون الملاحظة فارغة',
-                              //  errorLabel: 'لا يجب ان تكون الملاحظة فارغة',
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: CustomTextField(
+                                maxLines: 4,
+                                hintText: 'ادخل الملاحظة',
+                                controller: controller.noteController,
+                                validatorMessage: 'لا يجب ان تكون الملاحظة فارغة',
+                                //  errorLabel: 'لا يجب ان تكون الملاحظة فارغة',
+                              ),
                             ),
                           ),
                           20.sBH,
@@ -102,46 +100,75 @@ class NotesScreen extends StatelessWidget {
                             child: Obx(() => controller.files.isEmpty
                                 ? const SizedBox()
                                 : Container(
-                                    margin: const EdgeInsets.all(4),
-                                    width: 100,
-                                    height: 100,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        border: Border.all(color: Colors.grey)),
-                                    child: Image.file(
-                                      File(
-                                        controller.files[0].path,
-                                      ),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )),
+                              margin: const EdgeInsets.all(4),
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: Colors.grey)),
+                              child: Image.file(
+                                File(
+                                  controller.files[0].path,
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            )),
                           ),
                           20.sBH,
-                          Obx(() => controller.loading.value
-                              ? const Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : CustomButton(
-                                  width: AppDimensions.space(10),
-                                  buttonText: "اضافه",
-                                  onPressed: () {
-                                    if (controller.formKey.currentState!
-                                        .validate()) {
-                                      log(controller.noteController.text);
-                                      controller.addNotes(
-                                          clientFileId: clientFileId,
-                                          note: controller.noteController.text);
-                                    } // controller.addAttachments(
-                                    //     clientFileId: clientFileId);
-                                  },
-                                )),
-                          20.sBH,
-                          const Divider(),
-                          20.sBH,
-                          const Text(
-                            "عرض",
-                            style: TextStyle(color: Colors.black, fontSize: 18),
-                          ),
+                          // Obx(() => controller.loading.value
+                          //     ? const Center(
+                          //   child: CircularProgressIndicator(),
+                          // )
+                          //     : CustomButton(
+                          //   width: AppDimensions.space(10),
+                          //   buttonText: "اضافه",
+                          //   onPressed: () {
+                          //     if (controller.formKey.currentState!
+                          //         .validate()) {
+                          //       log(controller.noteController.text);
+                          //       controller.addNotes(
+                          //           clientFileId: clientFileId,
+                          //           note: controller.noteController.text);
+                          //     } // controller.addAttachments(
+                          //     //     clientFileId: clientFileId);
+                          //   },
+                          // )),
+                        ],
+                      ),
+                      onTap: (){
+                        if (controller.formKey.currentState!
+                            .validate()) {
+                          log(controller.noteController.text);
+                          controller.addNotes(
+                              clientFileId: clientFileId,
+                              note: controller.noteController.text);
+                        }
+                      }
+                      // onTap: ()=> controller.addAttachments(
+                      //     clientFileId: clientFileId),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.add,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+            body: Obx(() => controller.state == ViewState.busy
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Column(
+                        children: [
+                          // const Text(
+                          //   "تفاصيل المرفق",
+                          //   style: TextStyle(color: Colors.black, fontSize: 18),
+                          // ),
+
                           20.sBH,
                           // Obx(() => DropDownWidget(
                           //       label: "تصنيف الملف",
