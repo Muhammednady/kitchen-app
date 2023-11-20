@@ -27,23 +27,26 @@ class DropDownUsersWidget extends StatelessWidget {
         children: [
           Expanded(
             child: Text(label ?? "",
-                style: cairoRegular.copyWith(
-                  fontSize: AppDimensions.font(
-                    Dimensions.FONT_SIZE_EXTRA_SMALL,
-                  ),
-                )),
+                style:cairoBold.copyWith(
+                    color: Theme.of(context).primaryColor,
+                    fontSize:
+                    AppDimensions.font(Dimensions.FONT_SIZE_EXTRA_SMALL)),
+            ),
           ),
           5.sBW,
           Expanded(
             child: Material(
-              elevation: 1,
+              elevation: 0,
               borderRadius: BorderRadius.circular(8),
               shadowColor: ColorResources.CATEGORY_SHADOW,
               child: DropdownButtonFormField<UsersDataModel>(
                 isExpanded: true,
                 value: type,
+
                 onChanged: onchange,
                 decoration: InputDecoration(
+                  filled: true,
+                    fillColor: Theme.of(context).cardColor,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                     constraints: const BoxConstraints(maxHeight: 50),
                     border: OutlineInputBorder(

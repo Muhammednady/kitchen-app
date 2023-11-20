@@ -2,6 +2,7 @@ import 'package:Kitchen_system/controller/base_controller.dart';
 import 'package:Kitchen_system/utill/images.dart';
 import 'package:Kitchen_system/view/screens/contracts/contracts_screen.dart';
 import 'package:Kitchen_system/view/screens/offer_price/offer_price_screen.dart';
+import 'package:Kitchen_system/view/screens/payment/payment_screen.dart';
 import 'package:Kitchen_system/view/screens/production_requests/production_requests_screen.dart';
 import 'package:get/get.dart';
 
@@ -48,5 +49,10 @@ class HomeScreenController extends BaseController {
     ContractsScreen(),
     ProductionRequestsScreen(),
     ProductionRequestsScreen(),
+    ProductionRequestsScreen(),
+    ProductionRequestsScreen(),
+    ProductionRequestsScreen(),
+    PaymentScreen(),
+
   ];
 }

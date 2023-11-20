@@ -27,14 +27,16 @@ class CustomRowTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     AppSetting.init(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 30),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+
         children: [
           Expanded(
             flex: 1,
             child: Text(
               label!,
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.start,
               style: cairoBold.copyWith(
                   color: Theme.of(context).primaryColor,
                   fontSize:

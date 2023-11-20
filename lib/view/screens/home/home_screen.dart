@@ -4,6 +4,7 @@ import 'package:Kitchen_system/utill/dimensions.dart';
 import 'package:Kitchen_system/utill/images.dart';
 import 'package:Kitchen_system/utill/styles.dart';
 import 'package:Kitchen_system/view/screens/home/controller/home_controller.dart';
+import 'package:Kitchen_system/view/screens/notifications/notitfication_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,9 +24,14 @@ class HomeScreen extends StatelessWidget {
           leadingWidth: AppDimensions.space(4),
           leading: Row(
             children: [
-              Image.asset(
-                Images.notificationIcon,
-                width: AppDimensions.space(2),
+              InkWell(
+                onTap: (){
+                  Get.to(const NotificationScreen());
+                },
+                child: Image.asset(
+                  Images.notificationIcon,
+                  width: AppDimensions.space(2),
+                ),
               ),
               Image.asset(
                 Images.settingIcon,
