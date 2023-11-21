@@ -67,7 +67,7 @@ class PaymentScreen extends StatelessWidget {
                     Expanded(
                       child: CustomRowTextField(
                         label: "الزبون",
-                        type: TextInputType.number,
+                        type: TextInputType.text,
                         onSubmit: (v) {
                           // controller.items.add(Items(
                           //   itemCount: int.parse(v ?? "0"),
@@ -173,7 +173,7 @@ class PaymentScreen extends StatelessWidget {
                     Expanded(
                       child: CustomRowTextField(
                          label: "ملاحظات",
-                        type: TextInputType.number,
+                        type: TextInputType.text,
                         onSubmit: (v) {
                           // controller.items.add(Items(
                           //   itemCount: int.parse(v ?? "0"),
