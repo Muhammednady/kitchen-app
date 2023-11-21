@@ -200,21 +200,23 @@ class PaymentScreen extends StatelessWidget {
                           },
                         ),
                       ),
-                    ), 
+                    ),
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: DropDownUsersWidget(
-                      label: "مندوب المبيعات",
-                      type: controller.userSelected.value,
-                      list: controller.usersList,
-                      onchange: (value) {
-                        // controller.userSelected.value = value!;
-                        // controller.userSelectedFilter.value =
-                        // controller.userSelected.value.id!;
-                        // controller.getShortClient();
-                      },
-                        ),
+                  child: Obx(()=>
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: DropDownUsersWidget(
+                        label: "مندوب المبيعات",
+                        type: controller.userSelected.value,
+                        list: controller.usersList,
+                        onchange: (value) {
+                          controller.userSelected.value = value!;
+                          controller.userSelectedFilter.value =
+                          controller.userSelected.value.id!;
+                           controller.getShortClient();
+                        },
+                          ),
+                    ),
                   ),
                 ),
                     32.sBH,
