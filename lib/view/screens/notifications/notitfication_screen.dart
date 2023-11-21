@@ -6,7 +6,7 @@ import '../../../helper/configs/app_dimensions.dart';
 import '../../../utill/dimensions.dart';
 import '../../../utill/styles.dart';
 
-enum groupValue { first, second }
+enum GroupValue { first, second }
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -51,9 +51,9 @@ class NotificationScreen extends StatelessWidget {
                         minLeadingWidth: 0,
                         title: const Text('     تم مشاهدته'),
                         trailing: Radio(
-                          value: groupValue.first,
-                          groupValue: groupValue.first,
-                          onChanged: (groupValue? value) {},
+                          value: GroupValue.first,
+                          groupValue: GroupValue.first,
+                          onChanged: (GroupValue? value) {},
                         ),
                       ),
                     ),
@@ -64,9 +64,9 @@ class NotificationScreen extends StatelessWidget {
                         minLeadingWidth: 0,
                         title: const Text('لم يتم مشاهدته'),
                         trailing: Radio(
-                          value: groupValue.second,
-                          groupValue: groupValue.first,
-                          onChanged: (groupValue? value) {},
+                          value: GroupValue.second,
+                          groupValue: GroupValue.first,
+                          onChanged: (GroupValue? value) {},
                         ),
                       ),
                     ),
