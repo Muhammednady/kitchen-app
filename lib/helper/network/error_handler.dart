@@ -1,7 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:Kitchen_system/utill/app_constants.dart';
 import 'package:Kitchen_system/view/base/custom_snackbar.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../view/screens/login/login_screen.dart';
+import '../cache_helper.dart';
 
 class HandleError {
   static handleException({int? response, String? error}) {
@@ -13,6 +17,12 @@ class HandleError {
       case 401:
         showCustomSnackBar(
             isError: true, AppConstants.unauthorized.tr, Get.context!);
+        CacheHelper.removeData(key:AppConstants.token);
+        Navigator.pushAndRemoveUntil(
+            Get.context!,
+            MaterialPageRoute(
+                builder: (_) => const LoginScreen()),
+                (route) => false);
         break;
       case 404:
         showCustomSnackBar(
