@@ -12,6 +12,7 @@ import '../../../../utill/images.dart';
 import '../../contracts/contracts_screen.dart';
 import '../../followers/followers_screen.dart';
 import '../../home/home_screen.dart';
+import '../../maintenance/maintenance_screen.dart';
 import '../../offer_price/controller/offer_screen_controller.dart';
 import '../../offer_price/offer_price_screen.dart';
 import '../../offer_price/services/offer_services.dart';
@@ -55,7 +56,9 @@ class ProductionRequestsController extends BaseController {
     "سندات القبض",
     "التقارير",
     "توصيلات صحية",
-    "النواقص"
+    "النواقص",
+    'تسجيل الخروج'
+
   ];
   final labelsCard = [
     "طباعة",
@@ -63,7 +66,8 @@ class ProductionRequestsController extends BaseController {
     "تراجع",
     "متابعات",
     "مرافقات",
-    "ملاحظات"
+    "ملاحظات",
+
   ];
   final imagesCard = [
     Images.print,
@@ -88,7 +92,7 @@ class ProductionRequestsController extends BaseController {
     Images.sanad,
     Images.report,
     Images.health,
-    Images.filter
+    Images.filter,   Images.logout
   ];
   final screens = const [
     HomeScreen(),
@@ -97,6 +101,7 @@ class ProductionRequestsController extends BaseController {
     OfferPriceScreen(),
     ContractsScreen(),
     ProductionRequestsScreen(),
+    MaintenanceScreen(),
   ];
 
   @override

@@ -11,6 +11,7 @@ import '../../../model/response/user_ids_model.dart';
 import '../../../utill/images.dart';
 import '../contracts/contracts_screen.dart';
 import '../home/home_screen.dart';
+import '../maintenance/maintenance_screen.dart';
 import '../offer_price/controller/offer_screen_controller.dart';
 import '../offer_price/offer_price_screen.dart';
 import '../production_requests/production_requests_screen.dart';
@@ -55,7 +56,9 @@ class PaymentController extends BaseController {
     "سندات القبض",
     "التقارير",
     "توصيلات صحية",
-    "النواقص"
+    "النواقص",
+    'تسجيل الخروج'
+
   ];
   final labelsCard = [
     "طباعة",
@@ -89,7 +92,8 @@ class PaymentController extends BaseController {
     Images.sanad,
     Images.report,
     Images.health,
-    Images.filter
+    Images.filter,
+    Images.logout
   ];
   final screens = const [
     HomeScreen(),
@@ -98,7 +102,7 @@ class PaymentController extends BaseController {
     OfferPriceScreen(),
     ContractsScreen(),
     ProductionRequestsScreen(),
-    ProductionRequestsScreen(),
+    MaintenanceScreen(),
     ProductionRequestsScreen(),
     ProductionRequestsScreen(),
     ProductionRequestsScreen(),

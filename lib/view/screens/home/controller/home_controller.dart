@@ -6,6 +6,8 @@ import 'package:Kitchen_system/view/screens/payment/payment_screen.dart';
 import 'package:Kitchen_system/view/screens/production_requests/production_requests_screen.dart';
 import 'package:get/get.dart';
 
+import '../../maintenance/maintenance_screen.dart';
+
 class HomeScreenController extends BaseController {
   static HomeScreenController to = Get.find();
   final selected = 0.obs;
@@ -23,7 +25,8 @@ class HomeScreenController extends BaseController {
     "سندات القبض",
     "التقارير",
     "توصيلات صحية",
-    "النواقص"
+    "النواقص",
+    'تسجيل الخروج'
   ];
   final images = [
   //  Images.home,
@@ -39,7 +42,8 @@ class HomeScreenController extends BaseController {
     Images.sanad,
     Images.report,
     Images.health,
-    Images.filter
+    Images.filter,
+    Images.logout
   ];
   final screens = const [
    // HomeScreen(),
@@ -48,7 +52,7 @@ class HomeScreenController extends BaseController {
     ContractsScreen(),
     ContractsScreen(),
     ProductionRequestsScreen(),
-    ProductionRequestsScreen(),
+    MaintenanceScreen(),
     ProductionRequestsScreen(),
     ProductionRequestsScreen(),
     ProductionRequestsScreen(),

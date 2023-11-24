@@ -1,7 +1,6 @@
 import 'package:Kitchen_system/controller/base_controller.dart';
 import 'package:Kitchen_system/enum/view_state.dart';
 import 'package:Kitchen_system/model/response/data_filter_model.dart';
-import 'package:Kitchen_system/model/response/data_filter_model.dart';
 import 'package:Kitchen_system/model/response/details_offer_prices_model.dart';
 import 'package:Kitchen_system/model/response/item_model.dart';
 import 'package:Kitchen_system/model/response/kitchen_model.dart';
@@ -16,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../contracts/contracts_screen.dart';
+import '../../maintenance/maintenance_screen.dart';
 import '../../production_requests/production_requests_screen.dart';
 
 class OfferScreenController extends BaseController {
@@ -55,7 +55,9 @@ class OfferScreenController extends BaseController {
     "سندات القبض",
     "التقارير",
     "توصيلات صحية",
-    "النواقص"
+    "النواقص",
+    'تسجيل الخروج'
+
   ];
   final labelsCard = [
     "طباعة",
@@ -88,7 +90,8 @@ class OfferScreenController extends BaseController {
     Images.sanad,
     Images.report,
     Images.health,
-    Images.filter
+    Images.filter,
+    Images.logout
   ];
   final screens = const [
     HomeScreen(),
@@ -97,6 +100,8 @@ class OfferScreenController extends BaseController {
     OfferPriceScreen(),
     ContractsScreen(),
     ProductionRequestsScreen(),
+    MaintenanceScreen(),
+
   ];
 
   @override

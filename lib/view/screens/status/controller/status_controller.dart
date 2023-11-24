@@ -9,6 +9,7 @@ import '../../../../model/response/kitchen_model.dart';
 import '../../../../utill/images.dart';
 import '../../contracts/contracts_screen.dart';
 import '../../home/home_screen.dart';
+import '../../maintenance/maintenance_screen.dart';
 import '../../offer_price/controller/offer_screen_controller.dart';
 import '../../offer_price/offer_price_screen.dart';
 import '../../offer_price/services/offer_services.dart';
@@ -51,7 +52,8 @@ class StatusController extends BaseController {
     "سندات القبض",
     "التقارير",
     "توصيلات صحية",
-    "النواقص"
+    "النواقص",
+    'تسجيل الخروج'
   ];
   final List<String> titles = [
     'ملاحظات',
@@ -77,7 +79,7 @@ class StatusController extends BaseController {
     Images.sanad,
     Images.report,
     Images.health,
-    Images.filter
+    Images.filter,   Images.logout
   ];
   final screens = const [
     HomeScreen(),
@@ -86,6 +88,7 @@ class StatusController extends BaseController {
     ContractsScreen(),
     ContractsScreen(),
     ProductionRequestsScreen(),
+    MaintenanceScreen(),
   ];
 
   getAllStatuses(int id) async {

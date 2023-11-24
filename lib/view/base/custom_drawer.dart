@@ -2,11 +2,14 @@ import 'package:Kitchen_system/helper/configs/app_dimensions.dart';
 import 'package:Kitchen_system/utill/dimensions.dart';
 import 'package:Kitchen_system/utill/extension_sized_box.dart';
 import 'package:Kitchen_system/utill/styles.dart';
-import 'package:Kitchen_system/view/screens/home/controller/home_controller.dart';
-import 'package:Kitchen_system/view/screens/offer_price/offer_price_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../helper/cache_helper.dart';
+import '../../utill/app_constants.dart';
+import '../screens/login/login_screen.dart';
+
+// ignore: must_be_immutable
 class CustomDrawer extends StatelessWidget {
   CustomDrawer(
       {super.key,
@@ -45,10 +48,19 @@ class CustomDrawer extends StatelessWidget {
                 itemCount: controller.labelsList.length,
                 itemBuilder: (ctx, index) => Obx(() => GestureDetector(
                       onTap: () {
-                        controller.selected.value = index;
-                        controller.selected.value = index;
-                        scaffoldKey.currentState?.openEndDrawer();
-                        Get.to(controller.screens[index]);
+                        if (index == controller.labelsList.length-1) {
+                          CacheHelper.removeData(key:AppConstants.token);
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => const LoginScreen()),
+                              (route) => false);
+                        } else {
+                          controller.selected.value = index;
+                          controller.selected.value = index;
+                          scaffoldKey.currentState?.openEndDrawer();
+                          Get.to(controller.screens[index]);
+                        }
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(

@@ -9,7 +9,7 @@ import 'package:Kitchen_system/view/base/custom_dialoge.dart';
 import 'package:Kitchen_system/view/base/custom_image.dart';
 import 'package:Kitchen_system/view/base/drop_down_widget.dart';
 import 'package:Kitchen_system/view/base/not_found.dart';
-import 'package:Kitchen_system/view/screens/attachments/controller/attachment_controller.dart';
+import '../attachments/controller/attachment_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -47,13 +47,13 @@ class AttachmentScreen extends StatelessWidget {
                       body: Column(
                         children: [
                           Obx(() => DropDownWidget(
-                            label: "تصنيف الملف",
-                            type: controller.categorySelected.value,
-                            list: controller.categories,
-                            onchange: (value) {
-                              controller.categorySelected.value = value!;
-                            },
-                          )),
+                                label: "تصنيف الملف",
+                                type: controller.categorySelected.value,
+                                list: controller.categories,
+                                onchange: (value) {
+                                  controller.categorySelected.value = value!;
+                                },
+                              )),
                           20.sBH,
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -64,7 +64,7 @@ class AttachmentScreen extends StatelessWidget {
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.black),
                                 ),
-                               const Spacer(),
+                                const Spacer(),
                                 IconButton(
                                   icon: const Icon(Icons.upload,
                                       color: Colors.black, size: 35),
@@ -78,36 +78,36 @@ class AttachmentScreen extends StatelessWidget {
                           SizedBox(
                             height: 100,
                             child: Obx(
-                                  () => controller.files.isEmpty
+                              () => controller.files.isEmpty
                                   ? const SizedBox()
                                   : ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: controller.files.length,
-                                  itemBuilder: (_, index) => Container(
-                                    margin: const EdgeInsets.all(4),
-                                    width: 100,
-                                    height: 100,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(8),
-                                        border: Border.all(
-                                            color: Colors.grey)),
-                                    child: Image.file(
-                                      File(
-                                        controller.files[index].path,
-                                      ),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )),
+                                      scrollDirection: Axis.horizontal,
+                                      physics: const BouncingScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: controller.files.length,
+                                      itemBuilder: (_, index) => Container(
+                                            margin: const EdgeInsets.all(4),
+                                            width: 100,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                border: Border.all(
+                                                    color: Colors.grey)),
+                                            child: Image.file(
+                                              File(
+                                                controller.files[index].path,
+                                              ),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          )),
                             ),
                           ),
                           20.sBH,
                         ],
                       ),
-                      onTap: ()=> controller.addAttachments(
-                          clientFileId: clientFileId),
+                      onTap: () =>
+                          controller.addAttachments(clientFileId: clientFileId),
                     );
                   },
                   icon: const Icon(
@@ -143,71 +143,78 @@ class AttachmentScreen extends StatelessWidget {
                                       clientFileId: clientFileId);
                                 },
                               )),
-                          Obx(() => controller.loadingAttachment.value
-                              ? const Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : controller.attachmentsFilter.isEmpty
-                                  ? const NotFound(label: "لا توجد معلومات")
-                                  : ListView.builder(
-                                      itemCount:
-                                          controller.attachmentsFilter.length,
-                                      physics: const BouncingScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemBuilder: (_, index) => Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Card(
-                                              elevation: 1,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8)),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  CustomImage(
-                                                      height: 120,
-                                                      width: 120,
-                                                      image:
-                                                          "${AppConstants.baseurlImages}${controller.attachmentsFilter[index].attachmentPath}"),
-                                                  Text(
-                                                      "تاريخ الرفع:${DateConverter.isoStringToLocalDateOnly(controller.attachmentsFilter[index].creationDate ?? "")}"),
-                                                  Text(
-                                                      "التصنيف:${controller.attachmentsFilter[index].statusName}"),
-                                                  Row(
-                                                    children: [
-                                                      CustomButton(
-                                                        buttonText: "حذف",
-                                                        width: 80,
-                                                        height: 30,
-                                                        onPressed: () {
-                                                          DialogUtils
-                                                              .showCustomDialog(
-                                                                  context,
-                                                                  label:
-                                                                      "هل تريد الحذف ؟",
-                                                                  onTap: () {
-                                                            controller.deleteAttachment(
-                                                                context,
-                                                                attachmentId: controller
-                                                                    .attachmentsFilter[
-                                                                        index]
-                                                                    .id,
-                                                                clientFileId:
-                                                                    clientFileId,
-                                                                statusId: controller
-                                                                    .categoryFilterSelected
-                                                                    .value
-                                                                    .statusId);
-                                                          });
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
+                          Obx(
+                            () => controller.loadingAttachment.value
+                                ? const Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : controller.attachmentsFilter.isEmpty
+                                    ? const NotFound(label: "لا توجد معلومات")
+                                    : ListView.builder(
+                                        itemCount:
+                                            controller.attachmentsFilter.length,
+                                        physics: const BouncingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemBuilder: (_, index) => Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Card(
+                                            elevation: 1,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                CustomImage(
+                                                    height: 120,
+                                                    width: 120,
+                                                    image:
+                                                        "${AppConstants.baseurlImages}${controller.attachmentsFilter[index].attachmentPath}"),
+                                                Text(
+                                                    "تاريخ الرفع:${DateConverter.isoStringToLocalDateOnly(controller.attachmentsFilter[index].creationDate ?? "")}"),
+                                                Text(
+                                                    "التصنيف:${controller.attachmentsFilter[index].statusName}"),
+                                                Row(
+                                                  children: [
+                                                    CustomButton(
+                                                      buttonText: "حذف",
+                                                      width: 80,
+                                                      height: 30,
+                                                      onPressed: () {
+                                                        DialogUtils
+                                                            .showCustomDialog(
+                                                          context,
+                                                          label:
+                                                              "هل تريد الحذف ؟",
+                                                          onTap: () {
+                                                            controller
+                                                                .deleteAttachment(
+                                                              context,
+                                                              attachmentId:
+                                                                  controller
+                                                                      .attachmentsFilter[
+                                                                          index]
+                                                                      .id,
+                                                              clientFileId:
+                                                                  clientFileId,
+                                                              statusId: controller
+                                                                  .categoryFilterSelected
+                                                                  .value
+                                                                  .statusId,
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
-                                          )))
+                                          ),
+                                        ),
+                                      ),
+                          ),
                         ],
                       ),
                     ),
