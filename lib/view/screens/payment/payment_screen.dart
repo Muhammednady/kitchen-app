@@ -70,103 +70,98 @@ class PaymentScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           20.sBH,
-                          Expanded(
-                            child: Padding(
+                          Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal:
-                                          Dimensions.PADDING_SIZE_SMALL),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          "الزبون",
-                                          style: cairoBold.copyWith(
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                              fontSize: AppDimensions.font(
-                                                  Dimensions
-                                                      .FONT_SIZE_EXTRA_SMALL)),
+                                    horizontal: Dimensions.PADDING_SIZE_SMALL),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        "الزبون",
+                                        style: cairoBold.copyWith(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontSize: AppDimensions.font(
+                                                Dimensions
+                                                    .FONT_SIZE_EXTRA_SMALL)),
+                                      ),
+                                    ),
+                                    5.sBW,
+                                    Expanded(
+                                      child: Material(
+                                        elevation: 0,
+                                        borderRadius: BorderRadius.circular(8),
+                                        shadowColor:
+                                            ColorResources.CATEGORY_SHADOW,
+                                        child: DropdownButtonFormField<Clients>(
+                                          isExpanded: true,
+                                          value:
+                                              controller.clientsSelected.value,
+                                          onChanged: (value) {
+                                            controller.clientsSelected.value =
+                                                value!;
+                                            CacheHelper.saveData(
+                                                key: AppConstants.clientId,
+                                                value: controller
+                                                    .clientsSelected
+                                                    .value
+                                                    .clientId);
+                                            controller.getClientsPayment(
+                                                controller.clientsSelected.value
+                                                    .clientId!);
+                                            controller.loading.value = false;
+                                          },
+                                          decoration: InputDecoration(
+                                              filled: true,
+                                              fillColor:
+                                                  Theme.of(context).cardColor,
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              constraints: const BoxConstraints(
+                                                  maxHeight: 50),
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  borderSide: BorderSide.none)),
+                                          items: controller.clientsList
+                                              .map<DropdownMenuItem<Clients>>(
+                                                  (Clients type) {
+                                            return DropdownMenuItem<Clients>(
+                                              value: type,
+                                              child:
+                                                  Text(type.clientName ?? ""),
+                                            );
+                                          }).toList(),
                                         ),
                                       ),
-                                      5.sBW,
-                                      Expanded(
-                                        child: Material(
-                                          elevation: 0,
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          shadowColor:
-                                              ColorResources.CATEGORY_SHADOW,
-                                          child:
-                                              DropdownButtonFormField<Clients>(
-                                            isExpanded: true,
-                                            value: controller
-                                                .clientsSelected.value,
-                                            onChanged: (value) {
-                                              controller.clientsSelected.value =
-                                                  value!;
-                                              CacheHelper.saveData(
-                                                  key: AppConstants.clientId,
-                                                  value: controller
-                                                      .clientsSelected
-                                                      .value
-                                                      .clientId);
-                                              controller.loading.value = false;
-                                            },
-                                            decoration: InputDecoration(
-                                                filled: true,
-                                                fillColor:
-                                                    Theme.of(context).cardColor,
-                                                contentPadding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 10),
-                                                constraints:
-                                                    const BoxConstraints(
-                                                        maxHeight: 50),
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                    borderSide:
-                                                        BorderSide.none)),
-                                            items: controller.clientsList
-                                                .map<DropdownMenuItem<Clients>>(
-                                                    (Clients type) {
-                                              return DropdownMenuItem<Clients>(
-                                                value: type,
-                                                child:
-                                                    Text(type.clientName ?? ""),
-                                              );
-                                            }).toList(),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                                /*
-                                Obx(() => CustomDropDownClients(
-                            type: controller.clientsSelected.value,
-                            list: controller.clientsList,
-                            onchange: (value) {
-                              controller.clientsSelected.value = value!;
-                              CacheHelper.saveData(
-                                  key: AppConstants.clientId,
-                                  value: controller
-                                      .clientsSelected.value.clientId);
-                              controller.loading.value = false;
-                            },
-                          )),
-                               */
+                                    ),
+                                  ],
                                 ),
-                          ),
-                          const Expanded(
+                              )
+                              /*
+                              Obx(() => CustomDropDownClients(
+                          type: controller.clientsSelected.value,
+                          list: controller.clientsList,
+                          onchange: (value) {
+                            controller.clientsSelected.value = value!;
+                            CacheHelper.saveData(
+                                key: AppConstants.clientId,
+                                value: controller
+                                    .clientsSelected.value.clientId);
+                            controller.loading.value = false;
+                          },
+                          )),
+                             */
+                              ),
+                          Expanded(
                             child: CustomRowTextField(
                               label: "الاجمالي",
+                              controller: controller.amountController,
                               type: TextInputType.number,
                               // onSubmit: (v) {
                               //   // controller.items.add(Items(
@@ -179,10 +174,11 @@ class PaymentScreen extends StatelessWidget {
                               // },
                             ),
                           ),
-                          const Expanded(
+                          Expanded(
                             child: CustomRowTextField(
                               label: "المدفوع",
                               type: TextInputType.number,
+                              controller: controller.paidController,
                               // onSubmit: (v) {
                               //   // controller.items.add(Items(
                               //   //   itemCount: int.parse(v ?? "0"),
@@ -194,8 +190,9 @@ class PaymentScreen extends StatelessWidget {
                               // },
                             ),
                           ),
-                          const Expanded(
+                          Expanded(
                             child: CustomRowTextField(
+                              controller: controller.remainingController,
                               label: "المتبقي",
                               type: TextInputType.number,
                               // onSubmit: (v) {
@@ -299,8 +296,13 @@ class PaymentScreen extends StatelessWidget {
                                           child:
                                               DropdownButtonFormField<String>(
                                             isExpanded: true,
-                                            value: controller.paymentMethods[0],
-                                            onChanged: (_) {},
+                                            hint:
+                                                const Text('اختر طريقه الدفع '),
+                                            value: controller.selectedPayment,
+                                            onChanged: (value) {
+                                              controller.selectedPayment =
+                                                  value;
+                                            },
                                             decoration: InputDecoration(
                                                 filled: true,
                                                 fillColor:
@@ -332,11 +334,58 @@ class PaymentScreen extends StatelessWidget {
                                   ),
                                 )),
                           ),
+                          Visibility(
+                              visible: controller.selectedPayment ==
+                                  controller.paymentMethods[1],
+                              child: Column(
+                                children: [
+                                  5.sBH,
+                                  CustomRowTextField(
+                                    isDisable: true,
+                                    label: "تاريخ الشيك",
+                                    controller: controller.dateController,
+                                    onTap: () {
+                                      controller.selectDate(context);
+                                    },
+                                    // type: TextInputType.number,
+                                  ),
+                                  5.sBH,
+                                  const CustomRowTextField(
+                                    label: "رقم الشيك",
+                                    type: TextInputType.number,
+                                    // onSubmit: (v) {
+                                    //   // controller.items.add(Items(
+                                    //   //   itemCount: int.parse(v ?? "0"),
+                                    //   //   itemTypeId: 4,
+                                    //   //   // categoryId: controller.data?.data
+                                    //   //   //     ?.garanet?.statusCategoryId,
+                                    //   //   itemId: controller.garanetSelected.value.statusId,
+                                    //   // ));
+                                    // },
+                                  ),
+                                  5.sBH,
+                                  const CustomRowTextField(
+                                    label: "اسم الساحب",
+                                    type: TextInputType.text,
+                                    // onSubmit: (v) {
+                                    //   // controller.items.add(Items(
+                                    //   //   itemCount: int.parse(v ?? "0"),
+                                    //   //   itemTypeId: 4,
+                                    //   //   // categoryId: controller.data?.data
+                                    //   //   //     ?.garanet?.statusCategoryId,
+                                    //   //   itemId: controller.garanetSelected.value.statusId,
+                                    //   // ));
+                                    // },
+                                  ),
+                                  5.sBH,
+                                ],
+                              )),
                           Expanded(
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: DropDownUsersWidget(
+                                hint: 'اختر مندوب المبيعات',
                                 label: "مندوب المبيعات",
                                 type: controller.userSelected.value,
                                 list: controller.usersList,

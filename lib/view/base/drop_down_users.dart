@@ -10,12 +10,13 @@ import 'package:flutter/material.dart';
 
 class DropDownUsersWidget extends StatelessWidget {
   const DropDownUsersWidget(
-      {Key? key, this.type, this.list, this.onchange, this.label = ""})
+      {Key? key, this.type, this.list, this.onchange, this.label = "", this.hint= ''})
       : super(key: key);
   final UsersDataModel? type;
   final List<UsersDataModel>? list;
   final Function(UsersDataModel?)? onchange;
   final String? label;
+  final String?hint;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +45,7 @@ class DropDownUsersWidget extends StatelessWidget {
                 value: type,
 
                 onChanged: onchange,
+                hint: Text(hint!),
                 decoration: InputDecoration(
                   filled: true,
                     fillColor: Theme.of(context).cardColor,
