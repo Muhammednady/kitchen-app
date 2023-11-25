@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:Kitchen_system/controller/base_controller.dart';
 import 'package:Kitchen_system/view/screens/payment/payment_screen.dart';
 import 'package:Kitchen_system/view/screens/payment/payment_service.dart';
@@ -9,6 +11,7 @@ import 'package:intl/intl.dart';
 import '../../../enum/view_state.dart';
 import '../../../model/response/client_emails_model.dart';
 import '../../../model/response/data_filter_model.dart';
+import '../../../model/response/get_clients_payment.dart';
 import '../../../model/response/item_model.dart';
 import '../../../model/response/kitchen_model.dart';
 import '../../../model/response/user_ids_model.dart';
@@ -23,15 +26,16 @@ import '../production_requests/production_requests_screen.dart';
 class PaymentController extends BaseController {
   UserIdsModel? userIdsModel;
   ItemModel? itemModel;
-
+  ClientPaymentModel? clientPayment;
   final usersList = <UsersDataModel>[].obs;
   final itemList = <Statuses>[].obs;
   final paymentMethods = ['Cash', 'check'];
+String ? selectedPayment;
   final userSelected = UsersDataModel().obs;
   final itemSelected = Statuses().obs;
   DataFilterModel? dataFilterModel;
   final datFilterList = <DataFilter>[].obs;
-  final loading = false.obs;
+  var loading = false.obs;
 
   // DetailsOfferPricesModel? detailsOfferPricesModel;
   final itemSelectedFilter = 0.obs;
@@ -123,6 +127,7 @@ class PaymentController extends BaseController {
     userIdsModel = await services.getAllUsers();
     await userList();
     await getClients();
+    //await getClientsPayment(1);
     setState(ViewState.idle);
   }
 
@@ -188,9 +193,20 @@ class PaymentController extends BaseController {
     clientsList.assignAll(clientEmailsModel?.data ?? []);
     clientsSelected.value = clientsList[0];
   }
+  getClientsPayment(int clientId)async{
+    loading = true.obs;
+    clientPayment = await services.getClientsPayment(clientId);
+    paidController.text = clientPayment!.data!.paid.toString();
+    amountController.text = clientPayment!.data!.amount.toString();
+    remainingController.text = clientPayment!.data!.remaining.toString();
+    loading = false.obs;
+  }
 
   DateTime? selectedDate;
   final dateController = TextEditingController();
+  final paidController = TextEditingController();
+  final amountController = TextEditingController();
+  final remainingController = TextEditingController();
 
   Future selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
