@@ -75,19 +75,19 @@ class EditPriceDetailsScreen extends StatelessWidget {
                                   },
                                 ))),
                         AppDimensions.space(Dimensions.heightSmall).sBW,
-                        Expanded(
+                        const Expanded(
                             child: CustomRowTextField(
                           label: "العدد",
                           type: TextInputType.number,
-                          onSubmit: (v) {
-                            controller.items.add(Items(
-                              itemCount: int.parse(v ?? "0"),
-                              itemTypeId: 4,
-                              // categoryId: controller.data?.data
-                              //     ?.garanet?.statusCategoryId,
-                              itemId: controller.garanetSelected.value.statusId,
-                            ));
-                          },
+                          // onSubmit: (v) {
+                          //   controller.items.add(Items(
+                          //     itemCount: int.parse(v ?? "0"),
+                          //     itemTypeId: 4,
+                          //     // categoryId: controller.data?.data
+                          //     //     ?.garanet?.statusCategoryId,
+                          //     itemId: controller.garanetSelected.value.statusId,
+                          //   ));
+                          // },
                         ))
                       ],
                     ),
@@ -103,22 +103,22 @@ class EditPriceDetailsScreen extends StatelessWidget {
                                   },
                                 ))),
                         AppDimensions.space(Dimensions.heightSmall).sBW,
-                        Expanded(
+                        const Expanded(
                             child: CustomRowTextField(
                           label: "العدد",
                           type: TextInputType.number,
-                          onSubmit: (v) {
-                            controller.items.add(Items(
-                              itemCount: int.parse(v ?? "0"),
-                              itemTypeId: 4,
-                              // categoryId: controller
-                              //     .data
-                              //     ?.data
-                              //     ?.platingTopWall
-                              //     ?.statusCategoryId,
-                              itemId: controller.wallSelected.value.statusId,
-                            ));
-                          },
+                          // onSubmit: (v) {
+                          //   controller.items.add(Items(
+                          //     itemCount: int.parse(v ?? "0"),
+                          //     itemTypeId: 4,
+                          //     // categoryId: controller
+                          //     //     .data
+                          //     //     ?.data
+                          //     //     ?.platingTopWall
+                          //     //     ?.statusCategoryId,
+                          //     itemId: controller.wallSelected.value.statusId,
+                          //   ));
+                          // },
                         ))
                       ],
                     ),
@@ -135,20 +135,20 @@ class EditPriceDetailsScreen extends StatelessWidget {
                                   },
                                 ))),
                         AppDimensions.space(Dimensions.heightSmall).sBW,
-                        Expanded(
+                        const Expanded(
                             child: CustomRowTextField(
                           label: "العدد",
                           type: TextInputType.number,
-                          onSubmit: (v) {
-                            controller.items.add(Items(
-                              itemCount: int.parse(v ?? "0"),
-                              itemTypeId: 4,
-                              // categoryId: controller.data?.data
-                              //     ?.thickeningTop?.statusCategoryId,
-                              itemId:
-                                  controller.thickeningSelected.value.statusId,
-                            ));
-                          },
+                          // onSubmit: (v) {
+                          //   controller.items.add(Items(
+                          //     itemCount: int.parse(v ?? "0"),
+                          //     itemTypeId: 4,
+                          //     // categoryId: controller.data?.data
+                          //     //     ?.thickeningTop?.statusCategoryId,
+                          //     itemId:
+                          //         controller.thickeningSelected.value.statusId,
+                          //   ));
+                          // },
                         ))
                       ],
                     ),
@@ -184,19 +184,19 @@ class EditPriceDetailsScreen extends StatelessWidget {
                                   },
                                 ))),
                         AppDimensions.space(Dimensions.heightSmall).sBW,
-                        Expanded(
+                        const Expanded(
                             child: CustomRowTextField(
                           label: "العدد",
                           type: TextInputType.number,
-                          onSubmit: (v) {
-                            controller.items.add(Items(
-                              itemCount: int.parse(v ?? "0"),
-                              itemTypeId: 4,
-                              // categoryId: controller.data?.data
-                              //     ?.panel?.statusCategoryId,
-                              itemId: controller.pannelSelected.value.statusId,
-                            ));
-                          },
+                          // onSubmit: (v) {
+                          //   controller.items.add(Items(
+                          //     itemCount: int.parse(v ?? "0"),
+                          //     itemTypeId: 4,
+                          //     // categoryId: controller.data?.data
+                          //     //     ?.panel?.statusCategoryId,
+                          //     itemId: controller.pannelSelected.value.statusId,
+                          //   ));
+                          // },
                         ))
                       ],
                     ),
@@ -212,19 +212,19 @@ class EditPriceDetailsScreen extends StatelessWidget {
                                   },
                                 ))),
                         AppDimensions.space(Dimensions.heightSmall).sBW,
-                        Expanded(
+                        const Expanded(
                             child: CustomRowTextField(
                           label: "العدد",
                           type: TextInputType.number,
-                          onSubmit: (v) {
-                            controller.items.add(Items(
-                              itemCount: int.parse(v ?? "0"),
-                              itemTypeId: 4,
-                              // categoryId: controller.data?.data
-                              //     ?.handType?.statusCategoryId,
-                              itemId: controller.handSelected.value.statusId,
-                            ));
-                          },
+                          // onSubmit: (v) {
+                          //   controller.items.add(Items(
+                          //     itemCount: int.parse(v ?? "0"),
+                          //     itemTypeId: 4,
+                          //     // categoryId: controller.data?.data
+                          //     //     ?.handType?.statusCategoryId,
+                          //     itemId: controller.handSelected.value.statusId,
+                          //   ));
+                          // },
                         ))
                       ],
                     ),
@@ -240,19 +240,19 @@ class EditPriceDetailsScreen extends StatelessWidget {
                                   },
                                 ))),
                         AppDimensions.space(Dimensions.heightSmall).sBW,
-                        Expanded(
+                        const Expanded(
                             child: CustomRowTextField(
                           label: "العدد",
                           type: TextInputType.number,
-                          onSubmit: (v) {
-                            controller.items.add(Items(
-                              itemCount: int.parse(v ?? "0"),
-                              itemTypeId: 4,
-                              // categoryId: controller.data?.data
-                              //     ?.corniche?.statusCategoryId,
-                              itemId: controller.cornashSelected.value.statusId,
-                            ));
-                          },
+                          // onSubmit: (v) {
+                          //   controller.items.add(Items(
+                          //     itemCount: int.parse(v ?? "0"),
+                          //     itemTypeId: 4,
+                          //     // categoryId: controller.data?.data
+                          //     //     ?.corniche?.statusCategoryId,
+                          //     itemId: controller.cornashSelected.value.statusId,
+                          //   ));
+                          // },
                         ))
                       ],
                     ),
@@ -268,20 +268,20 @@ class EditPriceDetailsScreen extends StatelessWidget {
                                   },
                                 ))),
                         AppDimensions.space(Dimensions.heightSmall).sBW,
-                        Expanded(
+                        const Expanded(
                             child: CustomRowTextField(
                           label: "العدد",
                           type: TextInputType.number,
-                          onSubmit: (v) {
-                            controller.items.add(Items(
-                              itemCount: int.parse(v ?? "0"),
-                              itemTypeId: 4,
-                              // categoryId: controller.data?.data
-                              //     ?.lighting?.statusCategoryId,
-                              itemId:
-                                  controller.lightingSelected.value.statusId,
-                            ));
-                          },
+                          // onSubmit: (v) {
+                          //   controller.items.add(Items(
+                          //     itemCount: int.parse(v ?? "0"),
+                          //     itemTypeId: 4,
+                          //     // categoryId: controller.data?.data
+                          //     //     ?.lighting?.statusCategoryId,
+                          //     itemId:
+                          //         controller.lightingSelected.value.statusId,
+                          //   ));
+                          // },
                         ))
                       ],
                     ),
@@ -444,7 +444,7 @@ class EditPriceDetailsScreen extends StatelessWidget {
                           type: controller.unitsSelected.value,
                           list: controller.unitsList,
                           onchange: (value) {
-                            controller.unitsSelected.value = value!;
+                            controller.unitsSelected.value = value! ;
                           },
                         )),
                     20.sBH,
@@ -620,7 +620,7 @@ class EditPriceDetailsScreen extends StatelessWidget {
                             ],
                           )),
 
-                    Divider(endIndent: 20, indent: 20),
+                    const Divider(endIndent: 20, indent: 20),
                     Row(
                       children: [
                         AppDimensions.space(Dimensions.heightSmall).sBW,
@@ -716,7 +716,7 @@ class EditPriceDetailsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Divider(endIndent: 20, indent: 20),
+                    const Divider(endIndent: 20, indent: 20),
                     Obx(() => controller.itemsAccessiores.isEmpty
                         ? const SizedBox()
                         : Column(

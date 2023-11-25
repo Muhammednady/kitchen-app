@@ -115,12 +115,12 @@ class ProductionRequestsScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
+                        const   Padding(
+                          padding:  EdgeInsets.symmetric(
                               vertical: Dimensions.PADDING_SIZE_SMALL,
                               horizontal: Dimensions.PADDING_SIZE_SMALL),
                           child: CustomTextField(
-                            onSubmit: (v) {},
+                            //onSubmit: (v) {},
                             isShowPrefixIcon: true,
                             prefixIconUrl: Images.search,
                           ),

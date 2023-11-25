@@ -7,30 +7,34 @@ import 'package:Kitchen_system/view/base/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
 class CustomRowTextField extends StatelessWidget {
-  const CustomRowTextField(
-      {super.key,
-      this.label,
-      this.type,
-      this.onSubmit,
-      this.onChange,
-      this.controller,
-      this.errorLabel});
+  const CustomRowTextField({
+    super.key,
+    this.label,
+    this.type,
+   // this.onSubmit,
+    this.onChange,
+    this.controller,
+    this.errorLabel,
+    this.isDisable = false,
+    this.onTap,
+  });
 
   final String? label;
   final String? errorLabel;
   final TextEditingController? controller;
   final TextInputType? type;
-  final Function(String)? onSubmit;
+ // final Function(String)? onSubmit;
   final Function(String)? onChange;
+  final Function()? onTap;
+  final bool isDisable;
 
   @override
   Widget build(BuildContext context) {
     AppSetting.init(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 30),
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-
         children: [
           Expanded(
             flex: 1,
@@ -44,14 +48,17 @@ class CustomRowTextField extends StatelessWidget {
             ),
           ),
           Flexible(
-              flex: 2,
-              child: CustomTextField(
-                controller: controller,
-                errorLabel: errorLabel,
-                onChanged: onChange,
-                inputType: type,
-                onSubmit: onSubmit,
-              )),
+            flex: 2,
+            child: CustomTextField(
+              isDisable: isDisable,
+              controller: controller,
+              errorLabel: errorLabel,
+              onChanged: isDisable?null:onChange,
+              inputType: type,
+            onTap:isDisable? onTap:null,
+            // onSubmit:isDisable?null:onSubmit,
+            ),
+          ),
         ],
       ),
     );
