@@ -1,9 +1,13 @@
 import 'package:Kitchen_system/controller/base_controller.dart';
 import 'package:Kitchen_system/view/screens/payment/payment_screen.dart';
 import 'package:Kitchen_system/view/screens/payment/payment_service.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_file.dart';
+import 'package:intl/intl.dart';
 
 import '../../../enum/view_state.dart';
+import '../../../model/response/client_emails_model.dart';
 import '../../../model/response/data_filter_model.dart';
 import '../../../model/response/item_model.dart';
 import '../../../model/response/kitchen_model.dart';
@@ -22,6 +26,7 @@ class PaymentController extends BaseController {
 
   final usersList = <UsersDataModel>[].obs;
   final itemList = <Statuses>[].obs;
+  final paymentMethods = ['Cash', 'check'];
   final userSelected = UsersDataModel().obs;
   final itemSelected = Statuses().obs;
   DataFilterModel? dataFilterModel;
@@ -32,6 +37,9 @@ class PaymentController extends BaseController {
   final itemSelectedFilter = 0.obs;
   final userSelectedFilter = 0.obs;
   var services = PaymentService();
+  ClientEmailsModel? clientEmailsModel;
+  final clientsList = <Clients>[].obs;
+  final clientsSelected = Clients().obs;
 
   // final labels = <DropdownModel>[
   //   DropdownModel(label: "المطابخ", id: 1),
@@ -58,7 +66,6 @@ class PaymentController extends BaseController {
     "توصيلات صحية",
     "النواقص",
     'تسجيل الخروج'
-
   ];
   final labelsCard = [
     "طباعة",
@@ -114,50 +121,49 @@ class PaymentController extends BaseController {
     super.onInit();
     setState(ViewState.busy);
     userIdsModel = await services.getAllUsers();
-    await usersList();
-    await getItemList();
+    await userList();
+    await getClients();
     setState(ViewState.idle);
-
-  }
-  getShortClient() async {
-    loading.value = true;
-    dataFilterModel = await services.getShortClientFiles(
-        pageType: 0,
-        userId:  userSelectedFilter.value,
-        finalStatusId:
-        itemSelectedFilter.value,
-        fileTypeId: groupValue.value.id
-      // fileTypeId: 1
-    );
-    datFilterList.assignAll(dataFilterModel?.data ?? []);
-    loading.value = false;
   }
 
-  getItemList() async {
-    itemList.assignAll(itemModel?.data?.statuses ??
-        [
-          Statuses(statusId: 0, description: "لاتوجد معلومات"),
-        ]);
+  // getShortClient() async {
+  //   loading.value = true;
+  //   dataFilterModel = await services.getShortClientFiles(
+  //       pageType: 0,
+  //       userId: userSelectedFilter.value,
+  //       finalStatusId: itemSelectedFilter.value,
+  //       fileTypeId: groupValue.value.id
+  //       // fileTypeId: 1
+  //       );
+  //   datFilterList.assignAll(dataFilterModel?.data ?? []);
+  //   loading.value = false;
+  // }
 
-    itemList.isNotEmpty
-        ? {
-            itemSelected.value = itemList[0],
-            dataFilterModel = await services.getShortClientFiles(
-                pageType: 0,
-                userId: userSelectedFilter.value,
-                finalStatusId: itemSelectedFilter.value,
-                fileTypeId: groupValue.value.id
-                // fileTypeId: 1
-                ),
-            datFilterList.assignAll(dataFilterModel?.data ?? []),
-          }
-        : {
-            itemList.assignAll([
-              Statuses(statusId: 0, description: "لاتوجد معلومات"),
-            ]),
-            itemSelected.value = itemList[0],
-          };
-  }
+  // getItemList() async {
+  //   itemList.assignAll(itemModel?.data?.statuses ??
+  //       [
+  //         Statuses(statusId: 0, description: "لاتوجد معلومات"),
+  //       ]);
+  //
+  //   itemList.isNotEmpty
+  //       ? {
+  //           itemSelected.value = itemList[0],
+  //           dataFilterModel = await services.getShortClientFiles(
+  //               pageType: 0,
+  //               userId: userSelectedFilter.value,
+  //               finalStatusId: itemSelectedFilter.value,
+  //               fileTypeId: groupValue.value.id
+  //               // fileTypeId: 1
+  //               ),
+  //           datFilterList.assignAll(dataFilterModel?.data ?? []),
+  //         }
+  //       : {
+  //           itemList.assignAll([
+  //             Statuses(statusId: 0, description: "لاتوجد معلومات"),
+  //           ]),
+  //           itemSelected.value = itemList[0],
+  //         };
+  // }
 
   userList() async {
     usersList.assignAll(userIdsModel?.data ??
@@ -175,5 +181,48 @@ class PaymentController extends BaseController {
             ]),
             userSelected.value = usersList[0],
           };
+  }
+
+  getClients() async {
+    clientEmailsModel = await services.getClient();
+    clientsList.assignAll(clientEmailsModel?.data ?? []);
+    clientsSelected.value = clientsList[0];
+  }
+
+  DateTime? selectedDate;
+  final dateController = TextEditingController();
+
+  Future selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate ?? DateTime.now(),
+        // selectableDayPredicate: (DateTime val) {
+        //   String sanitized = sanitizeDateTime(val);
+        //   return !unselectableDates.contains(sanitized);
+        // },
+        initialDatePickerMode: DatePickerMode.day,
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: const ColorScheme.light(
+                primary: Colors.black,
+                onPrimary: Colors.white,
+                onSurface: Colors.black,
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.black,
+                ),
+              ),
+            ),
+            child: child!,
+          );
+        },
+        firstDate: DateTime(2023, 6),
+        lastDate: DateTime(2025, 9));
+    if (picked != null) {
+      selectedDate = picked;
+      dateController.text = DateFormat.yMd().format(selectedDate!);
+    }
   }
 }

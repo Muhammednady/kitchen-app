@@ -13,6 +13,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_file.dart';
 
 import 'helper/get_di.dart' as di;
 
@@ -31,6 +32,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Map<String, Map<String, String>> languages = await di.init();
   HttpOverrides.global = MyHttpOverrides();
+
   runApp(MyApp(
     languages: languages,
   ));

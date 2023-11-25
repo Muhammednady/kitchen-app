@@ -29,7 +29,20 @@ class ClientModel {
     return map;
   }
 }
-
+/*
+ "clientId": 1,
+      "clientName": "test",
+      "clientNo": 1,
+      "email": null,
+      "fax": null,
+      "mobile": null,
+      "tel1": null,
+      "clientAddress": null,
+      "createdBy": 1,
+      "creationDate": "2023-07-12T22:32:28.74",
+      "modifiedBy": null,
+      "modificationDate": "2023-07-22T21:47:35.43"
+ */
 class Data {
   Data({
     this.clientId,

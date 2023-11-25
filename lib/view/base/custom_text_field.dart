@@ -30,7 +30,7 @@ class CustomTextField extends StatefulWidget {
   final String? suffixIconUrl;
   final String? prefixIconUrl;
   final bool? isSearch;
-  final Function(String)? onSubmit;
+  //final Function(String)? onSubmit;
   final bool? isEnabled;
   final TextCapitalization? capitalization;
   final String? errorLabel;
@@ -38,6 +38,7 @@ class CustomTextField extends StatefulWidget {
   final Widget? widgetPrefix;
   final bool? isValidator;
   final String validatorMessage;
+  final bool isDisable;
 
   const CustomTextField({
     super.key,
@@ -55,7 +56,7 @@ class CustomTextField extends StatefulWidget {
     this.maxLines = 1,
     this.onSuffixTap,
     this.fillColor,
-    this.onSubmit,
+   // this.onSubmit,
     this.onChanged,
     this.widgetPrefix,
     this.capitalization = TextCapitalization.none,
@@ -71,6 +72,7 @@ class CustomTextField extends StatefulWidget {
     this.suffixIconUrl,
     this.prefixIconUrl,
     this.isSearch = false,
+    this.isDisable = false,
   });
 
   @override
@@ -110,7 +112,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ? FilteringTextInputFormatter.digitsOnly
               : FilteringTextInputFormatter.singleLineFormatter
         ],
-
+readOnly: widget.isDisable ,
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
@@ -133,6 +135,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   borderSide: BorderSide.none,
                 ),
           isDense: true,
+
           hintText: widget.hintText,
           fillColor: widget.fillColor ?? Theme.of(context).cardColor,
           hintStyle: cairoMedium.copyWith(
@@ -187,7 +190,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         //     : widget.onSubmit != null
         //         ? widget.onSubmit!(text)
         //         : null,
-        onChanged: widget.onChanged,
+        onChanged:widget.isDisable?null: widget.onChanged,
       ),
     );
   }
