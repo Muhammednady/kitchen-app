@@ -25,7 +25,6 @@ class PaymentScreen extends StatelessWidget {
     GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     final controller = Get.put(PaymentController());
     controller.selected.value = 10.obs();
-
     AppSetting.init(context);
     var paymentValue = ''.obs;
 bool isCustomerChanged = false;
@@ -356,7 +355,7 @@ bool isSalesChanged = false;
                                       // type: TextInputType.number,
                                     ),
                                     5.sBH,
-                                    const CustomRowTextField(
+                                     CustomRowTextField(
                                       label: "رقم الشيك",
                                       type: TextInputType.number,
                                       // onSubmit: (v) {

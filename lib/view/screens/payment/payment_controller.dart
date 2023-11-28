@@ -32,9 +32,6 @@ class PaymentController extends BaseController {
   final paymentMethods = ['Cash', 'check'];
 String ? selectedPayment;
   final userSelected = UsersDataModel().obs;
-  final itemSelected = Statuses().obs;
-  DataFilterModel? dataFilterModel;
-  final datFilterList = <DataFilter>[].obs;
   var loading = false.obs;
 
   // DetailsOfferPricesModel? detailsOfferPricesModel;

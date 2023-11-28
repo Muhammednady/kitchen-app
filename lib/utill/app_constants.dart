@@ -67,6 +67,7 @@ class AppConstants {
   static const String deleteNote = '/ClientFileAttachment/DeleteNote';
   static const String deleteFollowUp = '/ClientFileAttachment/DeleteFollowUp';
   static const String getClientPayment = '/ClientPayment/GetClientPayment';
+  static const String getClientMaintenance = '/ClientFile/GetClientFileMaintainance';
 
   static List<LanguageModel> languages = [
     LanguageModel(
