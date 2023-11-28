@@ -43,6 +43,7 @@ class AppConstants {
 
   static const String login = '/Users/Login';
   static const String addClient = '/ClientFile/AddClientFile';
+  static const String addClientPayment = '/ClientPayment/AddClientPayment';
   static const String getAllUsers = '/Users/GetAllUsers';
   static const String loadFinalStatusList = '/StatusCategory/LoadFinalStatusList/';
   static const String addClientFile = '/ClientFile/AddClientFile';
