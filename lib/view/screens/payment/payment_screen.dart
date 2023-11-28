@@ -24,7 +24,6 @@ class PaymentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(PaymentController());
     controller.selected.value = 10.obs();
-
     AppSetting.init(context);
     bool isCustomerChanged = false;
     bool isSalesChanged = false;
