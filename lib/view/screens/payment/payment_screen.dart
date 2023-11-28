@@ -28,7 +28,8 @@ class PaymentScreen extends StatelessWidget {
 
     AppSetting.init(context);
     var paymentValue = ''.obs;
-
+bool isCustomerChanged = false;
+bool isSalesChanged = false;
     return WillPopScope(
         onWillPop: () async {
           Get.offAll(const HomeScreen());
@@ -100,8 +101,9 @@ class PaymentScreen extends StatelessWidget {
                                             ColorResources.CATEGORY_SHADOW,
                                         child: DropdownButtonFormField<Clients>(
                                           isExpanded: true,
+                                          hint:  Text('اختر الزبون',style: TextStyle(color: Colors.grey.shade700)),
                                           value:
-                                              controller.clientsSelected.value,
+                                          isCustomerChanged? controller.clientsSelected.value:null,
                                           onChanged: (value) {
                                             controller.clientsSelected.value =
                                                 value!;
@@ -114,6 +116,7 @@ class PaymentScreen extends StatelessWidget {
                                             controller.getClientsPayment(
                                                 controller.clientsSelected.value
                                                     .clientId!);
+                                            isCustomerChanged = true;
                                             controller.loading.value = false;
                                           },
                                           decoration: InputDecoration(
@@ -298,7 +301,7 @@ class PaymentScreen extends StatelessWidget {
                                               DropdownButtonFormField<String>(
                                             isExpanded: true,
                                             hint:
-                                                const Text('اختر طريقه الدفع '),
+                                                 Text('اختر طريقه الدفع ',style: TextStyle(color: Colors.grey.shade700)),
                                             value: controller.selectedPayment,
                                             onChanged: (value) {
                                               controller.selectedPayment =
@@ -390,13 +393,15 @@ class PaymentScreen extends StatelessWidget {
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: DropDownUsersWidget(
                                 hint: 'اختر مندوب المبيعات',
+
                                 label: "مندوب المبيعات",
-                                type: controller.userSelected.value,
+                                type: isSalesChanged?controller.userSelected.value:null,
                                 list: controller.usersList,
                                 onchange: (value) {
                                   controller.userSelected.value = value!;
                                   controller.userSelectedFilter.value =
                                       controller.userSelected.value.id!;
+                                  isSalesChanged =true;
                                   //controller.getShortClient();
                                 },
                               ),
