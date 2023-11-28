@@ -22,29 +22,27 @@ class PaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     final controller = Get.put(PaymentController());
     controller.selected.value = 10.obs();
     AppSetting.init(context);
-    var paymentValue = ''.obs;
-bool isCustomerChanged = false;
-bool isSalesChanged = false;
+    bool isCustomerChanged = false;
+    bool isSalesChanged = false;
     return WillPopScope(
         onWillPop: () async {
           Get.offAll(const HomeScreen());
           return true;
         },
         child: Scaffold(
-          key: scaffoldKey,
+          key: controller.scaffoldKey,
           appBar: AppBar(
             backgroundColor: Colors.white,
             elevation: 0,
             leading: GestureDetector(
                 onTap: () {
-                  if (scaffoldKey.currentState!.isDrawerOpen) {
-                    scaffoldKey.currentState?.openEndDrawer();
+                  if (controller.scaffoldKey.currentState!.isDrawerOpen) {
+                    controller.scaffoldKey.currentState?.openEndDrawer();
                   } else {
-                    scaffoldKey.currentState?.openDrawer();
+                    controller.scaffoldKey.currentState?.openDrawer();
                   }
                 },
                 child: Icon(Icons.menu, color: Theme.of(context).primaryColor)),
@@ -56,7 +54,7 @@ bool isSalesChanged = false;
           ),
           drawer: CustomDrawer(
             controller: controller,
-            scaffoldKey: scaffoldKey,
+            scaffoldKey: controller.scaffoldKey,
           ),
           body: Obx(
             () => controller.state == ViewState.busy
@@ -65,7 +63,7 @@ bool isSalesChanged = false;
                   )
                 : SingleChildScrollView(
                     child: SizedBox(
-                      height: MediaQuery.sizeOf(context).height,
+                      height: MediaQuery.sizeOf(context).height * 1.2,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,9 +98,12 @@ bool isSalesChanged = false;
                                             ColorResources.CATEGORY_SHADOW,
                                         child: DropdownButtonFormField<Clients>(
                                           isExpanded: true,
-                                          hint:  Text('اختر الزبون',style: TextStyle(color: Colors.grey.shade700)),
-                                          value:
-                                          isCustomerChanged? controller.clientsSelected.value:null,
+                                          hint: Text('اختر الزبون',
+                                              style: TextStyle(
+                                                  color: Colors.grey.shade700)),
+                                          value: isCustomerChanged
+                                              ? controller.clientsSelected.value
+                                              : null,
                                           onChanged: (value) {
                                             controller.clientsSelected.value =
                                                 value!;
@@ -250,10 +251,11 @@ bool isSalesChanged = false;
                               // },
                             ),
                           ),
-                          const Expanded(
+                          Expanded(
                             child: CustomRowTextField(
                               label: "ملاحظات",
                               type: TextInputType.text,
+                              controller: controller.notesController,
                               // onSubmit: (v) {
                               //   // controller.items.add(Items(
                               //   //   itemCount: int.parse(v ?? "0"),
@@ -299,13 +301,15 @@ bool isSalesChanged = false;
                                           child:
                                               DropdownButtonFormField<String>(
                                             isExpanded: true,
-                                            hint:
-                                                 Text('اختر طريقه الدفع ',style: TextStyle(color: Colors.grey.shade700)),
+                                            hint: Text('اختر طريقه الدفع ',
+                                                style: TextStyle(
+                                                    color:
+                                                        Colors.grey.shade700)),
                                             value: controller.selectedPayment,
                                             onChanged: (value) {
                                               controller.selectedPayment =
                                                   value;
-                                              paymentValue.value = value!;
+                                              controller.paymentValue.value = value!;
                                             },
                                             decoration: InputDecoration(
                                                 filled: true,
@@ -340,7 +344,7 @@ bool isSalesChanged = false;
                           ),
                           Obx(
                             () => Visibility(
-                                visible: paymentValue.value ==
+                                visible: controller.paymentValue.value ==
                                     controller.paymentMethods[1],
                                 child: Column(
                                   children: [
@@ -348,16 +352,20 @@ bool isSalesChanged = false;
                                     CustomRowTextField(
                                       isDisable: true,
                                       label: "تاريخ الشيك",
-                                      controller: controller.dateController,
+                                      controller:
+                                          controller.checkDateController,
                                       onTap: () {
-                                        controller.selectDate(context);
+                                        controller.selectDate(context,
+                                            isCheck: true);
                                       },
                                       // type: TextInputType.number,
                                     ),
                                     5.sBH,
-                                     CustomRowTextField(
+                                    CustomRowTextField(
                                       label: "رقم الشيك",
                                       type: TextInputType.number,
+                                      controller: controller.numberController,
+
                                       // onSubmit: (v) {
                                       //   // controller.items.add(Items(
                                       //   //   itemCount: int.parse(v ?? "0"),
@@ -392,15 +400,16 @@ bool isSalesChanged = false;
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: DropDownUsersWidget(
                                 hint: 'اختر مندوب المبيعات',
-
                                 label: "مندوب المبيعات",
-                                type: isSalesChanged?controller.userSelected.value:null,
+                                type: isSalesChanged
+                                    ? controller.userSelected.value
+                                    : null,
                                 list: controller.usersList,
                                 onchange: (value) {
                                   controller.userSelected.value = value!;
                                   controller.userSelectedFilter.value =
                                       controller.userSelected.value.id!;
-                                  isSalesChanged =true;
+                                  isSalesChanged = true;
                                   //controller.getShortClient();
                                 },
                               ),
@@ -415,7 +424,9 @@ bool isSalesChanged = false;
                                 buttonText: 'حفظ',
                                 height: 40,
                                 width: 100,
-                                onPressed: () {},
+                                onPressed: () {
+                                  controller.addClientPayment();
+                                },
                               ),
                               CustomButton(
                                 buttonText: 'عودة',

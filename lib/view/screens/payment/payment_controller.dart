@@ -1,11 +1,10 @@
-import 'dart:developer';
 
 import 'package:Kitchen_system/controller/base_controller.dart';
+import 'package:Kitchen_system/model/response/basic_response_model.dart';
 import 'package:Kitchen_system/view/screens/payment/payment_screen.dart';
 import 'package:Kitchen_system/view/screens/payment/payment_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/date_symbol_data_file.dart';
 import 'package:intl/intl.dart';
 
 import '../../../enum/view_state.dart';
@@ -30,9 +29,16 @@ class PaymentController extends BaseController {
   final usersList = <UsersDataModel>[].obs;
   final itemList = <Statuses>[].obs;
   final paymentMethods = ['Cash', 'check'];
-String ? selectedPayment;
+  String? selectedPayment;
   final userSelected = UsersDataModel().obs;
+  final itemSelected = Statuses().obs;
+  DataFilterModel? dataFilterModel;
+  BasicResponseModel? addPaymentResponse;
+  final datFilterList = <DataFilter>[].obs;
   var loading = false.obs;
+  var added = false.obs;
+  var paymentValue = ''.obs;
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   // DetailsOfferPricesModel? detailsOfferPricesModel;
   final itemSelectedFilter = 0.obs;
@@ -128,45 +134,6 @@ String ? selectedPayment;
     setState(ViewState.idle);
   }
 
-  // getShortClient() async {
-  //   loading.value = true;
-  //   dataFilterModel = await services.getShortClientFiles(
-  //       pageType: 0,
-  //       userId: userSelectedFilter.value,
-  //       finalStatusId: itemSelectedFilter.value,
-  //       fileTypeId: groupValue.value.id
-  //       // fileTypeId: 1
-  //       );
-  //   datFilterList.assignAll(dataFilterModel?.data ?? []);
-  //   loading.value = false;
-  // }
-
-  // getItemList() async {
-  //   itemList.assignAll(itemModel?.data?.statuses ??
-  //       [
-  //         Statuses(statusId: 0, description: "لاتوجد معلومات"),
-  //       ]);
-  //
-  //   itemList.isNotEmpty
-  //       ? {
-  //           itemSelected.value = itemList[0],
-  //           dataFilterModel = await services.getShortClientFiles(
-  //               pageType: 0,
-  //               userId: userSelectedFilter.value,
-  //               finalStatusId: itemSelectedFilter.value,
-  //               fileTypeId: groupValue.value.id
-  //               // fileTypeId: 1
-  //               ),
-  //           datFilterList.assignAll(dataFilterModel?.data ?? []),
-  //         }
-  //       : {
-  //           itemList.assignAll([
-  //             Statuses(statusId: 0, description: "لاتوجد معلومات"),
-  //           ]),
-  //           itemSelected.value = itemList[0],
-  //         };
-  // }
-
   userList() async {
     usersList.assignAll(userIdsModel?.data ??
         [
@@ -190,7 +157,8 @@ String ? selectedPayment;
     clientsList.assignAll(clientEmailsModel?.data ?? []);
     clientsSelected.value = clientsList[0];
   }
-  getClientsPayment(int clientId)async{
+
+  getClientsPayment(int clientId) async {
     loading = true.obs;
     clientPayment = await services.getClientsPayment(clientId);
     paidController.text = clientPayment!.data!.paid.toString();
@@ -199,13 +167,33 @@ String ? selectedPayment;
     loading = false.obs;
   }
 
+  addClientPayment() async {
+    loading = true.obs;
+    clientPayment = await services.addClientPayment(
+      amount: amountController.text,
+      clientId: clientPayment!.data!.clientId!,
+      checkDate: checkSelectedDate.toString(),
+      paymentDate: selectedDate.toString(),
+      checkNo: numberController.text,
+      notes: notesController.text,
+      paidTypeId: paymentMethods.indexOf(selectedPayment!),
+    );
+
+    loading = false.obs;
+    added = true.obs;
+  }
+
   DateTime? selectedDate;
+  DateTime? checkSelectedDate;
   final dateController = TextEditingController();
+  final checkDateController = TextEditingController();
   final paidController = TextEditingController();
+  final notesController = TextEditingController();
+  final numberController = TextEditingController();
   final amountController = TextEditingController();
   final remainingController = TextEditingController();
 
-  Future selectDate(BuildContext context) async {
+  Future selectDate(BuildContext context, {bool isCheck = false}) async {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate ?? DateTime.now(),
@@ -234,8 +222,11 @@ String ? selectedPayment;
         firstDate: DateTime(2023, 6),
         lastDate: DateTime(2025, 9));
     if (picked != null) {
-      selectedDate = picked;
-      dateController.text = DateFormat.yMd().format(selectedDate!);
+      isCheck
+      ?checkSelectedDate=picked: selectedDate = picked;
+      isCheck
+          ? checkDateController.text = DateFormat.yMd().format(checkSelectedDate!)
+          : dateController.text = DateFormat.yMd().format(selectedDate!);
     }
   }
 }
