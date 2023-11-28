@@ -27,6 +27,7 @@ class PaymentScreen extends StatelessWidget {
     controller.selected.value = 10.obs();
 
     AppSetting.init(context);
+    var paymentValue = ''.obs;
 
     return WillPopScope(
         onWillPop: () async {
@@ -302,6 +303,7 @@ class PaymentScreen extends StatelessWidget {
                                             onChanged: (value) {
                                               controller.selectedPayment =
                                                   value;
+                                              paymentValue.value = value!;
                                             },
                                             decoration: InputDecoration(
                                                 filled: true,
@@ -324,7 +326,7 @@ class PaymentScreen extends StatelessWidget {
                                                     (String type) {
                                               return DropdownMenuItem<String>(
                                                 value: type,
-                                                child: Text(type ?? ""),
+                                                child: Text(type),
                                               );
                                             }).toList(),
                                           ),
@@ -334,52 +336,54 @@ class PaymentScreen extends StatelessWidget {
                                   ),
                                 )),
                           ),
-                          Visibility(
-                              visible: controller.selectedPayment ==
-                                  controller.paymentMethods[1],
-                              child: Column(
-                                children: [
-                                  5.sBH,
-                                  CustomRowTextField(
-                                    isDisable: true,
-                                    label: "تاريخ الشيك",
-                                    controller: controller.dateController,
-                                    onTap: () {
-                                      controller.selectDate(context);
-                                    },
-                                    // type: TextInputType.number,
-                                  ),
-                                  5.sBH,
-                                  const CustomRowTextField(
-                                    label: "رقم الشيك",
-                                    type: TextInputType.number,
-                                    // onSubmit: (v) {
-                                    //   // controller.items.add(Items(
-                                    //   //   itemCount: int.parse(v ?? "0"),
-                                    //   //   itemTypeId: 4,
-                                    //   //   // categoryId: controller.data?.data
-                                    //   //   //     ?.garanet?.statusCategoryId,
-                                    //   //   itemId: controller.garanetSelected.value.statusId,
-                                    //   // ));
-                                    // },
-                                  ),
-                                  5.sBH,
-                                  const CustomRowTextField(
-                                    label: "اسم الساحب",
-                                    type: TextInputType.text,
-                                    // onSubmit: (v) {
-                                    //   // controller.items.add(Items(
-                                    //   //   itemCount: int.parse(v ?? "0"),
-                                    //   //   itemTypeId: 4,
-                                    //   //   // categoryId: controller.data?.data
-                                    //   //   //     ?.garanet?.statusCategoryId,
-                                    //   //   itemId: controller.garanetSelected.value.statusId,
-                                    //   // ));
-                                    // },
-                                  ),
-                                  5.sBH,
-                                ],
-                              )),
+                          Obx(
+                            () => Visibility(
+                                visible: paymentValue.value ==
+                                    controller.paymentMethods[1],
+                                child: Column(
+                                  children: [
+                                    5.sBH,
+                                    CustomRowTextField(
+                                      isDisable: true,
+                                      label: "تاريخ الشيك",
+                                      controller: controller.dateController,
+                                      onTap: () {
+                                        controller.selectDate(context);
+                                      },
+                                      // type: TextInputType.number,
+                                    ),
+                                    5.sBH,
+                                    const CustomRowTextField(
+                                      label: "رقم الشيك",
+                                      type: TextInputType.number,
+                                      // onSubmit: (v) {
+                                      //   // controller.items.add(Items(
+                                      //   //   itemCount: int.parse(v ?? "0"),
+                                      //   //   itemTypeId: 4,
+                                      //   //   // categoryId: controller.data?.data
+                                      //   //   //     ?.garanet?.statusCategoryId,
+                                      //   //   itemId: controller.garanetSelected.value.statusId,
+                                      //   // ));
+                                      // },
+                                    ),
+                                    5.sBH,
+                                    const CustomRowTextField(
+                                      label: "اسم الساحب",
+                                      type: TextInputType.text,
+                                      // onSubmit: (v) {
+                                      //   // controller.items.add(Items(
+                                      //   //   itemCount: int.parse(v ?? "0"),
+                                      //   //   itemTypeId: 4,
+                                      //   //   // categoryId: controller.data?.data
+                                      //   //   //     ?.garanet?.statusCategoryId,
+                                      //   //   itemId: controller.garanetSelected.value.statusId,
+                                      //   // ));
+                                      // },
+                                    ),
+                                    5.sBH,
+                                  ],
+                                )),
+                          ),
                           Expanded(
                             child: Padding(
                               padding:
