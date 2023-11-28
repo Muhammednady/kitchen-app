@@ -27,7 +27,9 @@ class PaymentScreen extends StatelessWidget {
     controller.selected.value = 10.obs();
 
     AppSetting.init(context);
-
+    var paymentValue = ''.obs;
+bool isCustomerChanged = false;
+bool isSalesChanged = false;
     return WillPopScope(
         onWillPop: () async {
           Get.offAll(const HomeScreen());
@@ -99,8 +101,9 @@ class PaymentScreen extends StatelessWidget {
                                             ColorResources.CATEGORY_SHADOW,
                                         child: DropdownButtonFormField<Clients>(
                                           isExpanded: true,
+                                          hint:  Text('اختر الزبون',style: TextStyle(color: Colors.grey.shade700)),
                                           value:
-                                              controller.clientsSelected.value,
+                                          isCustomerChanged? controller.clientsSelected.value:null,
                                           onChanged: (value) {
                                             controller.clientsSelected.value =
                                                 value!;
@@ -113,6 +116,7 @@ class PaymentScreen extends StatelessWidget {
                                             controller.getClientsPayment(
                                                 controller.clientsSelected.value
                                                     .clientId!);
+                                            isCustomerChanged = true;
                                             controller.loading.value = false;
                                           },
                                           decoration: InputDecoration(
@@ -297,11 +301,12 @@ class PaymentScreen extends StatelessWidget {
                                               DropdownButtonFormField<String>(
                                             isExpanded: true,
                                             hint:
-                                                const Text('اختر طريقه الدفع '),
+                                                 Text('اختر طريقه الدفع ',style: TextStyle(color: Colors.grey.shade700)),
                                             value: controller.selectedPayment,
                                             onChanged: (value) {
                                               controller.selectedPayment =
                                                   value;
+                                              paymentValue.value = value!;
                                             },
                                             decoration: InputDecoration(
                                                 filled: true,
@@ -324,7 +329,7 @@ class PaymentScreen extends StatelessWidget {
                                                     (String type) {
                                               return DropdownMenuItem<String>(
                                                 value: type,
-                                                child: Text(type ?? ""),
+                                                child: Text(type),
                                               );
                                             }).toList(),
                                           ),
@@ -334,65 +339,69 @@ class PaymentScreen extends StatelessWidget {
                                   ),
                                 )),
                           ),
-                          Visibility(
-                              visible: controller.selectedPayment ==
-                                  controller.paymentMethods[1],
-                              child: Column(
-                                children: [
-                                  5.sBH,
-                                  CustomRowTextField(
-                                    isDisable: true,
-                                    label: "تاريخ الشيك",
-                                    controller: controller.dateController,
-                                    onTap: () {
-                                      controller.selectDate(context);
-                                    },
-                                    // type: TextInputType.number,
-                                  ),
-                                  5.sBH,
-                                  const CustomRowTextField(
-                                    label: "رقم الشيك",
-                                    type: TextInputType.number,
-                                    // onSubmit: (v) {
-                                    //   // controller.items.add(Items(
-                                    //   //   itemCount: int.parse(v ?? "0"),
-                                    //   //   itemTypeId: 4,
-                                    //   //   // categoryId: controller.data?.data
-                                    //   //   //     ?.garanet?.statusCategoryId,
-                                    //   //   itemId: controller.garanetSelected.value.statusId,
-                                    //   // ));
-                                    // },
-                                  ),
-                                  5.sBH,
-                                  const CustomRowTextField(
-                                    label: "اسم الساحب",
-                                    type: TextInputType.text,
-                                    // onSubmit: (v) {
-                                    //   // controller.items.add(Items(
-                                    //   //   itemCount: int.parse(v ?? "0"),
-                                    //   //   itemTypeId: 4,
-                                    //   //   // categoryId: controller.data?.data
-                                    //   //   //     ?.garanet?.statusCategoryId,
-                                    //   //   itemId: controller.garanetSelected.value.statusId,
-                                    //   // ));
-                                    // },
-                                  ),
-                                  5.sBH,
-                                ],
-                              )),
+                          Obx(
+                            () => Visibility(
+                                visible: paymentValue.value ==
+                                    controller.paymentMethods[1],
+                                child: Column(
+                                  children: [
+                                    5.sBH,
+                                    CustomRowTextField(
+                                      isDisable: true,
+                                      label: "تاريخ الشيك",
+                                      controller: controller.dateController,
+                                      onTap: () {
+                                        controller.selectDate(context);
+                                      },
+                                      // type: TextInputType.number,
+                                    ),
+                                    5.sBH,
+                                    const CustomRowTextField(
+                                      label: "رقم الشيك",
+                                      type: TextInputType.number,
+                                      // onSubmit: (v) {
+                                      //   // controller.items.add(Items(
+                                      //   //   itemCount: int.parse(v ?? "0"),
+                                      //   //   itemTypeId: 4,
+                                      //   //   // categoryId: controller.data?.data
+                                      //   //   //     ?.garanet?.statusCategoryId,
+                                      //   //   itemId: controller.garanetSelected.value.statusId,
+                                      //   // ));
+                                      // },
+                                    ),
+                                    5.sBH,
+                                    const CustomRowTextField(
+                                      label: "اسم الساحب",
+                                      type: TextInputType.text,
+                                      // onSubmit: (v) {
+                                      //   // controller.items.add(Items(
+                                      //   //   itemCount: int.parse(v ?? "0"),
+                                      //   //   itemTypeId: 4,
+                                      //   //   // categoryId: controller.data?.data
+                                      //   //   //     ?.garanet?.statusCategoryId,
+                                      //   //   itemId: controller.garanetSelected.value.statusId,
+                                      //   // ));
+                                      // },
+                                    ),
+                                    5.sBH,
+                                  ],
+                                )),
+                          ),
                           Expanded(
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: DropDownUsersWidget(
                                 hint: 'اختر مندوب المبيعات',
+
                                 label: "مندوب المبيعات",
-                                type: controller.userSelected.value,
+                                type: isSalesChanged?controller.userSelected.value:null,
                                 list: controller.usersList,
                                 onchange: (value) {
                                   controller.userSelected.value = value!;
                                   controller.userSelectedFilter.value =
                                       controller.userSelected.value.id!;
+                                  isSalesChanged =true;
                                   //controller.getShortClient();
                                 },
                               ),

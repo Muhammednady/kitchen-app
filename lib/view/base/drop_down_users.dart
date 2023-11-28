@@ -45,7 +45,7 @@ class DropDownUsersWidget extends StatelessWidget {
                 value: type,
 
                 onChanged: onchange,
-                hint: Text(hint!),
+                hint: Text(hint!, style: TextStyle(color: Colors.grey.shade700),),
                 decoration: InputDecoration(
                   filled: true,
                     fillColor: Theme.of(context).cardColor,
