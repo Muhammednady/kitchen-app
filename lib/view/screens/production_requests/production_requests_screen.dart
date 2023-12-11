@@ -1,4 +1,7 @@
+import 'package:Kitchen_system/helper/cache_helper.dart';
+import 'package:Kitchen_system/utill/app_constants.dart';
 import 'package:Kitchen_system/utill/extension_sized_box.dart';
+import 'package:Kitchen_system/view/screens/maintenance/maintenance_screen.dart';
 import 'package:Kitchen_system/view/screens/production_requests/controllers/production_request_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -246,6 +249,15 @@ class ProductionRequestsScreen extends StatelessWidget {
                                                           FontStyle.italic),
                                                 ),
                                               ),
+                                            ), DataColumn(
+                                              label: Expanded(
+                                                child: Text(
+                                                  'الصيانة',
+                                                  style: TextStyle(
+                                                      fontStyle:
+                                                          FontStyle.italic),
+                                                ),
+                                              ),
                                             ),
                                           ],
                                           rows: controller.datFilterList
@@ -297,6 +309,17 @@ class ProductionRequestsScreen extends StatelessWidget {
                                                         color: Colors.black,
                                                         height: 30,
                                                         width: 30,
+                                                      )), DataCell(InkWell(
+                                                        onTap: (){
+                                                          CacheHelper.saveData(key: AppConstants.clientId, value: row.client!.clientId);
+                                                          Get.to(const MaintenanceScreen());
+                                                        },
+                                                        child: Image.asset(
+                                                          Images.contract,
+                                                          color: Colors.black,
+                                                          height: 30,
+                                                          width: 30,
+                                                        ),
                                                       )),
                                                     ],
                                                   )))

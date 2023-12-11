@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:Kitchen_system/helper/cache_helper.dart';
 import 'package:Kitchen_system/model/response/maintenance_model.dart';
+import 'package:Kitchen_system/utill/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -28,7 +30,7 @@ class MaintenanceController extends BaseController {
   final maintenanceList = <Maintenance>[].obs;
   var loading = false.obs;
   final clientsList = <Clients>[].obs;
-  final clientsSelected = Clients().obs;
+  //final clientsSelected = Clients().obs;
   ClientEmailsModel? clientEmailsModel;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   ClientPaymentModel? clientMaintenance;
@@ -37,6 +39,7 @@ class MaintenanceController extends BaseController {
   final addressController = TextEditingController();
   final dateController = TextEditingController();
   final requestController = TextEditingController();
+  final clientController = TextEditingController();
   MaintenanceModel? maintenanceModel;
   BasicResponseModel? responseModel;
   final labelsList = [
@@ -98,7 +101,7 @@ class MaintenanceController extends BaseController {
     OfferPriceScreen(),
     ContractsScreen(),
     ProductionRequestsScreen(),
-    MaintenanceScreen(),
+    ProductionRequestsScreen(),
     ProductionRequestsScreen(),
     ProductionRequestsScreen(),
     ProductionRequestsScreen(),
@@ -111,6 +114,8 @@ class MaintenanceController extends BaseController {
     setState(ViewState.busy);
     // userIdsModel = await services.getAllUsers();await userList();
     await getClients();
+    await getMaintenanceList(CacheHelper.getData(key: AppConstants.clientId));
+
     //await getClientsPayment(1);
     setState(ViewState.idle);
   }
@@ -118,7 +123,12 @@ class MaintenanceController extends BaseController {
   getClients() async {
     clientEmailsModel = await services.getClient();
     clientsList.assignAll(clientEmailsModel?.data ?? []);
-    clientsSelected.value = clientsList[0];
+    for (int i = 0; i < clientsList.length; i++) {
+      if (clientsList[i].clientId ==
+          CacheHelper.getData(key: AppConstants.clientId)) {
+        clientController.text = clientsList[i].clientName!;
+      }
+    }
   }
 
   DateTime? selectedDate;

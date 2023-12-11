@@ -45,6 +45,8 @@ class PaymentController extends BaseController {
   final userSelectedFilter = 0.obs;
   var services = PaymentService();
   ClientEmailsModel? clientEmailsModel;
+  BasicResponseModel? responseModel;
+
   final clientsList = <Clients>[].obs;
   final clientsSelected = Clients().obs;
 
@@ -169,7 +171,7 @@ class PaymentController extends BaseController {
 
   addClientPayment() async {
     loading = true.obs;
-    clientPayment = await services.addClientPayment(
+    responseModel = await services.addClientPayment(
       amount: amountController.text,
       clientId: clientPayment!.data!.clientId!,
       checkDate: checkSelectedDate.toString(),
