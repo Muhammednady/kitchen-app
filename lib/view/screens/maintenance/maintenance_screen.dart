@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:Kitchen_system/model/response/client_emails_model.dart';
 import 'package:Kitchen_system/utill/extension_sized_box.dart';
 import 'package:Kitchen_system/view/base/custom_button.dart';
 import 'package:Kitchen_system/view/screens/payment/payment_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../../../enum/view_state.dart';
 import '../../../helper/cache_helper.dart';
 import '../../../helper/configs/app.dart';
@@ -229,7 +232,17 @@ class MaintenanceScreen extends StatelessWidget {
                             buttonText: 'حفظ',
                             height: 40,
                             width: 100,
-                            onPressed: () {},
+                            onPressed: () {
+                              DateFormat originalDateFormat = DateFormat('MM/dd/yyyy');
+                              DateTime originalDate = originalDateFormat.parse(controller.dateController.text);
+                              DateFormat targetDateFormat = DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ');
+                              String targetDateString = targetDateFormat.format(originalDate);
+                              log(targetDateString);
+                              controller.addMaintenance(clientId:  controller
+                                  .clientsSelected
+                                  .value
+                                  .clientId!, note: controller.requestController.text, date: targetDateString);
+                            },
                           ),
                           20.sBH,
                           Obx(

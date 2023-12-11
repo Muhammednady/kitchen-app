@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../../controller/base_controller.dart';
 import '../../../enum/view_state.dart';
+import '../../../model/response/basic_response_model.dart';
 import '../../../model/response/client_emails_model.dart';
 import '../../../model/response/data_filter_model.dart';
 import '../../../model/response/get_clients_payment.dart';
@@ -37,6 +38,7 @@ class MaintenanceController extends BaseController {
   final dateController = TextEditingController();
   final requestController = TextEditingController();
   MaintenanceModel? maintenanceModel;
+  BasicResponseModel? responseModel;
   final labelsList = [
     "الصفحة الرئيسية",
     "عروض الاسعار",
@@ -160,6 +162,17 @@ class MaintenanceController extends BaseController {
     maintenanceModel = await services.getClientMaintenance(clientId);
     maintenanceList.assignAll(maintenanceModel?.data ?? []);
     log(maintenanceList.toString());
-    loading  = false.obs;
+    loading = false.obs;
+  }
+
+  addMaintenance({
+    required int clientId,
+    required String note,
+    required String date,
+  }) async {
+    loading = true.obs;
+    responseModel = await services.addClientMaintenance(
+        clientId: clientId, note: note, date: date);
+    loading = false.obs;
   }
 }
