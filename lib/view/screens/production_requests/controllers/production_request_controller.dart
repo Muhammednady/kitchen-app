@@ -16,7 +16,9 @@ import '../../maintenance/maintenance_screen.dart';
 import '../../offer_price/controller/offer_screen_controller.dart';
 import '../../offer_price/offer_price_screen.dart';
 import '../../offer_price/services/offer_services.dart';
+import '../../payment/payment_screen.dart';
 import '../../price_details/price_details_screen.dart';
+import '../../shortfalls/shortfalls_screen.dart';
 import '../production_requests_screen.dart';
 
 class ProductionRequestsController extends BaseController {
@@ -102,6 +104,13 @@ class ProductionRequestsController extends BaseController {
     ContractsScreen(),
     ProductionRequestsScreen(),
     MaintenanceScreen(),
+    MaintenanceScreen(),
+    MaintenanceScreen(),
+    MaintenanceScreen(),
+    PaymentScreen(),
+    PaymentScreen(),
+    PaymentScreen(),
+    ShortfallsScreen(),
   ];
 
   @override

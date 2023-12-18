@@ -21,6 +21,7 @@ import '../maintenance/maintenance_screen.dart';
 import '../offer_price/controller/offer_screen_controller.dart';
 import '../offer_price/offer_price_screen.dart';
 import '../production_requests/production_requests_screen.dart';
+import '../shortfalls/shortfalls_screen.dart';
 
 class PaymentController extends BaseController {
   UserIdsModel? userIdsModel;
@@ -119,10 +120,13 @@ class PaymentController extends BaseController {
     ContractsScreen(),
     ProductionRequestsScreen(),
     MaintenanceScreen(),
-    ProductionRequestsScreen(),
-    ProductionRequestsScreen(),
-    ProductionRequestsScreen(),
+    MaintenanceScreen(),
+    MaintenanceScreen(),
+    MaintenanceScreen(),
     PaymentScreen(),
+    PaymentScreen(),
+    PaymentScreen(),
+    ShortfallsScreen(),
   ];
 
   @override
