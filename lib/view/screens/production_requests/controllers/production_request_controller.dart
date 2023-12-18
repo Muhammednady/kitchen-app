@@ -19,6 +19,7 @@ import '../../offer_price/services/offer_services.dart';
 import '../../payment/payment_screen.dart';
 import '../../price_details/price_details_screen.dart';
 import '../../shortfalls/shortfalls_screen.dart';
+import '../../top/top_screen.dart';
 import '../production_requests_screen.dart';
 
 class ProductionRequestsController extends BaseController {
@@ -106,7 +107,7 @@ class ProductionRequestsController extends BaseController {
     MaintenanceScreen(),
     MaintenanceScreen(),
     MaintenanceScreen(),
-    MaintenanceScreen(),
+    TopScreen(),
     PaymentScreen(),
     PaymentScreen(),
     PaymentScreen(),

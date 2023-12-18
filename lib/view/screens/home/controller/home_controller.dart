@@ -5,6 +5,7 @@ import 'package:Kitchen_system/view/screens/offer_price/offer_price_screen.dart'
 import 'package:Kitchen_system/view/screens/payment/payment_screen.dart';
 import 'package:Kitchen_system/view/screens/production_requests/production_requests_screen.dart';
 import 'package:Kitchen_system/view/screens/shortfalls/shortfalls_screen.dart';
+import 'package:Kitchen_system/view/screens/top/top_screen.dart';
 import 'package:get/get.dart';
 
 import '../../maintenance/maintenance_screen.dart';
@@ -56,7 +57,7 @@ class HomeScreenController extends BaseController {
     MaintenanceScreen(),
     ProductionRequestsScreen(),
     ProductionRequestsScreen(),
-    ProductionRequestsScreen(),
+    TopScreen(),
     PaymentScreen(),
     PaymentScreen(),
     PaymentScreen(),
