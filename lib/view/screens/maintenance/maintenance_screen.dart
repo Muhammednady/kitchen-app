@@ -1,9 +1,6 @@
 import 'dart:developer';
-
-import 'package:Kitchen_system/model/response/client_emails_model.dart';
 import 'package:Kitchen_system/utill/extension_sized_box.dart';
 import 'package:Kitchen_system/view/base/custom_button.dart';
-import 'package:Kitchen_system/view/screens/payment/payment_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -12,16 +9,13 @@ import '../../../helper/cache_helper.dart';
 import '../../../helper/configs/app.dart';
 import '../../../helper/configs/app_dimensions.dart';
 import '../../../utill/app_constants.dart';
-import '../../../utill/color_resources.dart';
 import '../../../utill/dimensions.dart';
 import '../../../utill/images.dart';
 import '../../../utill/styles.dart';
 import '../../base/custom_circle_progress_indecator.dart';
 import '../../base/custom_drawer.dart';
-import '../../base/drop_down_users.dart';
 import '../../base/not_found.dart';
 import '../../base/row_text_field.dart';
-import '../home/home_screen.dart';
 import 'maintenance_controller.dart';
 
 class MaintenanceScreen extends StatelessWidget {
@@ -29,14 +23,13 @@ class MaintenanceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final controller = Get.put(MaintenanceController());
     controller.selected.value = 6.abs();
     bool isCustomerChanged = false;
     AppSetting.init(context);
     return WillPopScope(
       onWillPop: () async {
-        Get.offAll(const HomeScreen());
+       // Get.offAll(const HomeScreen());
         return true;
       },
       child: Scaffold(
@@ -75,100 +68,22 @@ class MaintenanceScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           20.sBH,
-                          Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: Dimensions.PADDING_SIZE_SMALL),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        "الزبون",
-                                        style: cairoBold.copyWith(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            fontSize: AppDimensions.font(
-                                                Dimensions
-                                                    .FONT_SIZE_EXTRA_SMALL)),
-                                      ),
-                                    ),
-                                    5.sBW,
-                                    Expanded(
-                                      child: Material(
-                                        elevation: 0,
-                                        borderRadius: BorderRadius.circular(8),
-                                        shadowColor:
-                                            ColorResources.CATEGORY_SHADOW,
-                                        child: DropdownButtonFormField<Clients>(
-                                          isExpanded: true,
-                                          hint: Text('اختر الزبون',
-                                              style: TextStyle(
-                                                  color: Colors.grey.shade700)),
-                                          value: isCustomerChanged
-                                              ? controller.clientsSelected.value
-                                              : null,
-                                          onChanged: (value) {
-                                            controller.loading.value = true;
-
-                                          controller.clientsSelected.value =
-                                                value!;
-                                            CacheHelper.saveData(
-                                                key: AppConstants.clientId,
-                                                value: controller
-                                                    .clientsSelected
-                                                    .value
-                                                    .clientId);
-                                            controller.getMaintenanceList(
-                                                controller.clientsSelected.value
-                                                    .clientId);
-                                            isCustomerChanged = true;
-                                          },
-                                          decoration: InputDecoration(
-                                              filled: true,
-                                              fillColor:
-                                                  Theme.of(context).cardColor,
-                                              contentPadding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 10),
-                                              constraints: const BoxConstraints(
-                                                  maxHeight: 50),
-                                              border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  borderSide: BorderSide.none)),
-                                          items: controller.clientsList
-                                              .map<DropdownMenuItem<Clients>>(
-                                                  (Clients type) {
-                                            return DropdownMenuItem<Clients>(
-                                              value: type,
-                                              child:
-                                                  Text(type.clientName ?? ""),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                              /*
-                                Obx(() => CustomDropDownClients(
-                            type: controller.clientsSelected.value,
-                            list: controller.clientsList,
-                            onchange: (value) {
-                              controller.clientsSelected.value = value!;
-                              CacheHelper.saveData(
-                                  key: AppConstants.clientId,
-                                  value: controller
-                                      .clientsSelected.value.clientId);
-                              controller.loading.value = false;
-                            },
-                            )),
-                               */
-                              ),
+                          Expanded(
+                            child: CustomRowTextField(
+                              label: "الزبون",
+                              isDisable: true,
+                              controller: controller.clientController,
+                              // onSubmit: (v) {
+                              //   // controller.items.add(Items(
+                              //   //   itemCount: int.parse(v ?? "0"),
+                              //   //   itemTypeId: 4,
+                              //   //   // categoryId: controller.data?.data
+                              //   //   //     ?.garanet?.statusCategoryId,
+                              //   //   itemId: controller.garanetSelected.value.statusId,
+                              //   // ));
+                              // },
+                            ),
+                          ),
                           Expanded(
                             child: CustomRowTextField(
                               label: "رقم",
@@ -233,15 +148,19 @@ class MaintenanceScreen extends StatelessWidget {
                             height: 40,
                             width: 100,
                             onPressed: () {
-                              DateFormat originalDateFormat = DateFormat('MM/dd/yyyy');
-                              DateTime originalDate = originalDateFormat.parse(controller.dateController.text);
-                              DateFormat targetDateFormat = DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ');
-                              String targetDateString = targetDateFormat.format(originalDate);
+                              DateFormat originalDateFormat =
+                                  DateFormat('MM/dd/yyyy');
+                              DateTime originalDate = originalDateFormat
+                                  .parse(controller.dateController.text);
+                              DateFormat targetDateFormat =
+                                  DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ');
+                              String targetDateString =
+                                  targetDateFormat.format(originalDate);
                               log(targetDateString);
-                              controller.addMaintenance(clientId:  controller
-                                  .clientsSelected
-                                  .value
-                                  .clientId!, note: controller.requestController.text, date: targetDateString);
+                              controller.addMaintenance(
+                                  clientId: CacheHelper.getData(key: AppConstants.clientId),
+                                  note: controller.requestController.text,
+                                  date: targetDateString);
                             },
                           ),
                           20.sBH,
@@ -348,7 +267,8 @@ class MaintenanceScreen extends StatelessWidget {
                                                                   fontSize: 20),
                                                         )),
                                                         DataCell(Text(
-                                                          row.creationDate!.substring(0, 10),
+                                                          row.creationDate!
+                                                              .substring(0, 10),
                                                           style:
                                                               const TextStyle(
                                                                   fontSize: 20),

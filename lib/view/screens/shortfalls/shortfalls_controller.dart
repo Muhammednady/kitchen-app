@@ -1,49 +1,33 @@
-import 'dart:developer';
+import 'dart:io';
 
-import 'package:Kitchen_system/helper/cache_helper.dart';
-import 'package:Kitchen_system/model/response/maintenance_model.dart';
-import 'package:Kitchen_system/utill/app_constants.dart';
+import 'package:Kitchen_system/controller/base_controller.dart';
+import 'package:Kitchen_system/utill/images.dart';
+import 'package:Kitchen_system/view/screens/payment/payment_screen.dart';
+import 'package:Kitchen_system/view/screens/shortfalls/shortfalls_screen.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../controller/base_controller.dart';
 import '../../../enum/view_state.dart';
-import '../../../model/response/basic_response_model.dart';
-import '../../../model/response/client_emails_model.dart';
-import '../../../model/response/data_filter_model.dart';
-import '../../../model/response/get_clients_payment.dart';
-import '../../../model/response/user_ids_model.dart';
-import '../../../utill/images.dart';
+import '../../../model/body/attachment_model.dart';
+import '../../../model/response/kitchen_model.dart';
+import '../../../model/response/maintenance_model.dart';
+import '../../../model/response/units_model.dart';
 import '../contracts/contracts_screen.dart';
 import '../home/home_screen.dart';
+import '../maintenance/maintenance_screen.dart';
 import '../offer_price/offer_price_screen.dart';
-import '../payment/payment_screen.dart';
 import '../production_requests/production_requests_screen.dart';
-import '../shortfalls/shortfalls_screen.dart';
 import '../top/top_screen.dart';
-import 'maintenance_screen.dart';
-import 'maintenance_services.dart';
 
-class MaintenanceController extends BaseController {
-  final userSelected = UsersDataModel().obs;
-  UserIdsModel? userIdsModel;
+class ShortfallsController extends BaseController {
   final selected = 0.obs;
-  final maintenanceList = <Maintenance>[].obs;
-  var loading = false.obs;
-  final clientsList = <Clients>[].obs;
-  //final clientsSelected = Clients().obs;
-  ClientEmailsModel? clientEmailsModel;
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  ClientPaymentModel? clientMaintenance;
-  var services = MaintenanceService();
   final numberController = TextEditingController();
   final addressController = TextEditingController();
   final dateController = TextEditingController();
   final requestController = TextEditingController();
   final clientController = TextEditingController();
-  MaintenanceModel? maintenanceModel;
-  BasicResponseModel? responseModel;
   final labelsList = [
     "الصفحة الرئيسية",
     "عروض الاسعار",
@@ -78,7 +62,7 @@ class MaintenanceController extends BaseController {
     Images.notification,
   ];
 
-  // final screensCard = [const PriceDetailsScreen(), const FollowersScreen()];
+  //final screensCard = [const PriceDetailsScreen(), const FollowersScreen()];
   final images = [
     Images.home,
     Images.signDolar,
@@ -96,6 +80,12 @@ class MaintenanceController extends BaseController {
     Images.filter,
     Images.logout
   ];
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  var loading = false.obs;
+
+  //////// util using api and shortfalls model
+  final maintenanceList = <Maintenance>[].obs;
+
   final screens = const [
     HomeScreen(),
     OfferPriceScreen(),
@@ -112,29 +102,6 @@ class MaintenanceController extends BaseController {
     PaymentScreen(),
     ShortfallsScreen(),
   ];
-
-  @override
-  onInit() async {
-    super.onInit();
-    setState(ViewState.busy);
-    // userIdsModel = await services.getAllUsers();await userList();
-    await getClients();
-    await getMaintenanceList(CacheHelper.getData(key: AppConstants.clientId));
-
-    //await getClientsPayment(1);
-    setState(ViewState.idle);
-  }
-
-  getClients() async {
-    clientEmailsModel = await services.getClient();
-    clientsList.assignAll(clientEmailsModel?.data ?? []);
-    for (int i = 0; i < clientsList.length; i++) {
-      if (clientsList[i].clientId ==
-          CacheHelper.getData(key: AppConstants.clientId)) {
-        clientController.text = clientsList[i].clientName!;
-      }
-    }
-  }
 
   DateTime? selectedDate;
 
@@ -172,22 +139,52 @@ class MaintenanceController extends BaseController {
     }
   }
 
-  getMaintenanceList(clientId) async {
-    loading = true.obs;
-    maintenanceModel = await services.getClientMaintenance(clientId);
-    maintenanceList.assignAll(maintenanceModel?.data ?? []);
-    log(maintenanceList.toString());
-    loading = false.obs ;
+  final files = <File>[].obs;
+  final attachments = <AttachmentModel>[].obs;
+  final categorySelected = Statuses().obs;
+
+  selectFile() async {
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(allowMultiple: true, type: FileType.image);
+
+    if (result != null) {
+      files.value = result.paths.map((path) => File(path!)).toList();
+      for (var element in files) {
+        attachments.add(AttachmentModel(
+            attachmentPath: element,
+            statusId: categorySelected.value.statusId));
+      }
+    } else {
+      // User canceled the picker
+    }
   }
 
-  addMaintenance({
-    required int clientId,
-    required String note,
-    required String date,
-  }) async {
-    loading = true.obs;
-    responseModel = await services.addClientMaintenance(
-        clientId: clientId, note: note, date: date);
-    loading = false.obs;
+  final thickeningList = <Statuses>[].obs;
+  final thickeningSelected = Statuses().obs;
+  KitchenModel? data;
+  UnitsModel? unitsModel;
+
+  @override
+  onInit() async {
+  super.onInit();
+  setState(ViewState.busy);
+  // data = await services.getPriceDetails();
+  // unitsModel = await services.getUnits();
+
+  await getThickeningList();
+}
+  getThickeningList() async {
+    thickeningList.assignAll(data?.data?.thickeningTop?.statuses ?? []);
+    thickeningList.isNotEmpty
+        ? {
+      thickeningSelected.value = thickeningList[0],
+    }
+        : {
+      thickeningList.assignAll([
+        Statuses(statusId: 0, defaultDesc: "لاتوجد معلومات"),
+      ]),
+      thickeningSelected.value = thickeningList[0],
+    };
   }
+
 }

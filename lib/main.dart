@@ -9,6 +9,7 @@ import 'package:Kitchen_system/utill/app_constants.dart';
 import 'package:Kitchen_system/utill/messages.dart';
 import 'package:Kitchen_system/view/screens/home/home_screen.dart';
 import 'package:Kitchen_system/view/screens/login/login_screen.dart';
+import 'package:Kitchen_system/view/screens/shortfalls/add_shortfall/add_shortfall_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
                 Locale(AppConstants.languages[0].languageCode!, AppConstants.languages[0].countryCode!),
 
             home: CacheHelper.getData(key: AppConstants.token) != null
-                ? const HomeScreen()
+                ? const AddShortfallScreen()
                 : const LoginScreen(),
             // getPages: AppScreen.screen,
             // initialRoute: AppRoute.splashScreen,

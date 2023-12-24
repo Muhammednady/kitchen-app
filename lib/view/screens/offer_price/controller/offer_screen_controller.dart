@@ -16,7 +16,10 @@ import 'package:get/get.dart';
 
 import '../../contracts/contracts_screen.dart';
 import '../../maintenance/maintenance_screen.dart';
+import '../../payment/payment_screen.dart';
 import '../../production_requests/production_requests_screen.dart';
+import '../../shortfalls/shortfalls_screen.dart';
+import '../../top/top_screen.dart';
 
 class OfferScreenController extends BaseController {
   final services = OfferServices();
@@ -75,7 +78,7 @@ class OfferScreenController extends BaseController {
     Images.contract,
     Images.notification,
   ];
-  final screensCard = [const PriceDetailsScreen(), const FollowersScreen()];
+  //final screensCard = [const PriceDetailsScreen(), const FollowersScreen()];
   final images = [
     Images.home,
     Images.signDolar,
@@ -101,7 +104,13 @@ class OfferScreenController extends BaseController {
     ContractsScreen(),
     ProductionRequestsScreen(),
     MaintenanceScreen(),
-
+    MaintenanceScreen(),
+    MaintenanceScreen(),
+    TopScreen(),
+    PaymentScreen(),
+    PaymentScreen(),
+    PaymentScreen(),
+    ShortfallsScreen(),
   ];
 
   @override

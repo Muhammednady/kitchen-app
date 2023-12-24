@@ -21,6 +21,8 @@ import '../maintenance/maintenance_screen.dart';
 import '../offer_price/controller/offer_screen_controller.dart';
 import '../offer_price/offer_price_screen.dart';
 import '../production_requests/production_requests_screen.dart';
+import '../shortfalls/shortfalls_screen.dart';
+import '../top/top_screen.dart';
 
 class PaymentController extends BaseController {
   UserIdsModel? userIdsModel;
@@ -45,6 +47,8 @@ class PaymentController extends BaseController {
   final userSelectedFilter = 0.obs;
   var services = PaymentService();
   ClientEmailsModel? clientEmailsModel;
+  BasicResponseModel? responseModel;
+
   final clientsList = <Clients>[].obs;
   final clientsSelected = Clients().obs;
 
@@ -117,10 +121,13 @@ class PaymentController extends BaseController {
     ContractsScreen(),
     ProductionRequestsScreen(),
     MaintenanceScreen(),
-    ProductionRequestsScreen(),
-    ProductionRequestsScreen(),
-    ProductionRequestsScreen(),
+    MaintenanceScreen(),
+    MaintenanceScreen(),
+    TopScreen(),
     PaymentScreen(),
+    PaymentScreen(),
+    PaymentScreen(),
+    ShortfallsScreen(),
   ];
 
   @override
@@ -169,7 +176,7 @@ class PaymentController extends BaseController {
 
   addClientPayment() async {
     loading = true.obs;
-    clientPayment = await services.addClientPayment(
+    responseModel = await services.addClientPayment(
       amount: amountController.text,
       clientId: clientPayment!.data!.clientId!,
       checkDate: checkSelectedDate.toString(),

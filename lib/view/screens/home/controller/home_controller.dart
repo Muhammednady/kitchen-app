@@ -4,6 +4,8 @@ import 'package:Kitchen_system/view/screens/contracts/contracts_screen.dart';
 import 'package:Kitchen_system/view/screens/offer_price/offer_price_screen.dart';
 import 'package:Kitchen_system/view/screens/payment/payment_screen.dart';
 import 'package:Kitchen_system/view/screens/production_requests/production_requests_screen.dart';
+import 'package:Kitchen_system/view/screens/shortfalls/shortfalls_screen.dart';
+import 'package:Kitchen_system/view/screens/top/top_screen.dart';
 import 'package:get/get.dart';
 
 import '../../maintenance/maintenance_screen.dart';
@@ -12,7 +14,7 @@ class HomeScreenController extends BaseController {
   static HomeScreenController to = Get.find();
   final selected = 0.obs;
   final labels = [
-   // "الصفحة الرئيسية",
+    // "الصفحة الرئيسية",
     "عروض الاسعار",
     "المتابعات",
     "الملاحظات",
@@ -29,7 +31,7 @@ class HomeScreenController extends BaseController {
     'تسجيل الخروج'
   ];
   final images = [
-  //  Images.home,
+    //  Images.home,
     Images.signDolar,
     Images.followers,
     Images.notification,
@@ -46,7 +48,7 @@ class HomeScreenController extends BaseController {
     Images.logout
   ];
   final screens = const [
-   // HomeScreen(),
+    // HomeScreen(),
     OfferPriceScreen(),
     OfferPriceScreen(),
     ContractsScreen(),
@@ -55,8 +57,10 @@ class HomeScreenController extends BaseController {
     MaintenanceScreen(),
     ProductionRequestsScreen(),
     ProductionRequestsScreen(),
-    ProductionRequestsScreen(),
+    TopScreen(),
     PaymentScreen(),
-
+    PaymentScreen(),
+    PaymentScreen(),
+    ShortfallsScreen(),
   ];
 }

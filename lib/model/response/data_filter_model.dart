@@ -73,7 +73,7 @@ class DataFilter {
     clientFileId = json['clientFileId'];
     createdBy = json['createdBy'];
     createdByUserName = json['createdByUserName'];
-    creationDate = json['creationDate'];
+    creationDate = json['creationDate']??'15/1/2015 ZZ';
     client = json['client'] != null ? Client.fromJson(json['client']) : null;
     fileTypeId = json['fileTypeId'];
     fileTypeName = json['fileTypeName'];
