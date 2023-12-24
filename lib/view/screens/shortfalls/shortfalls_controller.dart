@@ -1,12 +1,19 @@
+import 'dart:io';
+
 import 'package:Kitchen_system/controller/base_controller.dart';
 import 'package:Kitchen_system/utill/images.dart';
 import 'package:Kitchen_system/view/screens/payment/payment_screen.dart';
 import 'package:Kitchen_system/view/screens/shortfalls/shortfalls_screen.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../enum/view_state.dart';
+import '../../../model/body/attachment_model.dart';
+import '../../../model/response/kitchen_model.dart';
 import '../../../model/response/maintenance_model.dart';
+import '../../../model/response/units_model.dart';
 import '../contracts/contracts_screen.dart';
 import '../home/home_screen.dart';
 import '../maintenance/maintenance_screen.dart';
@@ -14,7 +21,7 @@ import '../offer_price/offer_price_screen.dart';
 import '../production_requests/production_requests_screen.dart';
 import '../top/top_screen.dart';
 
-class ShortfallsController extends BaseController{
+class ShortfallsController extends BaseController {
   final selected = 0.obs;
   final numberController = TextEditingController();
   final addressController = TextEditingController();
@@ -37,7 +44,6 @@ class ShortfallsController extends BaseController{
     "توصيلات صحية",
     "النواقص",
     'تسجيل الخروج'
-
   ];
   final labelsCard = [
     "طباعة",
@@ -55,6 +61,7 @@ class ShortfallsController extends BaseController{
     Images.contract,
     Images.notification,
   ];
+
   //final screensCard = [const PriceDetailsScreen(), const FollowersScreen()];
   final images = [
     Images.home,
@@ -75,6 +82,7 @@ class ShortfallsController extends BaseController{
   ];
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var loading = false.obs;
+
   //////// util using api and shortfalls model
   final maintenanceList = <Maintenance>[].obs;
 
@@ -129,6 +137,54 @@ class ShortfallsController extends BaseController{
       selectedDate = picked;
       dateController.text = DateFormat.yMd().format(selectedDate!);
     }
+  }
+
+  final files = <File>[].obs;
+  final attachments = <AttachmentModel>[].obs;
+  final categorySelected = Statuses().obs;
+
+  selectFile() async {
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(allowMultiple: true, type: FileType.image);
+
+    if (result != null) {
+      files.value = result.paths.map((path) => File(path!)).toList();
+      for (var element in files) {
+        attachments.add(AttachmentModel(
+            attachmentPath: element,
+            statusId: categorySelected.value.statusId));
+      }
+    } else {
+      // User canceled the picker
+    }
+  }
+
+  final thickeningList = <Statuses>[].obs;
+  final thickeningSelected = Statuses().obs;
+  KitchenModel? data;
+  UnitsModel? unitsModel;
+
+  @override
+  onInit() async {
+  super.onInit();
+  setState(ViewState.busy);
+  // data = await services.getPriceDetails();
+  // unitsModel = await services.getUnits();
+
+  await getThickeningList();
+}
+  getThickeningList() async {
+    thickeningList.assignAll(data?.data?.thickeningTop?.statuses ?? []);
+    thickeningList.isNotEmpty
+        ? {
+      thickeningSelected.value = thickeningList[0],
+    }
+        : {
+      thickeningList.assignAll([
+        Statuses(statusId: 0, defaultDesc: "لاتوجد معلومات"),
+      ]),
+      thickeningSelected.value = thickeningList[0],
+    };
   }
 
 }

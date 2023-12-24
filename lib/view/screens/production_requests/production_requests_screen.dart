@@ -3,6 +3,7 @@ import 'package:Kitchen_system/utill/app_constants.dart';
 import 'package:Kitchen_system/utill/extension_sized_box.dart';
 import 'package:Kitchen_system/view/screens/maintenance/maintenance_screen.dart';
 import 'package:Kitchen_system/view/screens/production_requests/controllers/production_request_controller.dart';
+import 'package:Kitchen_system/view/screens/shortfalls/shortfalls_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../enum/view_state.dart';
@@ -240,7 +241,17 @@ class ProductionRequestsScreen extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
+
                                             DataColumn(
+                                              label: Expanded(
+                                                child: Text(
+                                                  'النواقص',
+                                                  style: TextStyle(
+                                                      fontStyle:
+                                                          FontStyle.italic),
+                                                ),
+                                              ),
+                                            ), DataColumn(
                                               label: Expanded(
                                                 child: Text(
                                                   'المرافقات',
@@ -249,7 +260,8 @@ class ProductionRequestsScreen extends StatelessWidget {
                                                           FontStyle.italic),
                                                 ),
                                               ),
-                                            ), DataColumn(
+                                            ),
+                                            DataColumn(
                                               label: Expanded(
                                                 child: Text(
                                                   'الصيانة',
@@ -304,12 +316,24 @@ class ProductionRequestsScreen extends StatelessWidget {
                                                         style: const TextStyle(
                                                             fontSize: 20),
                                                       )),
-                                                      DataCell(Image.asset(
+
+                                                      DataCell(InkWell(
+                                                        onTap: (){
+                                                          Get.to(const ShortfallsScreen());
+                                                        },
+                                                        child: Image.asset(
+                                                          Images.orders,
+                                                          color: Colors.black,
+                                                          height: 30,
+                                                          width: 30,
+                                                        ),
+                                                      )),   DataCell(Image.asset(
                                                         Images.contract,
                                                         color: Colors.black,
                                                         height: 30,
                                                         width: 30,
-                                                      )), DataCell(InkWell(
+                                                      )),
+                                                      DataCell(InkWell(
                                                         onTap: (){
                                                           CacheHelper.saveData(key: AppConstants.clientId, value: row.client!.clientId);
                                                           Get.to(const MaintenanceScreen());

@@ -1,62 +1,42 @@
 import 'dart:developer';
-
 import 'package:Kitchen_system/utill/extension_sized_box.dart';
-import 'package:Kitchen_system/view/screens/shortfalls/shortfalls_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
+import '../../../../enum/view_state.dart';
+import '../../../../helper/configs/app.dart';
+import '../../../../helper/configs/app_dimensions.dart';
+import '../../../../utill/dimensions.dart';
+import '../../../../utill/images.dart';
+import '../../../../utill/styles.dart';
+import '../../../base/custom_button.dart';
+import '../../../base/custom_circle_progress_indecator.dart';
+import '../../../base/drop_down_widget.dart';
+import '../../../base/not_found.dart';
+import '../../../base/row_text_field.dart';
+import '../shortfalls_controller.dart';
 
-import '../../../enum/view_state.dart';
-import '../../../helper/cache_helper.dart';
-import '../../../helper/configs/app.dart';
-import '../../../helper/configs/app_dimensions.dart';
-import '../../../utill/app_constants.dart';
-import '../../../utill/dimensions.dart';
-import '../../../utill/images.dart';
-import '../../../utill/styles.dart';
-import '../../base/custom_button.dart';
-import '../../base/custom_circle_progress_indecator.dart';
-import '../../base/custom_drawer.dart';
-import '../../base/not_found.dart';
-import '../../base/row_text_field.dart';
-import '../home/home_screen.dart';
-
-class ShortfallsScreen extends StatelessWidget {
-  const ShortfallsScreen({Key? key}) : super(key: key);
+class AddShortfallScreen extends StatelessWidget {
+  const AddShortfallScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ShortfallsController());
-    controller.selected.value = 13.obs();
     AppSetting.init(context);
 
     return WillPopScope(
       onWillPop: () async {
-      //  Get.offAll(const HomeScreen());
+        //  Get.offAll(const HomeScreen());
         return true;
       },
       child: Scaffold(
         key: controller.scaffoldKey,
-        drawer: CustomDrawer(
-          controller: controller,
-          scaffoldKey: controller.scaffoldKey,
-        ),
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          leading: GestureDetector(
-              onTap: () {
-                if (controller.scaffoldKey.currentState!.isDrawerOpen) {
-                  controller.scaffoldKey.currentState?.openEndDrawer();
-                } else {
-                  controller.scaffoldKey.currentState?.openDrawer();
-                }
-              },
-              child: Icon(Icons.menu, color: Theme.of(context).primaryColor)),
           centerTitle: true,
           title: Text(
-            "النواقص",
+            "اضافه نواقص",
             style: cairoRegular.copyWith(
               color: Theme.of(context).primaryColor,
               fontSize: AppDimensions.font(Dimensions.FONT_SIZE_SMALL),
@@ -124,19 +104,19 @@ class ShortfallsScreen extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          child: CustomRowTextField(
-                            isDisable: true,
-                            label: "التاريخ",
-                            controller: controller.dateController,
-                            onTap: () {
-                              controller.selectDate(context);
-                            },
-                            // type: TextInputType.number,
-                          ),
-                        ),
+                            child: Obx(() => DropDownWidget(
+                              label: "سماكة التوب",
+                              type: controller
+                                  .thickeningSelected.value,
+                              list: controller.thickeningList,
+                              onchange: (value) {
+                                controller.thickeningSelected
+                                    .value = value!;
+                              },
+                            ))),
                         Expanded(
                           child: CustomRowTextField(
-                            label: "طلب الصيانة",
+                            label: "ملاحظات",
                             type: TextInputType.text,
                             controller: controller.requestController,
                             // onSubmit: (v) {
@@ -150,25 +130,25 @@ class ShortfallsScreen extends StatelessWidget {
                             // },
                           ),
                         ),
-                        CustomButton(
-                          buttonText: 'حفظ',
-                          height: 40,
-                          width: 100,
-                          onPressed: () {
-                            DateFormat originalDateFormat =
-                                DateFormat('MM/dd/yyyy');
-                            DateTime originalDate = originalDateFormat
-                                .parse(controller.dateController.text);
-                            DateFormat targetDateFormat =
-                                DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ');
-                            String targetDateString =
-                                targetDateFormat.format(originalDate);
-                            log(targetDateString);
-                            // controller.addMaintenance(
-                            //     clientId: CacheHelper.getData(key: AppConstants.clientId),
-                            //     note: controller.requestController.text,
-                            //     date: targetDateString);
-                          },
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CustomButton(
+                              buttonText: 'تحميل مرفق',
+                              height: 40,
+                              width: 100,
+                              onPressed: () {
+                                controller.selectFile();
+                              },
+                            ),
+                            CustomButton(
+                              buttonText: 'حفظ',
+                              height: 40,
+                              width: 100,
+                              onPressed: () {},
+                            ),
+                          ],
                         ),
                         20.sBH,
                         Obx(
@@ -185,7 +165,7 @@ class ShortfallsScreen extends StatelessWidget {
                                             DataColumn(
                                               label: Expanded(
                                                 child: Text(
-                                                  'المستخدم',
+                                                  'الطول',
                                                   style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic),
@@ -195,7 +175,7 @@ class ShortfallsScreen extends StatelessWidget {
                                             DataColumn(
                                               label: Expanded(
                                                 child: Text(
-                                                  'طلب الصيانة',
+                                                  'العرض',
                                                   style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic),
@@ -205,7 +185,7 @@ class ShortfallsScreen extends StatelessWidget {
                                             DataColumn(
                                               label: Expanded(
                                                 child: Text(
-                                                  'التاريخ',
+                                                  'الارتفاع',
                                                   style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic),
@@ -215,7 +195,7 @@ class ShortfallsScreen extends StatelessWidget {
                                             DataColumn(
                                               label: Expanded(
                                                 child: Text(
-                                                  'تاريخ التركيب',
+                                                  'ملاحظات',
                                                   style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic),
@@ -226,26 +206,6 @@ class ShortfallsScreen extends StatelessWidget {
                                               label: Expanded(
                                                 child: Text(
                                                   'حذف',
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.italic),
-                                                ),
-                                              ),
-                                            ),
-                                            DataColumn(
-                                              label: Expanded(
-                                                child: Text(
-                                                  'طباعة',
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.italic),
-                                                ),
-                                              ),
-                                            ),
-                                            DataColumn(
-                                              label: Expanded(
-                                                child: Text(
-                                                  'تفاصيل',
                                                   style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.italic),
@@ -272,18 +232,21 @@ class ShortfallsScreen extends StatelessWidget {
                                                                   .withOpacity(
                                                                       0.3)),
                                                       cells: <DataCell>[
+                                                        //طول
                                                         DataCell(Text(
                                                           row.user!,
                                                           style:
                                                               const TextStyle(
                                                                   fontSize: 20),
                                                         )),
+                                                        //عرض
                                                         DataCell(Text(
                                                           row.note!,
                                                           style:
                                                               const TextStyle(
                                                                   fontSize: 20),
                                                         )),
+                                                        //ارتفاع
                                                         DataCell(Text(
                                                           row.creationDate!
                                                               .substring(0, 10),
@@ -291,6 +254,7 @@ class ShortfallsScreen extends StatelessWidget {
                                                               const TextStyle(
                                                                   fontSize: 20),
                                                         )),
+                                                        //ملاحظات
                                                         DataCell(Text(
                                                           row.installDate!
                                                               .substring(0, 10),
@@ -298,27 +262,14 @@ class ShortfallsScreen extends StatelessWidget {
                                                               const TextStyle(
                                                                   fontSize: 20),
                                                         )),
+                                                        //حذف
                                                         DataCell(Image.asset(
                                                           'assets/image/delete.png',
                                                           color: Colors.black,
                                                           height: 30,
                                                           width: 30,
                                                         )),
-                                                        DataCell(Image.asset(
-                                                          Images.print,
-                                                          color: Colors.black,
-                                                          height: 30,
-                                                          width: 30,
-                                                        )),
-                                                        DataCell(InkWell(
-                                                          onTap: () {},
-                                                          child: Image.asset(
-                                                            Images.analysis,
-                                                            color: Colors.black,
-                                                            height: 30,
-                                                            width: 30,
-                                                          ),
-                                                        )),
+
                                                         DataCell(Image.asset(
                                                           Images.contract,
                                                           color: Colors.black,
