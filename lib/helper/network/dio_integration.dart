@@ -32,8 +32,8 @@ class DioUtilNew {
       validateStatus: (status) => status! <= 500,
     );
 
-    options.connectTimeout = 20 * 1000; //10 sec
-    options.receiveTimeout = 20 * 1000; //20 sec
+    options.connectTimeout = const Duration(seconds: 10); //10 sec
+    options.receiveTimeout = const Duration(seconds: 20 ); //20 sec
     options.baseUrl = AppConstants.baseurl;
     options.headers = {
       // 'Content-type': 'application/json',

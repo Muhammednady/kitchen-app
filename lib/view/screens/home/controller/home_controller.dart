@@ -16,16 +16,11 @@ class HomeScreenController extends BaseController {
   final labels = [
     // "الصفحة الرئيسية",
     "عروض الاسعار",
-    "المتابعات",
-    "الملاحظات",
     "العقد",
     "طلبات الانتاج",
     "الصيانة",
-    "التحليل",
-    "محضر استقبال",
     "التوب",
     "سندات القبض",
-    "التقارير",
     "توصيلات صحية",
     "النواقص",
     'تسجيل الخروج'
@@ -33,16 +28,11 @@ class HomeScreenController extends BaseController {
   final images = [
     //  Images.home,
     Images.signDolar,
-    Images.followers,
-    Images.notification,
     Images.contract,
     Images.orders,
     Images.setting,
-    Images.analysis,
-    Images.reception,
     Images.top,
     Images.sanad,
-    Images.report,
     Images.health,
     Images.filter,
     Images.logout
@@ -50,16 +40,13 @@ class HomeScreenController extends BaseController {
   final screens = const [
     // HomeScreen(),
     OfferPriceScreen(),
-    OfferPriceScreen(),
-    ContractsScreen(),
+    ContractsScreen(), //ملاحظات
     ContractsScreen(),
     ProductionRequestsScreen(),
     MaintenanceScreen(),
-    ProductionRequestsScreen(),
-    ProductionRequestsScreen(),
     TopScreen(),
     PaymentScreen(),
-    PaymentScreen(),
+
     PaymentScreen(),
     ShortfallsScreen(),
   ];

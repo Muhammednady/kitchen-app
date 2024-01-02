@@ -17,76 +17,45 @@ class TopController extends BaseController{
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var loading = false.obs;
   final selected = 0.obs;
+
+  //////// util using api and shortfalls model
+  final maintenanceList = <Maintenance>[].obs;
+
   final labelsList = [
     "الصفحة الرئيسية",
     "عروض الاسعار",
-    "المتابعات",
-    "الملاحظات",
     "العقد",
     "طلبات الانتاج",
     "الصيانة",
-    "التحليل",
-    "محضر استقبال",
     "التوب",
     "سندات القبض",
-    "التقارير",
     "توصيلات صحية",
     "النواقص",
     'تسجيل الخروج'
 
   ];
-  final labelsCard = [
-    "طباعة",
-    "تعديل",
-    "تراجع",
-    "متابعات",
-    "مرافقات",
-    "ملاحظات"
-  ];
-  final imagesCard = [
-    Images.print,
-    Images.editIcons,
-    Images.remove,
-    Images.followers,
-    Images.contract,
-    Images.notification,
-  ];
-  //final screensCard = [const PriceDetailsScreen(), const FollowersScreen()];
   final images = [
     Images.home,
     Images.signDolar,
-    Images.followers,
-    Images.notification,
     Images.contract,
     Images.orders,
     Images.setting,
-    Images.analysis,
-    Images.reception,
     Images.top,
     Images.sanad,
-    Images.report,
     Images.health,
     Images.filter,
     Images.logout
   ];
-
-  //////// util using api and shortfalls model
-  final maintenanceList = <Maintenance>[].obs;
-
   final screens = const [
     HomeScreen(),
-    OfferPriceScreen(),
-    OfferPriceScreen(),
     OfferPriceScreen(),
     ContractsScreen(),
     ProductionRequestsScreen(),
     MaintenanceScreen(),
-    MaintenanceScreen(),
-    MaintenanceScreen(),
     TopScreen(),
     PaymentScreen(),
     PaymentScreen(),
-    PaymentScreen(),
+
     ShortfallsScreen(),
   ];
 }

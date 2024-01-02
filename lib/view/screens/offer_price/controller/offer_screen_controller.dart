@@ -47,16 +47,11 @@ class OfferScreenController extends BaseController {
   final labelsList = [
     "الصفحة الرئيسية",
     "عروض الاسعار",
-    "المتابعات",
-    "الملاحظات",
     "العقد",
     "طلبات الانتاج",
     "الصيانة",
-    "التحليل",
-    "محضر استقبال",
     "التوب",
     "سندات القبض",
-    "التقارير",
     "توصيلات صحية",
     "النواقص",
     'تسجيل الخروج'
@@ -82,16 +77,11 @@ class OfferScreenController extends BaseController {
   final images = [
     Images.home,
     Images.signDolar,
-    Images.followers,
-    Images.notification,
     Images.contract,
     Images.orders,
     Images.setting,
-    Images.analysis,
-    Images.reception,
     Images.top,
     Images.sanad,
-    Images.report,
     Images.health,
     Images.filter,
     Images.logout
@@ -99,17 +89,13 @@ class OfferScreenController extends BaseController {
   final screens = const [
     HomeScreen(),
     OfferPriceScreen(),
-    OfferPriceScreen(),
-    OfferPriceScreen(),
     ContractsScreen(),
     ProductionRequestsScreen(),
-    MaintenanceScreen(),
-    MaintenanceScreen(),
     MaintenanceScreen(),
     TopScreen(),
     PaymentScreen(),
     PaymentScreen(),
-    PaymentScreen(),
+
     ShortfallsScreen(),
   ];
 
