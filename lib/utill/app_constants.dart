@@ -70,6 +70,8 @@ class AppConstants {
   static const String getClientPayment = '/ClientPayment/GetClientPayment';
   static const String getClientMaintenance = '/ClientFile/GetClientFileMaintainance';
   static const String addClientMaintenance = '/ClientFile/AddClientFileMaintainance';
+  static const String getAllFileClientTop = '/ClientFileTop/GetAllFileClientTop';
+  static const String deleteClientFileTopById = '/ClientFileTop/DeleteFileClientTopById';
 
   static List<LanguageModel> languages = [
     LanguageModel(

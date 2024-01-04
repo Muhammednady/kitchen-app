@@ -46,62 +46,55 @@ class HomeScreen extends StatelessWidget {
           title: Text(
             "الصفحة الرئيسية",
             style: cairoBold.copyWith(
-                color: Theme
-                    .of(context)
-                    .primaryColor,
+                color: Theme.of(context).primaryColor,
                 fontSize: AppDimensions.font(Dimensions.FONT_SIZE_SMALL)),
           ),
         ),
         body: GridView.builder(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            itemCount: controller.labels.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, childAspectRatio: 3 / 2),
-            itemBuilder: (_, index) =>
-                Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        if (index == controller.labels.length - 1) {
-                          CacheHelper.removeData(key:AppConstants.token);
-                          Navigator.pushAndRemoveUntil(context,
-                              MaterialPageRoute(
-                                  builder: (_) => const LoginScreen()), (
-                                  route) => false);
-                        } else {
-                          Get.to(() => controller.screens[index]);
-                        }
-                      },
-                      child: Container(
-                        width: AppDimensions.space(5),
-                        height: AppDimensions.space(5),
-                        decoration: BoxDecoration(
-                            color: Theme
-                                .of(context)
-                                .cardColor,
-                            shape: BoxShape.circle),
-                        child: Center(
-                            child: Image.asset(
-                              controller.images[index ],
-                              width: AppDimensions.space(1.8),
-                              color: Theme
-                                  .of(context)
-                                  .primaryColor,
-                            )),
-                      ),
-                    ),
-                    Text(
-                      controller.labels[index ],
-                      style: cairoRegular.copyWith(
-                          color: Theme
-                              .of(context)
-                              .primaryColor,
-                          fontSize: AppDimensions.font(
-                              Dimensions.FONT_SIZE_EXTRA_SMALL)),
-                    )
-                  ],
-                )),
+          padding: const EdgeInsets.symmetric(vertical: 30),
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          itemCount: controller.labels.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, childAspectRatio: 3 / 2),
+          itemBuilder: (_, index) => Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  if (index == controller.labels.length - 1) {
+                    CacheHelper.removeData(key: AppConstants.token);
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (_) => const LoginScreen()),
+                        (route) => false);
+                  } else {
+                    Get.to(() => controller.screens[index]);
+                  }
+                },
+                child: Container(
+                  width: AppDimensions.space(5),
+                  height: AppDimensions.space(5),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).cardColor,
+                      shape: BoxShape.circle),
+                  child: Center(
+                      child: Image.asset(
+                    controller.images[index],
+                    width: AppDimensions.space(1.8),
+                    color: Theme.of(context).primaryColor,
+                  )),
+                ),
+              ),
+              Text(
+                controller.labels[index],
+                style: cairoRegular.copyWith(
+                    color: Theme.of(context).primaryColor,
+                    fontSize:
+                        AppDimensions.font(Dimensions.FONT_SIZE_EXTRA_SMALL)),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

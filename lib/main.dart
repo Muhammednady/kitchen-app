@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
                 Locale(AppConstants.languages[0].languageCode!, AppConstants.languages[0].countryCode!),
 
             home: CacheHelper.getData(key: AppConstants.token) != null
-                ? const AddShortfallScreen()
+                ? const HomeScreen()
                 : const LoginScreen(),
             // getPages: AppScreen.screen,
             // initialRoute: AppRoute.splashScreen,
