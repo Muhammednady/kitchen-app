@@ -135,11 +135,12 @@ class ShortfallsController extends BaseController {
   @override
   onInit() async {
   super.onInit();
-  setState(ViewState.busy);
+  //setState(ViewState.busy);
   // data = await services.getPriceDetails();
   // unitsModel = await services.getUnits();
 
-  await getThickeningList();
+ // await getThickeningList();
+  setState(ViewState.idle);
 }
   getThickeningList() async {
     thickeningList.assignAll(data?.data?.thickeningTop?.statuses ?? []);

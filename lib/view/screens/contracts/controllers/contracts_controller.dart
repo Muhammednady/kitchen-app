@@ -66,7 +66,6 @@ class ContractsController extends BaseController {
     TopScreen(),
     PaymentScreen(),
     PaymentScreen(),
-
     ShortfallsScreen(),
   ];
   final labelsList = [
@@ -80,7 +79,6 @@ class ContractsController extends BaseController {
     "توصيلات صحية",
     "النواقص",
     'تسجيل الخروج'
-
   ];
 
   @override

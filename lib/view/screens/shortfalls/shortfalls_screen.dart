@@ -23,7 +23,7 @@ class ShortfallsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ShortfallsController());
-    controller.selected.value = 13.obs();
+    controller.selected.value = 8.obs();
     AppSetting.init(context);
 
     return WillPopScope(

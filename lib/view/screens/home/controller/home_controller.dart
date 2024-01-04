@@ -41,7 +41,6 @@ class HomeScreenController extends BaseController {
     // HomeScreen(),
     OfferPriceScreen(),
     ContractsScreen(), //ملاحظات
-    ContractsScreen(),
     ProductionRequestsScreen(),
     MaintenanceScreen(),
     TopScreen(),

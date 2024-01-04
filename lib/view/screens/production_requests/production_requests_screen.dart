@@ -354,7 +354,7 @@ class ProductionRequestsScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-          )),
+          ),),
     );
   }
 }
