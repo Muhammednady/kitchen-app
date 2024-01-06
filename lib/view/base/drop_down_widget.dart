@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 
 class DropDownWidget extends StatelessWidget {
   const DropDownWidget(
-      {Key? key, this.type, this.list, this.onchange, this.label = ""})
+      {Key? key, this.type, required this.list, this.onchange, this.label = ""})
       : super(key: key);
   final Statuses? type;
-  final List<Statuses>? list;
+  final List<Statuses> list;
   final Function(Statuses?)? onchange;
   final String? label;
 
