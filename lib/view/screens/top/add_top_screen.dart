@@ -695,7 +695,7 @@ class AddTopScreen extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(8),
                                         shadowColor: ColorResources.CATEGORY_SHADOW,
                                         child: CustomTextField(
-                                          controller: controller.riseController,
+                                          controller: controller.lengthController,
                                         ),
                                       ),
                                     ),

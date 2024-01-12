@@ -43,20 +43,16 @@ class TopController extends BaseController {
   List topHeight = <Statuses>[].obs;
   List sinkHole = <Statuses>[].obs;
   Statuses? selectedType;
-
   Statuses? selectedPanelType;
-
   Statuses? selectedTopColor;
-
   Statuses? selectedTopHeight;
-
   Statuses? selectedSinkHole;
   TextEditingController noteController = TextEditingController();
   TextEditingController numberFileController = TextEditingController();
   TextEditingController clientAddressController = TextEditingController();
   TextEditingController heightController = TextEditingController();
   TextEditingController widthController = TextEditingController();
-  TextEditingController riseController = TextEditingController();
+  TextEditingController lengthController = TextEditingController();
 
   // final itemList = <Statuses>[].obs;
   final userSelectedFilter = 0.obs;
@@ -124,7 +120,6 @@ class TopController extends BaseController {
 
   getTopData() async {
     loading.value = true;
-
     topDataModel = await services.getTopPage();
     topColor.assignAll(topDataModel!.data!.topColor!.statuses ?? []);
     topHeight.assignAll(topDataModel!.data!.topHieght!.statuses ?? []);
