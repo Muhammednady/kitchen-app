@@ -34,6 +34,7 @@ class Data {
   int? id;
   int? clientFileId;
   Client? client;
+  User? user;
   Type? type;
   TopColor? topColor;
   Type? panelType;
@@ -45,6 +46,7 @@ class Data {
       {this.id,
       this.clientFileId,
       this.client,
+      this.user,
       this.type,
       this.topColor,
       this.panelType,
@@ -57,6 +59,7 @@ class Data {
     clientFileId = json['clientFileId'];
     client = json['client'] != null ? Client.fromJson(json['client']) : null;
     type = json['type'] != null ? Type.fromJson(json['type']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
     topColor =
         json['topColor'] != null ? TopColor.fromJson(json['topColor']) : null;
     panelType =
@@ -77,6 +80,9 @@ class Data {
     }
     if (type != null) {
       data['type'] = type!.toJson();
+    }
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
     if (topColor != null) {
       data['topColor'] = topColor!.toJson();
@@ -138,6 +144,29 @@ class Type {
     data['defaultDesc'] = defaultDesc;
 
     data['statusId'] = statusId;
+    return data;
+  }
+}
+
+class User {
+  int? id;
+  String? userName;
+
+  User({
+    this.id,
+    this.userName,
+  });
+
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userName = json['userName'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+
+    data['userName'] = userName;
     return data;
   }
 }

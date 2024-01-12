@@ -6,6 +6,7 @@ import 'package:Kitchen_system/utill/styles.dart';
 import 'package:Kitchen_system/view/screens/home/controller/home_controller.dart';
 import 'package:Kitchen_system/view/screens/login/login_screen.dart';
 import 'package:Kitchen_system/view/screens/notifications/notitfication_screen.dart';
+import 'package:Kitchen_system/view/screens/reset_password/reset_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +26,7 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Colors.white,
           elevation: 0,
           centerTitle: true,
-          leadingWidth: AppDimensions.space(4),
+          leadingWidth: AppDimensions.space(6),
           leading: Row(
             children: [
               InkWell(
@@ -37,10 +38,14 @@ class HomeScreen extends StatelessWidget {
                   width: AppDimensions.space(2),
                 ),
               ),
-              Image.asset(
-                Images.settingIcon,
-                width: AppDimensions.space(2),
-              ),
+              IconButton(
+                  onPressed: () {
+                    Get.to(()=>const  ResetPasswordScreen());
+                  },
+                  icon: const Icon(
+                    Icons.lock_reset_rounded,
+                    size: 32,
+                  )),
             ],
           ),
           title: Text(

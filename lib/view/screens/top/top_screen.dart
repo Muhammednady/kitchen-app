@@ -1,4 +1,5 @@
 import 'package:Kitchen_system/utill/extension_sized_box.dart';
+import 'package:Kitchen_system/view/screens/top/add_top_screen.dart';
 import 'package:Kitchen_system/view/screens/top/top_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -94,6 +95,7 @@ class TopScreen extends StatelessWidget {
                                 showCustomSnackBar(
                                     "يجب اختيار نوع اولا", context);
                               } else if (controller.checkedValue.value == 1) {
+                                Get.to(()=>const AddTopScreen());
                                 // CacheHelper.saveData(
                                 //     key: AppConstants.typeId,
                                 //     value: controller.checkedValue.value);
@@ -283,10 +285,10 @@ class TopScreen extends StatelessWidget {
                                                         fontSize: 20),
                                                   ),
                                                 ),
-                                                const DataCell(Text(
-                                                  'not found',
-                                                  style:
-                                                      TextStyle(fontSize: 20),
+                                                DataCell(Text(
+                                                  row.user.userName,
+                                                  style: const TextStyle(
+                                                      fontSize: 20),
                                                 )),
                                                 DataCell(Text(
                                                   row.client.clientName,
@@ -305,8 +307,10 @@ class TopScreen extends StatelessWidget {
                                                   ),
                                                 )),
                                                 DataCell(InkWell(
-                                                  onTap: (){
-                                                    controller.deleteTop(context,id: row.id);
+                                                  onTap: () {
+                                                    controller.deleteTop(
+                                                        context,
+                                                        id: row.id);
                                                   },
                                                   child: Image.asset(
                                                     'assets/image/delete.png',
