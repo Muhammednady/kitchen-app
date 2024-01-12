@@ -31,11 +31,11 @@ class LoginController extends BaseController {
     }
   }
 
-  checkEmailIsValid(String password) {
-    if (password.trim().length < 8) {
+  checkEmailIsValid(String mail) {
+    if (mail.trim().length < 8) {
       _email.value = Valid(error: "يجب ان يكون البريد اكبر من 8 احرف");
     } else {
-      _email.value = Valid(value: password);
+      _email.value = Valid(value: mail);
     }
   }
 

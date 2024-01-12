@@ -1,10 +1,16 @@
+
+import 'package:Kitchen_system/model/response/basic_response_model.dart';
+import 'package:Kitchen_system/view/screens/reset_password/reset_password_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/base_controller.dart';
+import '../../../helper/network/dio_integration.dart';
 import '../../../model/valid_model.dart';
+import '../../base/custom_snackbar.dart';
 
 class ResetPasswordController extends BaseController {
+  final services = ResetPasswordServices();
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController oldPasswordController = TextEditingController();
   TextEditingController confirmNewPasswordController = TextEditingController();
@@ -38,6 +44,27 @@ class ResetPasswordController extends BaseController {
       return 'Not Match';
     } else {
       return null;
+    }
+  }
+
+  resetPassword(context) async{
+    try {
+      if (_newPassword.value.isValid() && _oldPassword.value.isValid()& _confirmNewPassword.value.isValid()) {
+        _loading.value = true;
+        BasicResponseModel user = await services.resetPassword(
+            oldPassword: oldPasswordController.text, newPassword: newPasswordController.text, context: context);
+
+        oldPasswordController.clear();
+        newPasswordController.clear();
+        confirmNewPasswordController.clear();
+        DioUtilNew.setDioAgain();
+        _loading.value = false;
+      } else {
+        _loading.value = false;
+        showCustomSnackBar("تأكد من كتابه المعلومات بشكل صحيح", context);
+      }
+    } catch (e) {
+      _loading.value = false;
     }
   }
 }
