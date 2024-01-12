@@ -52,6 +52,11 @@ class TopController extends BaseController {
 
   Statuses? selectedSinkHole;
   TextEditingController noteController = TextEditingController();
+  TextEditingController numberFileController = TextEditingController();
+  TextEditingController clientAddressController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+  TextEditingController widthController = TextEditingController();
+  TextEditingController riseController = TextEditingController();
 
   // final itemList = <Statuses>[].obs;
   final userSelectedFilter = 0.obs;
