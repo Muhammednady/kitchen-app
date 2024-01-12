@@ -28,7 +28,6 @@ class TopScreen extends StatelessWidget {
     final controller = Get.put(TopController());
     controller.selected.value = 13.obs();
     AppSetting.init(context);
-
     return WillPopScope(
       onWillPop: () async {
         Get.offAll(const HomeScreen());
