@@ -121,7 +121,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       child: CustomButton(
                         radius: 9,
                         onPressed: () {
-                          //controller.login(context);
+                          controller.resetPassword(context);
                         },
                         buttonText: "حفظ",
                       ),
