@@ -90,6 +90,7 @@ class AppConstants {
       '/ClientFileTop/DeleteFileClientTopById';
   static const String loadClientFileTopPage =
       '/ClientFileTop/LoadClientFileTopPage';
+  static const String resetNewPassword = '/Users/SetNewPassword';
 
   static List<LanguageModel> languages = [
     LanguageModel(
