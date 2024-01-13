@@ -46,51 +46,36 @@ class AppConstants {
   static const String addClient = '/ClientFile/AddClientFile';
   static const String addClientPayment = '/ClientPayment/AddClientPayment';
   static const String getAllUsers = '/Users/GetAllUsers';
-  static const String loadFinalStatusList =
-      '/StatusCategory/LoadFinalStatusList/';
+  static const String loadFinalStatusList = '/StatusCategory/LoadFinalStatusList/';
   static const String addClientFile = '/ClientFile/AddClientFile';
   static const String getShortClientFiles = '/ClientFile/GetShortClientFiles';
   static const String loadPriceOffer = '/ClientFile/LoadPriceOffer';
-  static const String getUnitsItemsbyCategory =
-      '/StatusCategory/GetUnitsItemsbyCategory';
+  static const String getUnitsItemsbyCategory = '/StatusCategory/GetUnitsItemsbyCategory';
   static const String getClientFileById = '/ClientFile/GetClientFileById/';
-  static const String addClientFileFollowUp =
-      '/ClientFileAttachment/AddClientFileFollowUp';
+  static const String addClientFileFollowUp = '/ClientFileAttachment/AddClientFileFollowUp';
   static const String getAllFollowUp = '/ClientFileAttachment/GetAllFollowUp';
-  static const String addClientFileAttachment =
-      '/ClientFileAttachment/AddClientFileAttachment';
+  static const String addClientFileAttachment = '/ClientFileAttachment/AddClientFileAttachment';
   static const String getAllClients = '/Client/GetAllClients';
   static const String updateClientFile = '/ClientFile/UpdateClientFile/';
   static const String deleteClientFile = '/ClientFile/DeleteClientFile/';
-  static const String getStatusCategoryById =
-      '/StatusCategory/GetStatusCategoryById/';
-  static const String getAllClientFileAttachment =
-      '/ClientFileAttachment/GetAllClientFileAttachment';
-  static const String deleteClientFileAttachment =
-      '/ClientFileAttachment/DeleteClientFileAttachment/';
-  static const String loadProductionRequests =
-      '$baseurl/ClientFile/LoadProductionRequests';
-  static const String getAllFinalStatus =
-      '$baseurl/ClientFile/GetAllFinalStatusClientFile';
-  static const String changeFinalStatus =
-      '$baseurl/ClientFile/ChangeFinalStatusClientFile';
-  static const String addNoteClientFile =
-      '/ClientFileAttachment/AddNotesClientFile';
+  static const String getStatusCategoryById = '/StatusCategory/GetStatusCategoryById/';
+  static const String getAllClientFileAttachment = '/ClientFileAttachment/GetAllClientFileAttachment';
+  static const String deleteClientFileAttachment = '/ClientFileAttachment/DeleteClientFileAttachment/';
+  static const String loadProductionRequests = '$baseurl/ClientFile/LoadProductionRequests';
+  static const String getAllFinalStatus = '$baseurl/ClientFile/GetAllFinalStatusClientFile';
+  static const String changeFinalStatus = '$baseurl/ClientFile/ChangeFinalStatusClientFile';
+  static const String addNoteClientFile = '/ClientFileAttachment/AddNotesClientFile';
   static const String getAllNotes = '/ClientFileAttachment/GetAllNotes';
   static const String deleteNote = '/ClientFileAttachment/DeleteNote';
   static const String deleteFollowUp = '/ClientFileAttachment/DeleteFollowUp';
   static const String getClientPayment = '/ClientPayment/GetClientPayment';
-  static const String getClientMaintenance =
-      '/ClientFile/GetClientFileMaintainance';
-  static const String addClientMaintenance =
-      '/ClientFile/AddClientFileMaintainance';
-  static const String getAllFileClientTop =
-      '/ClientFileTop/GetAllFileClientTop';
-  static const String deleteClientFileTopById =
-      '/ClientFileTop/DeleteFileClientTopById';
-  static const String loadClientFileTopPage =
-      '/ClientFileTop/LoadClientFileTopPage';
+  static const String getClientMaintenance = '/ClientFile/GetClientFileMaintainance';
+  static const String addClientMaintenance = '/ClientFile/AddClientFileMaintainance';
+  static const String getAllFileClientTop = '/ClientFileTop/GetAllFileClientTop';
+  static const String deleteClientFileTopById = '/ClientFileTop/DeleteFileClientTopById';
+  static const String loadClientFileTopPage = '/ClientFileTop/LoadClientFileTopPage';
   static const String resetNewPassword = '/Users/SetNewPassword';
+  static const String addClientFileTop = '/ClientFileTop/AddClientFileTop';
 
   static List<LanguageModel> languages = [
     LanguageModel(

@@ -49,10 +49,13 @@ class TopController extends BaseController {
   Statuses? selectedSinkHole;
   TextEditingController noteController = TextEditingController();
   TextEditingController numberFileController = TextEditingController();
+  TextEditingController numberClientController = TextEditingController();
   TextEditingController clientAddressController = TextEditingController();
   TextEditingController heightController = TextEditingController();
   TextEditingController widthController = TextEditingController();
   TextEditingController lengthController = TextEditingController();
+  TextEditingController granetController = TextEditingController();
+  TextEditingController thicknessController = TextEditingController();
 
   // final itemList = <Statuses>[].obs;
   final userSelectedFilter = 0.obs;
@@ -137,7 +140,6 @@ class TopController extends BaseController {
 
   getShortClient() async {
     loading.value = true;
-
     topModel = await services.getShortClientFiles(
         // pageType: 4,
         // userId: userSelectedFilter.value,

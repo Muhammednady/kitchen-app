@@ -60,6 +60,54 @@ class TopService {
     }
   }
 
+  addTop(BuildContext context, {
+    required int fileNumber,
+    required int clientId,
+    int? clientFileId,
+    required int typeId,
+    required String topColor,
+    required int panelTypeId,
+    required double topHeight,
+    required int sinkHoleId,
+    String? notes,
+    int? width,
+    int? height,
+    int? length,
+    String? attachmentPath
+  }) async {
+    try {
+      FormData data = FormData.fromMap({
+        "FileNo": fileNumber,
+        "ClientId": clientId,
+        "ClientFileId": clientFileId,
+        "TypeId": typeId,
+        "TopColor": topColor,
+        "PanelTypeId": panelTypeId,
+        "TopHieght": topHeight,
+        "SinkHoleId": sinkHoleId,
+        "Notes": notes,
+        "Devices": {
+          "width" : width,
+          "height" : height,
+          "length" : length,
+          "notes" : notes,
+          "attachmentPath" : attachmentPath,
+        },
+      });
+      final response = await dio!.post(AppConstants.addClientFileTop, data: data);
+      if (response.statusCode == 200) {
+        //return BasicResponseModel.fromJson(response.data);
+      } else {
+        HandleError.handleException(response: response.statusCode);
+      }
+    } catch (e) {
+      if (e is DioErrorType) {
+        HandleError.handleExceptionDio(e);
+      }
+    }
+  }
+
+
 
 
   // load units and values

@@ -113,7 +113,7 @@ class AddTopScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Expanded(
-                                      child: Text("رقم",
+                                      child: Text("رقم التليفون",
                                           style: cairoRegular.copyWith(
                                             fontSize: AppDimensions.font(
                                               Dimensions.FONT_SIZE_EXTRA_SMALL,
@@ -127,7 +127,7 @@ class AddTopScreen extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(8),
                                         shadowColor: ColorResources.CATEGORY_SHADOW,
                                         child: CustomTextField(
-                                          controller: controller.numberFileController,
+                                          controller: controller.numberClientController,
                                         ),
                                       ),
                                     ),
@@ -200,28 +200,8 @@ class AddTopScreen extends StatelessWidget {
                                         elevation: 1,
                                         borderRadius: BorderRadius.circular(8),
                                         shadowColor: ColorResources.CATEGORY_SHADOW,
-                                        child: DropdownButtonFormField<String>(
-                                          isExpanded: true,
-                                          value: controller.selectedType!.defaultDesc,
-                                          onChanged: (String? value) {
-                                            controller.selectedType!.defaultDesc = value!;
-                                          },
-                                          decoration: InputDecoration(
-                                              contentPadding:
-                                              const EdgeInsets.symmetric(horizontal: 10),
-                                              constraints:
-                                              const BoxConstraints(maxHeight: 50),
-                                              border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  borderSide: BorderSide.none)),
-                                          items: controller.type
-                                              .map<DropdownMenuItem<String>>((type) {
-                                            return DropdownMenuItem<String>(
-                                              value: type.defaultDesc,
-                                              // Use the unique identifier for each item
-                                              child: Text(type.defaultDesc ?? ""),
-                                            );
-                                          }).toList(),
+                                        child: CustomTextField(
+                                          controller: controller.numberFileController,
                                         ),
                                       ),
                                     ),
@@ -251,28 +231,39 @@ class AddTopScreen extends StatelessWidget {
                                         elevation: 1,
                                         borderRadius: BorderRadius.circular(8),
                                         shadowColor: ColorResources.CATEGORY_SHADOW,
-                                        child: DropdownButtonFormField<String>(
-                                          isExpanded: true,
-                                          value: controller.selectedType!.defaultDesc,
-                                          onChanged: (String? value) {
-                                            controller.selectedType!.defaultDesc = value!;
-                                          },
-                                          decoration: InputDecoration(
-                                              contentPadding:
-                                              const EdgeInsets.symmetric(horizontal: 10),
-                                              constraints:
-                                              const BoxConstraints(maxHeight: 50),
-                                              border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  borderSide: BorderSide.none)),
-                                          items: controller.type
-                                              .map<DropdownMenuItem<String>>((type) {
-                                            return DropdownMenuItem<String>(
-                                              value: type.defaultDesc,
-                                              // Use the unique identifier for each item
-                                              child: Text(type.defaultDesc ?? ""),
-                                            );
-                                          }).toList(),
+                                        child: CustomTextField(
+                                          controller: controller.granetController,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            10.sBH,
+                            Container(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: Dimensions.PADDING_SIZE_SMALL),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Text("سماكة التوب",
+                                          style: cairoRegular.copyWith(
+                                            fontSize: AppDimensions.font(
+                                              Dimensions.FONT_SIZE_EXTRA_SMALL,
+                                            ),
+                                          )),
+                                    ),
+                                    5.sBW,
+                                    Expanded(
+                                      child: Material(
+                                        elevation: 1,
+                                        borderRadius: BorderRadius.circular(8),
+                                        shadowColor: ColorResources.CATEGORY_SHADOW,
+                                        child: CustomTextField(
+                                          controller: controller.thicknessController,
                                         ),
                                       ),
                                     ),
@@ -496,57 +487,6 @@ class AddTopScreen extends StatelessWidget {
                             ),
                             10.sBH,
                             Container(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: Dimensions.PADDING_SIZE_SMALL),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child: Text("سماكة التوب",
-                                          style: cairoRegular.copyWith(
-                                            fontSize: AppDimensions.font(
-                                              Dimensions.FONT_SIZE_EXTRA_SMALL,
-                                            ),
-                                          )),
-                                    ),
-                                    5.sBW,
-                                    Expanded(
-                                      child: Material(
-                                        elevation: 1,
-                                        borderRadius: BorderRadius.circular(8),
-                                        shadowColor: ColorResources.CATEGORY_SHADOW,
-                                        child: DropdownButtonFormField<String>(
-                                          isExpanded: true,
-                                          value: controller.selectedType!.defaultDesc,
-                                          onChanged: (String? value) {
-                                            controller.selectedType!.defaultDesc = value!;
-                                          },
-                                          decoration: InputDecoration(
-                                              contentPadding:
-                                              const EdgeInsets.symmetric(horizontal: 10),
-                                              constraints:
-                                              const BoxConstraints(maxHeight: 50),
-                                              border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  borderSide: BorderSide.none)),
-                                          items: controller.type
-                                              .map<DropdownMenuItem<String>>((type) {
-                                            return DropdownMenuItem<String>(
-                                              value: type.defaultDesc,
-                                              // Use the unique identifier for each item
-                                              child: Text(type.defaultDesc ?? ""),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            10.sBH,
-                            Container(
                               child: Obx(
                                     () => Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -715,27 +655,7 @@ class AddTopScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            10.sBH,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CustomButton(
-                                  width: AppDimensions.space(Dimensions.FONT_SIZE_EXTRA_SMALL),
-                                  radius: 9,
-                                  onPressed: () {},
-                                  buttonText: "تحميل مرفق",
-                                  icon: Images.add,
-                                ),
-                                20.sBW,
-                                CustomButton(
-                                  width: AppDimensions.space(Dimensions.FONT_SIZE_EXTRA_SMALL),
-                                  radius: 9,
-                                  onPressed: () {},
-                                  buttonText: "إضافة",
-                                  icon: Images.add,
-                                ),
-                              ],
-                            )
+                            // 10.sBH,
                           ],
                         ),
                       )
@@ -744,17 +664,25 @@ class AddTopScreen extends StatelessWidget {
                 ),
               ),
               10.sBH,
-              CustomButton(
-                width: AppDimensions.space(Dimensions.FONT_SIZE_EXTRA_SMALL),
-                radius: 9,
-                onPressed: () {
-                  // CacheHelper.saveData(
-                  //     key: AppConstants.typeId,
-                  //     value: controller.checkedValue.value);
-                  //  Get.to(() => const PriceDetailsScreen());
-                },
-                buttonText: "إضافة",
-                icon: Images.add,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomButton(
+                    width: AppDimensions.space(Dimensions.FONT_SIZE_EXTRA_SMALL),
+                    radius: 9,
+                    onPressed: () {},
+                    buttonText: "تحميل مرفق",
+                    icon: Images.add,
+                  ),
+                  20.sBW,
+                  CustomButton(
+                    width: AppDimensions.space(Dimensions.FONT_SIZE_EXTRA_SMALL),
+                    radius: 9,
+                    onPressed: () {},
+                    buttonText: "إضافة",
+                    icon: Images.add,
+                  ),
+                ],
               ),
               10.sBH,
             ],
