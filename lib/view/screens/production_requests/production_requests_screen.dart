@@ -88,13 +88,11 @@ class ProductionRequestsScreen extends StatelessWidget {
                           children: [
                             AppDimensions.space(Dimensions.heightSmall).sBW,
                             CustomButton(
-                              width: AppDimensions.space(
-                                  Dimensions.FONT_SIZE_EXTRA_SMALL),
+                              width: AppDimensions.space(Dimensions.FONT_SIZE_EXTRA_SMALL),
                               radius: 9,
                               onPressed: () {
                                 if (controller.checkedValue.value == 0) {
-                                  showCustomSnackBar(
-                                      "يجب اختيار نوع اولا", context);
+                                  showCustomSnackBar("يجب اختيار نوع اولا", context);
                                 } else if (controller.checkedValue.value == 1) {
                                   // CacheHelper.saveData(
                                   //     key: AppConstants.typeId,

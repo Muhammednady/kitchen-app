@@ -18,8 +18,7 @@ late var controller;
         groupValue: controller.groupValue.value,
         onChanged: (value) {
           controller.groupValue.value = value!;
-          controller.checkedValue.value =
-          controller.groupValue.value.id!;
+          controller.checkedValue.value = controller.groupValue.value.id!;
           controller.getShortClient();
         },
       )),
