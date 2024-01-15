@@ -164,6 +164,42 @@ class TopController extends BaseController {
     loading.value = false;
   }
 
+  addTopMethod({
+    required BuildContext context,
+    required int fileNumber,
+    required int clientId,
+    int? clientFileId,
+    required int typeId,
+    required String topColor,
+    required int panelTypeId,
+    required double topHeight,
+    required int sinkHoleId,
+    String? notes,
+    int? width,
+    int? height,
+    int? length,
+    String? attachmentPath
+  }) async {
+    await services.addTop(
+        context,
+        fileNumber: fileNumber,
+        panelTypeId: panelTypeId,
+        sinkHoleId: sinkHoleId,
+        topColor: topColor,
+        topHeight: topHeight,
+        typeId: typeId,
+        height: height,
+        width: width,
+        attachmentPath: attachmentPath,
+        clientFileId: clientFileId,
+        length: length,
+        notes: notes,
+        clientId: clientId
+    );
+    loading.value = true;
+  }
+
+
   getClientsPayment(int clientId) async {
     loading = true.obs;
     clientPayment = await services.getClientsPayment(clientId);
