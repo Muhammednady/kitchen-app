@@ -6,6 +6,7 @@ import 'package:Kitchen_system/model/response/top_model.dart';
 import 'package:Kitchen_system/view/screens/top/top_screen.dart';
 import 'package:Kitchen_system/view/screens/top/top_service.dart';
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -50,6 +51,7 @@ class TopController extends BaseController {
   TextEditingController noteController = TextEditingController();
   TextEditingController numberFileController = TextEditingController();
   TextEditingController numberClientController = TextEditingController();
+  //???
   TextEditingController clientAddressController = TextEditingController();
   TextEditingController heightController = TextEditingController();
   TextEditingController widthController = TextEditingController();
@@ -164,40 +166,74 @@ class TopController extends BaseController {
     loading.value = false;
   }
 
-  addTopMethod({
-    required BuildContext context,
-    required int fileNumber,
-    required int clientId,
-    int? clientFileId,
-    required int typeId,
-    required String topColor,
-    required int panelTypeId,
-    required double topHeight,
-    required int sinkHoleId,
-    String? notes,
-    int? width,
-    int? height,
-    int? length,
-    String? attachmentPath
-  }) async {
-    await services.addTop(
-        context,
-        fileNumber: fileNumber,
-        panelTypeId: panelTypeId,
-        sinkHoleId: sinkHoleId,
-        topColor: topColor,
-        topHeight: topHeight,
-        typeId: typeId,
-        height: height,
-        width: width,
-        attachmentPath: attachmentPath,
-        clientFileId: clientFileId,
-        length: length,
-        notes: notes,
-        clientId: clientId
-    );
-    loading.value = true;
+  String attachmentPath = " ";
+
+  void pickAttachment()async{
+    FilePickerResult? pickedFile = await FilePicker.platform.pickFiles();
+    if(pickedFile != null){
+
+      attachmentPath = pickedFile.paths.join();
+    }
   }
+  addTopMethod(context){
+    services.addTop(context,
+        fileNumber: int.parse(numberFileController!.text.trim().removeAllWhitespace),
+        clientId: clientsSelected.value.clientId!,
+       // clientFileId: ,
+        //??about datatype
+        typeId: int.parse(selectedType!.defaultDesc!.trim()),
+        topColor: selectedTopColor!.defaultDesc!,
+        //??about datatype
+        panelTypeId: selectedPanelType!.defaultDesc!,
+        topHeight: double.parse(selectedTopHeight!.defaultDesc!.trim().removeAllWhitespace),
+        sinkHoleId: int.parse(selectedSinkHole!.defaultDesc!.trim().removeAllWhitespace),
+        notes: noteController!.text,
+        //List<int> Devices = [height,width,length];
+        height: int.parse(heightController!.text),
+        width: int.parse(widthController!.text),
+        length: int.parse(lengthController.text),
+        attachmentPath: attachmentPath
+
+    ).then((value) {
+      //Here Action taken after success of adding Top
+      // showing snackbar or navigating to another Route
+    });
+  }
+
+  // addTopMethod({
+  //   required BuildContext context,
+  //   required int fileNumber,
+  //   required int clientId,
+  //   int? clientFileId,
+  //   required int typeId,
+  //   required String topColor,
+  //   required int panelTypeId,
+  //   required double topHeight,
+  //   required int sinkHoleId,
+  //   String? notes,
+  //   int? width,
+  //   int? height,
+  //   int? length,
+  //   String? attachmentPath
+  // }) async {
+  //   await services.addTop(
+  //       context,
+  //       fileNumber: fileNumber,
+  //       panelTypeId: panelTypeId,
+  //       sinkHoleId: sinkHoleId,
+  //       topColor: topColor,
+  //       topHeight: topHeight,
+  //       typeId: typeId,
+  //       height: height,
+  //       width: width,
+  //       attachmentPath: attachmentPath,
+  //       clientFileId: clientFileId,
+  //       length: length,
+  //       notes: notes,
+  //       clientId: clientId
+  //   );
+  //   loading.value = true;
+  // }
 
 
   getClientsPayment(int clientId) async {

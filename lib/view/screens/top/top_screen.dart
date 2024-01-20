@@ -294,7 +294,8 @@ class TopScreen extends StatelessWidget {
                                                   style: const TextStyle(
                                                       fontSize: 20),
                                                 )),
-                                                DataCell(InkWell(
+                                                DataCell(
+                                                    InkWell(
                                                   onTap: () {
                                                     //Get.to(const ShortfallsScreen());
                                                   },

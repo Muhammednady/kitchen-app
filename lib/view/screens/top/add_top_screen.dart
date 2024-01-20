@@ -670,7 +670,10 @@ class AddTopScreen extends StatelessWidget {
                   CustomButton(
                     width: AppDimensions.space(Dimensions.FONT_SIZE_EXTRA_SMALL),
                     radius: 9,
-                    onPressed: () {},
+                    onPressed: () {
+                      //???
+                      controller.pickAttachment();
+                    },
                     buttonText: "تحميل مرفق",
                     icon: Images.add,
                   ),
@@ -679,22 +682,9 @@ class AddTopScreen extends StatelessWidget {
                     width: AppDimensions.space(Dimensions.FONT_SIZE_EXTRA_SMALL),
                     radius: 9,
                     onPressed: () {
-                      controller.addTopMethod(
-                        context: context,
-                        fileNumber: (controller.numberFileController.text) as int,
-                        clientId: 1,
-                        typeId: 1,
-                        topColor: "white",
-                        panelTypeId: 1,
-                        topHeight: 22,
-                        sinkHoleId: 22,
-                        notes: "alaa",
-                        length: 50,
-                        clientFileId: 20,
-                        attachmentPath: "mohamed",
-                        width: 40,
-                        height: 60
-                      );
+                      ////?????
+                      controller.addTopMethod(context);
+
                     },
                     buttonText: "إضافة",
                     icon: Images.add,

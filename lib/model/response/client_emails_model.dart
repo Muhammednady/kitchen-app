@@ -63,6 +63,7 @@ class Clients {
     modifiedBy = json['modifiedBy'];
     modificationDate = json['modificationDate'];
   }
+ // int? clientFileId; //add new attribute ------> ( clientFileId )
   int? clientId;
   String? clientName;
   int? clientNo;

@@ -6,11 +6,13 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../helper/network/dio_integration.dart';
 import '../../../helper/network/error_handler.dart';
+import '../../../model/response/basic_response_model.dart';
 import '../../../model/response/data_filter_model.dart';
 import '../../../model/response/get_clients_payment.dart';
 import '../../../model/response/top_data_model.dart';
 import '../../../utill/app_constants.dart';
 import '../../base/custom_snackbar.dart';
+import 'myModels/mybasicResponse_model.dart';
 
 class TopService {
   final dio = DioUtilNew.dio;
@@ -60,16 +62,16 @@ class TopService {
     }
   }
 
-  addTop(BuildContext context, {
+  Future<MyBasicResponseModel?> addTop(BuildContext context, {
     required int fileNumber,
     required int clientId,
-    int? clientFileId,
+     int? clientFileId,
     required int typeId,
     required String topColor,
-    required int panelTypeId,
+    required String panelTypeId,
     required double topHeight,
     required int sinkHoleId,
-    String? notes,
+    required String notes,
     int? width,
     int? height,
     int? length,
@@ -96,13 +98,15 @@ class TopService {
       });
       final response = await dio!.post(AppConstants.addClientFileTop, data: data);
       if (response.statusCode == 200) {
-        //return BasicResponseModel.fromJson(response.data);
+        return MyBasicResponseModel.fromJson(response.data);
       } else {
-        HandleError.handleException(response: response.statusCode);
+       // HandleError.handleException(response: response.statusCode);
+        return Future.error(response.statusCode.toString());
       }
     } catch (e) {
       if (e is DioErrorType) {
-        HandleError.handleExceptionDio(e);
+      //  HandleError.handleExceptionDio(e);
+        return Future.error(e.toString());
       }
     }
   }
